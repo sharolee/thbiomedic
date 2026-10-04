@@ -1,0 +1,95 @@
+---
+import PageLayout from '../../../../components/layout/PageLayout.astro';
+import Banner from '../../../../components/layout/Banner.astro';
+import ProductGrid from '../../../../components/product/ProductGrid.astro';
+import ContactForm from '../../../../components/ui/ContactForm.astro';
+import SectionHeader from '../../../../components/ui/SectionHeader.astro';
+import Button from '../../../../components/ui/Button.astro';
+import { loadHomeDict } from '../../../../utils/i18n';
+import { getCategories, getProductsByCategory, getCategoryBySlug } from '../../../../utils/content';
+import { getProductsPath, getContactPath } from '../../../../utils/url';
+import type { Lang } from '../../../../types/dictionary';
+
+// 产品二级分类列表页（page-structure §3.2）
+// getStaticPaths 由 data/categories.json 驱动（当前为空 → 不生成页面）；
+// 空分类渲染空态面板 + 在线留言表单（隐藏字段记录来源分类 slug）
+export function getStaticPaths() {
+  const zh = getCategories('zh');
+  return zh.map((category) => ({
+    params: { category: category.slug },
+    props: { slug: category.slug },
+  }));
+}
+
+const { slug } = Astro.props;
+const lang = 'zh' as Lang;
+const dict = loadHomeDict(lang);
+const page = dict.productsCategory;
+const t = dict.common;
+const category = getCategoryBySlug(lang, slug);
+const categoryName = category?.name ?? slug;
+const products = getProductsByCategory(lang, slug);
+
+const trail = [
+  { label: t.breadcrumb.home, href: `/${lang}/` },
+  { label: t.nav.products, href: getProductsPath(lang) },
+  { label: categoryName },
+];
+---
+
+<PageLayout
+  lang={lang}
+  dict={dict}
+  title={`${categoryName} - ${dict.productsIndex.meta.title}`}
+  description={page.meta.description}
+>
+  <Banner
+    lang={lang}
+    title={categoryName}
+    homeLabel={t.breadcrumb.home}
+    ariaLabel={t.breadcrumb.home}
+    trail={trail}
+  />
+
+  <section class="u-section">
+    <div class="u-container">
+      {category?.desc && <p class="category-intro">{category.desc}</p>}
+
+      <ProductGrid
+        products={products}
+        lang={lang}
+        emptyTitle={page.empty_title}
+        emptyBody={page.empty_body}
+        emptyActionLabel={page.cta}
+        emptyActionHref={getContactPath(lang)}
+      />
+
+      <div class="category-actions">
+        <Button href={getContactPath(lang)} variant="secondary" icon="external">{page.brochure_link}</Button>
+      </div>
+
+      <div class="inquiry">
+        <SectionHeader title={page.inquiry_title} />
+        <ContactForm dict={dict} sourceSlug={slug} />
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .category-intro {
+    font-size: var(--text-body);
+    color: var(--color-neutral-700);
+    max-width: 760px;
+    margin-bottom: var(--space-lg);
+  }
+
+  .category-actions {
+    margin-top: var(--space-lg);
+  }
+
+  .inquiry {
+    margin-top: var(--space-xl);
+    max-width: 760px;
+  }
+</style>

@@ -1,0 +1,38 @@
+---
+import PageLayout from '../../../components/layout/PageLayout.astro';
+import Banner from '../../../components/layout/Banner.astro';
+import EmptyState from '../../../components/ui/EmptyState.astro';
+import Button from '../../../components/ui/Button.astro';
+import { loadHomeDict } from '../../../utils/i18n';
+import { getContactPath } from '../../../utils/url';
+
+// About Us (page-structure §2, skeleton: content filled by W3-3)
+const lang = 'en';
+const dict = loadHomeDict(lang);
+const page = dict.about;
+const t = dict.common;
+
+const trail = [
+  { label: t.breadcrumb.home, href: `/${lang}/` },
+  { label: page.banner.title },
+];
+---
+
+<PageLayout lang={lang} dict={dict} title={page.meta.title} description={page.meta.description}>
+  <Banner
+    lang={lang}
+    title={page.banner.title}
+    subtitle={page.banner.subtitle}
+    homeLabel={t.breadcrumb.home}
+    ariaLabel={t.breadcrumb.home}
+    trail={trail}
+  />
+
+  <section class="u-section">
+    <div class="u-container">
+      <EmptyState title={page.skeleton_title} body={page.skeleton_body} icon="file">
+        <Button href={getContactPath(lang)} variant="secondary">{page.cta}</Button>
+      </EmptyState>
+    </div>
+  </section>
+</PageLayout>

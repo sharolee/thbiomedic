@@ -1,0 +1,135 @@
+---
+import PageLayout from '../../../components/layout/PageLayout.astro';
+import Banner from '../../../components/layout/Banner.astro';
+import ContactForm from '../../../components/ui/ContactForm.astro';
+import SectionHeader from '../../../components/ui/SectionHeader.astro';
+import { loadHomeDict } from '../../../utils/i18n';
+import { getContact } from '../../../utils/content';
+import Icon from '../../../components/ui/Icon.astro';
+
+// 联系我们（page-structure §6）
+// 联系方式卡组数据来自 data/contact.json（W3-3 填充，当前为空 → 仅渲染表单）
+// 表单为交互岛屿（client:load）
+const lang = 'zh';
+const dict = loadHomeDict(lang);
+const page = dict.contact;
+const t = dict.common;
+const contact = getContact(lang);
+
+const trail = [
+  { label: t.breadcrumb.home, href: `/${lang}/` },
+  { label: page.banner.title },
+];
+---
+
+<PageLayout lang={lang} dict={dict} title={page.meta.title} description={page.meta.description}>
+  <Banner
+    lang={lang}
+    title={page.banner.title}
+    subtitle={page.banner.subtitle}
+    homeLabel={t.breadcrumb.home}
+    ariaLabel={t.breadcrumb.home}
+    trail={trail}
+  />
+
+  <section class="u-section">
+    <div class="u-container">
+      {contact && (
+        <div class="contact-info">
+          <SectionHeader title={page.info_intro} />
+          <div class="contact-info__grid">
+            <div class="contact-info__card">
+              <Icon name="phone" size={24} />
+              <h3 class="contact-info__label">{t.form.phone}</h3>
+              <a class="contact-info__value" href={`tel:${contact.phone.replace(/\s/g, '')}`}>{contact.phone}</a>
+              {contact.phoneExt && <p class="contact-info__ext">{contact.phoneExt}</p>}
+            </div>
+            <div class="contact-info__card">
+              <Icon name="mail" size={24} />
+              <h3 class="contact-info__label">{t.form.email}</h3>
+              <a class="contact-info__value" href={`mailto:${contact.email}`}>{contact.email}</a>
+            </div>
+            <div class="contact-info__card">
+              <Icon name="map-pin" size={24} />
+              <h3 class="contact-info__label">{t.footer.column_contact}</h3>
+              <p class="contact-info__value">{contact.address}</p>
+            </div>
+            {contact.wechatQr && (
+              <div class="contact-info__card">
+                <img class="contact-info__qr" src={contact.wechatQr.src} alt={contact.wechatQr.alt} loading="lazy" />
+                <p class="contact-info__value">{contact.wechatQr.alt}</p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      <div class="contact-form-section">
+        <SectionHeader title={page.form_intro} />
+        <ContactForm dict={dict} />
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .contact-info {
+    margin-bottom: var(--space-xl);
+  }
+
+  .contact-info__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  @media (min-width: 768px) {
+    .contact-info__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .contact-info__card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+    padding: var(--space-md);
+    border: var(--border-default);
+    border-radius: var(--radius-md);
+    background: var(--color-white);
+  }
+
+  .contact-info__card svg {
+    color: var(--color-primary-600);
+  }
+
+  .contact-info__label {
+    font-size: var(--text-small);
+    font-weight: var(--weight-medium);
+    color: var(--color-neutral-500);
+  }
+
+  .contact-info__value {
+    font-size: var(--text-body);
+    color: var(--color-neutral-900);
+  }
+
+  a.contact-info__value:hover {
+    color: var(--color-primary-600);
+    text-decoration: underline;
+  }
+
+  .contact-info__ext {
+    font-size: var(--text-small);
+    color: var(--color-neutral-500);
+  }
+
+  .contact-info__qr {
+    width: 96px;
+    border-radius: var(--radius-md);
+  }
+
+  .contact-form-section {
+    max-width: 760px;
+  }
+</style>

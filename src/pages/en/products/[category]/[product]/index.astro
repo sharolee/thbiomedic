@@ -1,0 +1,143 @@
+---
+import PageLayout from '../../../../../components/layout/PageLayout.astro';
+import Breadcrumbs from '../../../../../components/layout/Breadcrumbs.astro';
+import ProductGrid from '../../../../../components/product/ProductGrid.astro';
+import ContactForm from '../../../../../components/ui/ContactForm.astro';
+import SectionHeader from '../../../../../components/ui/SectionHeader.astro';
+import Icon from '../../../../../components/ui/Icon.astro';
+import { loadHomeDict } from '../../../../../utils/i18n';
+import { getProducts, getCategoryBySlug } from '../../../../../utils/content';
+import { getProductsPath, getCategoryPath, getContactPath } from '../../../../../utils/url';
+import type { Lang } from '../../../../../types/dictionary';
+
+// Product detail page (page-structure §3.3, skeleton, English site)
+export function getStaticPaths() {
+  const en = getProducts('en');
+  return en.map((product) => ({
+    params: { category: product.categorySlug, product: product.slug },
+    props: { product },
+  }));
+}
+
+const { product } = Astro.props;
+const lang = 'en' as Lang;
+const dict = loadHomeDict(lang);
+const page = dict.productDetail;
+const t = dict.common;
+const categoryName = getCategoryBySlug(lang, product.categorySlug)?.name ?? product.categorySlug;
+const related = getProducts(lang).filter((p) => p.categorySlug === product.categorySlug && p.slug !== product.slug);
+
+const trail = [
+  { label: t.breadcrumb.home, href: `/${lang}/` },
+  { label: t.nav.products, href: getProductsPath(lang) },
+  { label: categoryName, href: getCategoryPath(product.categorySlug, lang) },
+  { label: product.name },
+];
+---
+
+<PageLayout
+  lang={lang}
+  dict={dict}
+  title={`${product.name} - ${dict.productsIndex.meta.title}`}
+  description={product.desc ?? page.meta.description}
+>
+  <section class="u-section">
+    <div class="u-container">
+      <Breadcrumbs lang={lang} homeLabel={t.breadcrumb.home} ariaLabel={t.breadcrumb.home} trail={trail} />
+
+      <article class="product-detail">
+        <div class="product-detail__media" aria-hidden="true">
+          {product.images && product.images.length > 0 ? (
+            <img src={product.images[0]?.src} alt={product.images[0]?.alt} />
+          ) : (
+            <span class="product-detail__placeholder"><Icon name="image" size={40} /></span>
+          )}
+        </div>
+        <div class="product-detail__body">
+          <h1 class="product-detail__title">{product.name}</h1>
+          {product.desc && <p class="product-detail__desc">{product.desc}</p>}
+          <p class="product-detail__note">{page.empty_body}</p>
+        </div>
+      </article>
+
+      {related.length > 0 && (
+        <div class="product-related">
+          <SectionHeader title={t.common.view_all} />
+          <ProductGrid
+            products={related}
+            lang={lang}
+            emptyTitle={page.empty_title}
+            emptyBody={page.empty_body}
+            emptyActionLabel={page.cta}
+            emptyActionHref={getContactPath(lang)}
+          />
+        </div>
+      )}
+
+      <div class="inquiry">
+        <SectionHeader title={page.inquiry_title} />
+        <ContactForm dict={dict} sourceSlug={product.slug} />
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .product-detail {
+    display: grid;
+    gap: var(--space-lg);
+    margin-top: var(--space-md);
+  }
+
+  @media (min-width: 1024px) {
+    .product-detail {
+      grid-template-columns: 5fr 7fr;
+    }
+  }
+
+  .product-detail__media {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--color-neutral-100);
+  }
+
+  .product-detail__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .product-detail__placeholder {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    color: var(--color-neutral-500);
+  }
+
+  .product-detail__title {
+    font-size: var(--text-h1);
+    margin-bottom: var(--space-sm);
+  }
+
+  .product-detail__desc {
+    font-size: var(--text-body-lg);
+    color: var(--color-neutral-700);
+    margin-bottom: var(--space-sm);
+  }
+
+  .product-detail__note {
+    font-size: var(--text-small);
+    color: var(--color-neutral-500);
+  }
+
+  .product-related {
+    margin-top: var(--space-xl);
+  }
+
+  .inquiry {
+    margin-top: var(--space-xl);
+    max-width: 760px;
+  }
+</style>

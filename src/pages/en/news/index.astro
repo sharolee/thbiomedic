@@ -1,0 +1,43 @@
+---
+import PageLayout from '../../../components/layout/PageLayout.astro';
+import Banner from '../../../components/layout/Banner.astro';
+import NewsList from '../../../components/content/NewsList.astro';
+import { loadHomeDict } from '../../../utils/i18n';
+import { getNewsItems } from '../../../utils/content';
+import { getContactPath } from '../../../utils/url';
+
+// News (page-structure §5: single list page; currently empty state, English site)
+const lang = 'en';
+const dict = loadHomeDict(lang);
+const page = dict.news;
+const t = dict.common;
+const items = getNewsItems(lang);
+
+const trail = [
+  { label: t.breadcrumb.home, href: `/${lang}/` },
+  { label: page.banner.title },
+];
+---
+
+<PageLayout lang={lang} dict={dict} title={page.meta.title} description={page.meta.description}>
+  <Banner
+    lang={lang}
+    title={page.banner.title}
+    subtitle={page.banner.subtitle}
+    homeLabel={t.breadcrumb.home}
+    ariaLabel={t.breadcrumb.home}
+    trail={trail}
+  />
+
+  <section class="u-section">
+    <div class="u-container">
+      <NewsList
+        items={items}
+        emptyTitle={page.empty_title}
+        emptyBody={page.empty_body}
+        emptyActionLabel={page.contact_link}
+        emptyActionHref={getContactPath(lang)}
+      />
+    </div>
+  </section>
+</PageLayout>

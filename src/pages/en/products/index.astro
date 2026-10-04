@@ -1,0 +1,57 @@
+---
+import PageLayout from '../../../components/layout/PageLayout.astro';
+import Banner from '../../../components/layout/Banner.astro';
+import CategoryGrid from '../../../components/product/CategoryGrid.astro';
+import Button from '../../../components/ui/Button.astro';
+import { loadHomeDict } from '../../../utils/i18n';
+import { getCategories } from '../../../utils/content';
+import { getContactPath } from '../../../utils/url';
+
+// Products index (page-structure §3.1, English site)
+const lang = 'en';
+const dict = loadHomeDict(lang);
+const page = dict.productsIndex;
+const t = dict.common;
+const categories = getCategories(lang);
+
+const trail = [
+  { label: t.breadcrumb.home, href: `/${lang}/` },
+  { label: page.banner.title },
+];
+---
+
+<PageLayout lang={lang} dict={dict} title={page.meta.title} description={page.meta.description}>
+  <Banner
+    lang={lang}
+    title={page.banner.title}
+    subtitle={page.banner.subtitle}
+    homeLabel={t.breadcrumb.home}
+    ariaLabel={t.breadcrumb.home}
+    trail={trail}
+  />
+
+  <section class="u-section">
+    <div class="u-container">
+      <CategoryGrid
+        categories={categories}
+        lang={lang}
+        comingSoonLabel={page.coming_soon}
+        emptyTitle={page.empty_title}
+        emptyBody={page.empty_body}
+        emptyActionLabel={page.cta}
+        emptyActionHref={getContactPath(lang)}
+      />
+
+      <div class="products-cta">
+        <Button href={getContactPath(lang)} variant="secondary">{page.cta}</Button>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .products-cta {
+    margin-top: var(--space-lg);
+    text-align: center;
+  }
+</style>

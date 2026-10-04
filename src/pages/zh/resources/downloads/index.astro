@@ -1,0 +1,100 @@
+---
+import PageLayout from '../../../../components/layout/PageLayout.astro';
+import Banner from '../../../../components/layout/Banner.astro';
+import EmptyState from '../../../../components/ui/EmptyState.astro';
+import { loadHomeDict } from '../../../../utils/i18n';
+import { getDownloads } from '../../../../utils/content';
+import { getDownloadsPath } from '../../../../utils/url';
+
+// 下载中心（page-structure §4.1，骨架：下载列表由 W3-3 填充 data/downloads.json）
+const lang = 'zh';
+const dict = loadHomeDict(lang);
+const page = dict.resources.downloads;
+const t = dict.common;
+const downloads = getDownloads(lang);
+
+const trail = [
+  { label: t.breadcrumb.home, href: `/${lang}/` },
+  { label: t.nav.resources },
+  { label: page.banner.title },
+];
+---
+
+<PageLayout lang={lang} dict={dict} title={page.banner.title} description={page.banner.subtitle}>
+  <Banner
+    lang={lang}
+    title={page.banner.title}
+    subtitle={page.banner.subtitle}
+    homeLabel={t.breadcrumb.home}
+    ariaLabel={t.breadcrumb.home}
+    trail={trail}
+  />
+
+  <section class="u-section">
+    <div class="u-container">
+      {downloads.length > 0 ? (
+        <ul class="download-list">
+          {downloads.map((item) => (
+            <li>
+              <a class="download-card card" href={getDownloadsPath(lang)} download>
+                <span class="download-card__icon">PDF</span>
+                <span class="download-card__meta">
+                  <span class="download-card__title">{item.title}</span>
+                  <span class="download-card__file">{item.file} · {item.size}</span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <EmptyState title={page.empty_title} body={page.empty_body} icon="download" />
+      )}
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .download-list {
+    display: grid;
+    gap: var(--space-sm);
+    max-width: 760px;
+  }
+
+  .download-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+  }
+
+  .download-card__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: var(--radius-sm);
+    background: var(--color-error-50);
+    color: var(--color-error-600);
+    font-size: var(--text-caption);
+    font-weight: var(--weight-bold);
+  }
+
+  .download-card__meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3xs);
+  }
+
+  .download-card__title {
+    font-size: var(--text-body);
+    font-weight: var(--weight-medium);
+    color: var(--color-neutral-900);
+  }
+
+  .download-card__file {
+    font-size: var(--text-caption);
+    color: var(--color-neutral-500);
+  }
+</style>
