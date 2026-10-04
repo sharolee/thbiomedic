@@ -1,0 +1,199 @@
+---
+import type { HeroProps } from '../../types/components';
+import Icon from '../ui/Icon.astro';
+import { withLangPrefix } from '../../utils/url';
+
+type Props = HeroProps;
+
+// 首页品牌轮播 Hero（page-structure §1-1 / design-spec §6.7）
+// 3 张品牌卡：背景图（素材缺失 → 渐变占位底）+ 文案区 + 渐变 CTA
+// 交互岛屿（client:visible，页面使用处标记）：自动 5s、悬停暂停、触摸滑动、
+// 指示点/箭头；reduced-motion 关闭自动播放
+// 无 JS 降级：横向滚动容器（scroll-snap）
+const { lang, slides, ariaLabel, slideLabel } = Astro.props;
+---
+
+<section class="hero" data-carousel aria-roledescription="carousel" aria-label={ariaLabel}>
+  <div class="hero__track" data-carousel-track>
+    {slides.map((slide, index) => (
+      <div
+        class:list={{ 'hero__slide': true, 'is-active': index === 0 }}
+        data-carousel-slide
+        data-index={index}
+        role="group"
+        aria-roledescription="slide"
+        aria-label={`${slideLabel.replace('{current}', String(index + 1)).replace('{total}', String(slides.length))}`}
+      >
+        <div class="hero__slide-bg" aria-hidden="true"></div>
+        <div class="hero__slide-content u-container">
+          <p class="hero__brand">{slide.brand}</p>
+          <h1 class="hero__title">{slide.title}</h1>
+          <p class="hero__subtitle">{slide.subtitle}</p>
+          <a class="btn btn-gradient hero__cta" href={withLangPrefix(slide.href, lang)}>{slide.cta}</a>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="hero__nav">
+    <button class="hero__arrow" type="button" data-carousel-prev aria-label="‹">
+      <Icon name="chevron-down" size={20} class="hero__arrow-icon-flip" />
+    </button>
+    <div class="hero__dots" role="tablist">
+      {slides.map((_, index) => (
+        <button
+          class:list={{ 'hero__dot': true, 'is-active': index === 0 }}
+          type="button"
+          data-carousel-dot
+          data-index={index}
+          aria-label={`${slideLabel.replace('{current}', String(index + 1)).replace('{total}', String(slides.length))}`}
+        ></button>
+      ))}
+    </div>
+    <button class="hero__arrow" type="button" data-carousel-next aria-label="›">
+      <Icon name="chevron-down" size={20} />
+    </button>
+  </div>
+</section>
+
+<script>
+  import { initCarousel } from '../../scripts/carousel';
+  initCarousel();
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    background: var(--color-primary-900);
+  }
+
+  /* 无 JS 降级：横向滚动容器（design-spec §6.7） */
+  .hero__track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .hero__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* JS 激活后：overflow hidden + transform 切换（仅 transform/opacity 动画） */
+  .hero.is-carousel .hero__track {
+    overflow: hidden;
+    scroll-snap-type: none;
+  }
+
+  .hero__slide {
+    position: relative;
+    flex-shrink: 0;
+    width: 100%;
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  @media (min-width: 1024px) {
+    .hero__slide {
+      min-height: 480px;
+    }
+  }
+
+  /* 品牌卡渐变占位底（轮播图素材缺失的降级表现，design-spec §1 异常态） */
+  .hero__slide-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, var(--color-primary-900) 0%, var(--color-primary-600) 55%, var(--color-accent-500) 130%);
+  }
+
+  .hero__slide:nth-child(2) .hero__slide-bg,
+  .hero__slide[data-index='1'] .hero__slide-bg {
+    background: linear-gradient(120deg, var(--color-primary-900) 0%, var(--color-primary-700) 60%, var(--color-accent-500) 140%);
+  }
+
+  .hero__slide[data-index='2'] .hero__slide-bg {
+    background: linear-gradient(120deg, var(--color-primary-700) 0%, var(--color-primary-900) 55%, var(--color-primary-600) 140%);
+  }
+
+  .hero__slide-content {
+    position: relative;
+    padding-block: var(--space-xl);
+  }
+
+  .hero__brand {
+    font-size: var(--text-h3);
+    font-weight: var(--weight-medium);
+    color: var(--color-accent-500);
+    margin-bottom: var(--space-xs);
+  }
+
+  .hero__title {
+    font-size: var(--text-display);
+    line-height: var(--leading-display);
+    color: var(--color-white);
+    max-width: 18em;
+    margin-bottom: var(--space-sm);
+  }
+
+  .hero__subtitle {
+    font-size: var(--text-body-lg);
+    color: rgba(255, 255, 255, 0.85);
+    max-width: var(--measure-zh);
+    margin-bottom: var(--space-lg);
+  }
+
+  /* 指示点/箭头（design-spec §6.7） */
+  .hero__nav {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: var(--space-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+  }
+
+  .hero__arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(11, 43, 82, 0.5);
+    color: var(--color-white);
+    transition: background-color var(--duration-fast) var(--easing);
+  }
+
+  .hero__arrow:hover {
+    background: rgba(11, 43, 82, 0.75);
+  }
+
+  .hero__arrow-icon-flip {
+    transform: rotate(90deg);
+  }
+
+  .hero__dots {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+  }
+
+  .hero__dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, 0.4);
+    transition: width var(--duration-base) var(--easing), background-color var(--duration-base) var(--easing);
+  }
+
+  .hero__dot.is-active {
+    width: 24px;
+    background: var(--color-accent-500);
+  }
+</style>

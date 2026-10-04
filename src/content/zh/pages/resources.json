@@ -1,0 +1,18 @@
+{
+  "downloads": {
+    "banner": {
+      "title": "下载中心",
+      "subtitle": "产品彩页与技术资料下载"
+    },
+    "empty_title": "暂无下载资料",
+    "empty_body": "下载资料正在整理中，敬请期待"
+  },
+  "videos": {
+    "banner": {
+      "title": "视频中心",
+      "subtitle": "产品演示与公司宣传视频"
+    },
+    "empty_title": "视频制作中，敬请期待",
+    "empty_body": "产品演示视频正在整理中，欢迎联系我们获取资料"
+  }
+}

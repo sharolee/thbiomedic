@@ -1,0 +1,79 @@
+---
+import type { TrustBarProps } from '../../types/components';
+import Icon from '../ui/Icon.astro';
+
+type Props = TrustBarProps;
+
+// 信任条（page-structure §1-2）：认证与规模——NMPA · FDA · CE · TGA · ISO13485 ·
+// 30+ 国家 · 400+ 三甲医院；图标 + 短词，桌面横排、移动横向滚动
+const { title, items } = Astro.props;
+---
+
+<section class="trust-bar">
+  <div class="trust-bar__inner u-container">
+    <p class="trust-bar__label">{title}</p>
+    <ul class="trust-bar__list">
+      {items.map((item) => (
+        <li class="trust-bar__item">
+          <Icon name="shield" size={16} />
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .trust-bar {
+    border-top: var(--border-default);
+    border-bottom: var(--border-default);
+    background: var(--color-primary-50);
+  }
+
+  .trust-bar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+    padding-block: var(--space-md);
+  }
+
+  .trust-bar__label {
+    flex-shrink: 0;
+    font-size: var(--text-small);
+    font-weight: var(--weight-medium);
+    color: var(--color-neutral-500);
+  }
+
+  .trust-bar__list {
+    display: flex;
+    gap: var(--space-md);
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-block: var(--space-2xs);
+  }
+
+  .trust-bar__list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .trust-bar__item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3xs);
+    flex-shrink: 0;
+    font-size: var(--text-body);
+    font-weight: var(--weight-medium);
+    color: var(--color-primary-700);
+  }
+
+  .trust-bar__item svg {
+    color: var(--color-accent-500);
+  }
+
+  @media (max-width: 767px) {
+    .trust-bar__inner {
+      justify-content: flex-start;
+    }
+  }
+</style>

@@ -1,0 +1,32 @@
+---
+import type { NewsCardProps } from '../../types/components';
+import Icon from '../ui/Icon.astro';
+
+type Props = NewsCardProps;
+
+// 新闻卡（page-structure §5 预留结构）：日期 --text-small + 标题 + 摘要 2 行截断
+// 当前无详情页路由（§5：单一列表页），卡为非链接展示卡
+const { item } = Astro.props;
+---
+
+<article class="news-card card">
+  <div class="news-card__body card__body">
+    <p class="news-card__date">
+      <Icon name="calendar" size={16} />
+      <span>{item.date}</span>
+    </p>
+    <h3 class="news-card__title card__title">{item.title}</h3>
+    {item.summary && <p class="news-card__summary card__summary">{item.summary}</p>}
+  </div>
+</article>
+
+<style>
+  .news-card__date {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3xs);
+    font-size: var(--text-small);
+    color: var(--color-neutral-500);
+    margin-bottom: var(--space-2xs);
+  }
+</style>

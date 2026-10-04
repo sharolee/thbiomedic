@@ -1,0 +1,55 @@
+---
+import type { SectionHeaderProps } from '../../types/components';
+
+type Props = SectionHeaderProps;
+
+// 栏目区块标题（design-spec §3.2 h2 档）：标题 + 可选副标 + 可选「查看全部」链接
+const { title, subtitle, linkHref, linkLabel } = Astro.props;
+---
+
+<div class="section-header">
+  <div class="section-header__text">
+    <h2 class="section-header__title">{title}</h2>
+    {subtitle && <p class="section-header__subtitle">{subtitle}</p>}
+  </div>
+  {linkHref && linkLabel && (
+    <a class="section-header__link" href={linkHref}>{linkLabel}</a>
+  )}
+</div>
+
+<style>
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .section-header__title {
+    font-size: var(--text-h2);
+    color: var(--color-neutral-900);
+  }
+
+  .section-header__subtitle {
+    margin-top: var(--space-2xs);
+    font-size: var(--text-body);
+    color: var(--color-neutral-500);
+  }
+
+  .section-header__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3xs);
+    flex-shrink: 0;
+    font-size: var(--text-small);
+    font-weight: var(--weight-medium);
+    color: var(--color-primary-600);
+    white-space: nowrap;
+  }
+
+  .section-header__link:hover {
+    color: var(--color-primary-700);
+    text-decoration: underline;
+  }
+</style>

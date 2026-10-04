@@ -1,0 +1,95 @@
+---
+import type { PaginationProps } from '../../types/components';
+import Icon from './Icon.astro';
+
+type Props = PaginationProps;
+
+// 分页（page-structure §4.2：每页 12 个 + 加载更多；无 JS 时分页链接）
+// 当前数据为空（W3-3 填充），骨架阶段不渲染；组件就绪供列表页启用
+const { current, total, baseHref, prevLabel, nextLabel, pageLabel } = Astro.props;
+const pages = Array.from({ length: total }, (_, i) => i + 1);
+---
+
+<nav class="pagination" aria-label={pageLabel.replace('{page}', String(current))}>
+  {current > 1 && (
+    <a class="pagination__btn" href={`${baseHref}?page=${current - 1}`}>
+      <Icon name="arrow-right" size={16} class="pagination__icon-prev" />
+      {prevLabel}
+    </a>
+  )}
+  <ul class="pagination__pages">
+    {pages.map((page) => (
+      <li>
+        {page === current ? (
+          <span class="pagination__page is-current" aria-current="page">{page}</span>
+        ) : (
+          <a class="pagination__page" href={`${baseHref}?page=${page}`}>{page}</a>
+        )}
+      </li>
+    ))}
+  </ul>
+  {current < total && (
+    <a class="pagination__btn" href={`${baseHref}?page=${current + 1}`}>
+      {nextLabel}
+      <Icon name="arrow-right" size={16} />
+    </a>
+  )}
+</nav>
+
+<style>
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+  }
+
+  .pagination__pages {
+    display: flex;
+    gap: var(--space-2xs);
+  }
+
+  .pagination__page {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    height: 44px;
+    padding-inline: var(--space-xs);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-body);
+    color: var(--color-neutral-700);
+  }
+
+  .pagination__page:hover {
+    background: var(--color-primary-50);
+    color: var(--color-primary-600);
+  }
+
+  .pagination__page.is-current {
+    background: var(--color-primary-600);
+    color: var(--color-white);
+    font-weight: var(--weight-medium);
+  }
+
+  .pagination__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3xs);
+    min-height: 44px;
+    padding-inline: var(--space-sm);
+    font-size: var(--text-small);
+    font-weight: var(--weight-medium);
+    color: var(--color-primary-600);
+  }
+
+  .pagination__btn:hover {
+    color: var(--color-primary-700);
+    text-decoration: underline;
+  }
+
+  .pagination__icon-prev {
+    transform: rotate(180deg);
+  }
+</style>

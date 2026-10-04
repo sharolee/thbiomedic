@@ -1,0 +1,69 @@
+---
+import type { BreadcrumbsProps } from '../../types/components';
+
+type Props = BreadcrumbsProps;
+
+// 面包屑（design-spec §6.7）：--text-small，当前页 #7B8794 无链接，
+// 上级 #1A5FB4，分隔符 / #C9D1D9；移动横向可滚动不换行
+const { lang, homeLabel, ariaLabel, trail } = Astro.props;
+---
+
+<nav class="breadcrumbs" aria-label={ariaLabel}>
+  <ol class="breadcrumbs__list">
+    <li class="breadcrumbs__item">
+      <a class="breadcrumbs__link" href={`/${lang}/`}>{homeLabel}</a>
+      <span class="breadcrumbs__sep" aria-hidden="true">/</span>
+    </li>
+    {trail.map((item) => (
+      <li class="breadcrumbs__item">
+        {item.href ? (
+          <>
+            <a class="breadcrumbs__link" href={item.href}>{item.label}</a>
+            <span class="breadcrumbs__sep" aria-hidden="true">/</span>
+          </>
+        ) : (
+          <span class="breadcrumbs__current" aria-current="page">{item.label}</span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<style>
+  .breadcrumbs__list {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+    font-size: var(--text-small);
+  }
+
+  .breadcrumbs__list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .breadcrumbs__item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+  }
+
+  .breadcrumbs__link {
+    color: var(--color-primary-600);
+  }
+
+  .breadcrumbs__link:hover {
+    color: var(--color-primary-700);
+    text-decoration: underline;
+  }
+
+  .breadcrumbs__sep {
+    color: var(--color-neutral-300);
+  }
+
+  .breadcrumbs__current {
+    color: var(--color-neutral-500);
+  }
+</style>

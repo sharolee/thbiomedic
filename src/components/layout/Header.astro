@@ -2,25 +2,37 @@
 import type { HeaderProps } from '../../types/components';
 import LanguageSwitcher from '../ui/LanguageSwitcher.astro';
 import Icon from '../ui/Icon.astro';
-import { getHomePath } from '../../utils/url';
+import { getHomePath, getProductsPath, getDownloadsPath, getVideosPath, getSearchPath } from '../../utils/url';
 
 type Props = HeaderProps;
 
-// 页头（design-spec §6.2）：桌面 72px sticky / 移动 56px；抽屉导航
-// 导航项路由指向 W3-2 待建页面；未建成前落到双语 404（骨架阶段预期行为）
+// 页头（design-spec §6.2）：桌面 72px sticky / 移动 56px；抽屉导航 +
+// 搜索图标（滑出搜索条）+ 产品中心/资源下拉
 const { lang, pathname, dict } = Astro.props;
 const t = dict.common;
 const navItems = [
   { href: `/${lang}/`, label: t.nav.home },
   { href: `/${lang}/about/`, label: t.nav.about },
-  { href: `/${lang}/products/`, label: t.nav.products },
-  { href: `/${lang}/resources/`, label: t.nav.resources },
+  {
+    href: getProductsPath(lang),
+    label: t.nav.products,
+    children: [{ href: getProductsPath(lang), label: t.nav.products_all }],
+  },
+  {
+    href: `/${lang}/resources/`,
+    label: t.nav.resources,
+    children: [
+      { href: getDownloadsPath(lang), label: t.nav.resources_downloads },
+      { href: getVideosPath(lang), label: t.nav.resources_videos },
+    ],
+  },
   { href: `/${lang}/news/`, label: t.nav.news },
   { href: `/${lang}/contact/`, label: t.nav.contact },
 ];
 const normalize = (p: string) => p.replace(/\/+$/, '');
 const current = normalize(pathname);
 const isActive = (href: string) => href === `/${lang}/` ? current === `/${lang}` : current.startsWith(href.replace(/\/+$/, ''));
+const search = dict.common.search;
 ---
 
 <header class="header" data-header>
@@ -33,20 +45,53 @@ const isActive = (href: string) => href === `/${lang}/` ? current === `/${lang}`
     <nav class="header__nav" aria-label={t.nav.aria_label}>
       <ul class="header__nav-list">
         {navItems.map((item) => (
-          <li>
+          <li class:list={{ 'has-dropdown': !!item.children }}>
             <a
               class:list={{ 'header__nav-link': true, 'is-active': isActive(item.href) }}
               href={item.href}
               aria-current={isActive(item.href) ? 'page' : undefined}
             >
               {item.label}
+              {item.children && <Icon name="chevron-down" size={16} />}
             </a>
+            {item.children && (
+              <ul class="header__dropdown">
+                {item.children.map((child) => (
+                  <li>
+                    <a href={child.href}>{child.label}</a>
+                  </li>
+                ))}
+              </ul>
+            )}
           </li>
         ))}
       </ul>
     </nav>
 
     <div class="header__actions">
+      <div class="search" data-search>
+        <a class="search__toggle" href={getSearchPath(lang)} data-search-toggle aria-label={search.open_label}>
+          <Icon name="search" size={20} />
+        </a>
+        <div class="search__bar" data-search-bar hidden>
+          <form class="search__form" action={getSearchPath(lang)} method="get" role="search">
+            <input
+              class="search__input"
+              type="search"
+              name="q"
+              placeholder={search.placeholder}
+              aria-label={search.aria_label}
+              data-search-input
+            />
+            <button class="search__submit" type="submit" aria-label={search.submit}>
+              <Icon name="search" size={20} />
+            </button>
+            <button class="search__close" type="button" data-search-close aria-label={search.close_label}>
+              <Icon name="close" size={20} />
+            </button>
+          </form>
+        </div>
+      </div>
       <LanguageSwitcher lang={lang} pathname={pathname} dict={dict} />
       <button
         class="header__toggle"
@@ -72,6 +117,12 @@ const isActive = (href: string) => href === `/${lang}/` ? current === `/${lang}`
           <Icon name="close" />
         </button>
       </div>
+      <form class="drawer__search" action={getSearchPath(lang)} method="get" role="search">
+        <input type="search" name="q" placeholder={search.placeholder} aria-label={search.aria_label} />
+        <button type="submit" aria-label={search.submit}>
+          <Icon name="search" size={20} />
+        </button>
+      </form>
       <nav class="drawer__nav" aria-label={t.nav.aria_label}>
         <ul>
           {navItems.map((item) => (
@@ -210,12 +261,176 @@ const isActive = (href: string) => href === `/${lang}/` ? current === `/${lang}`
     .header__nav-link.is-active {
       color: var(--color-primary-600);
     }
+
+    /* 下拉菜单（design-spec §6.2：白底卡片 shadow-md 单列） */
+    .header__nav-list .has-dropdown {
+      position: relative;
+    }
+
+    .header__nav-list .has-dropdown > a {
+      gap: var(--space-3xs);
+    }
+
+    .header__dropdown {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 240px;
+      padding: var(--space-2xs);
+      background: var(--color-white);
+      border: var(--border-default);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity var(--duration-base) var(--easing),
+        visibility var(--duration-base) var(--easing);
+    }
+
+    .header__nav-list .has-dropdown:hover .header__dropdown,
+    .header__nav-list .has-dropdown:focus-within .header__dropdown {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .header__dropdown a {
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--radius-sm);
+      font-size: var(--text-body);
+      color: var(--color-neutral-700);
+    }
+
+    .header__dropdown a:hover {
+      background: var(--color-primary-50);
+      color: var(--color-primary-600);
+    }
   }
 
   .header__actions {
     display: flex;
     align-items: center;
     gap: var(--space-sm);
+  }
+
+  /* ── 站内搜索（page-structure §0.3：图标 → 滑出搜索条 64px） ── */
+  .search {
+    position: relative;
+  }
+
+  .search__toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    color: var(--color-neutral-700);
+  }
+
+  .search__toggle:hover {
+    background: var(--color-primary-50);
+    color: var(--color-primary-600);
+  }
+
+  .search__bar {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: min(560px, 85vw);
+    padding: var(--space-sm);
+    background: var(--color-white);
+    border: var(--border-default);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    z-index: var(--z-dropdown);
+  }
+
+  .search__form {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+  }
+
+  .search__input {
+    flex: 1;
+    height: 48px;
+    padding: var(--space-xs) var(--space-sm);
+    border: var(--border-default);
+    border-radius: var(--radius-sm);
+    font-size: 16px;
+    color: var(--color-neutral-900);
+    background: var(--color-white);
+  }
+
+  .search__input::placeholder {
+    color: var(--color-neutral-500);
+  }
+
+  .search__input:focus {
+    outline: none;
+    border-color: var(--color-primary-600);
+    box-shadow: 0 0 0 3px var(--color-primary-100);
+  }
+
+  .search__submit,
+  .search__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border-radius: var(--radius-sm);
+    color: var(--color-neutral-700);
+  }
+
+  .search__submit:hover,
+  .search__close:hover {
+    background: var(--color-primary-50);
+    color: var(--color-primary-600);
+  }
+
+  /* 移动抽屉内搜索框（page-structure §0.3） */
+  .drawer__search {
+    display: flex;
+    gap: var(--space-2xs);
+    padding: var(--space-md);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .drawer__search input {
+    flex: 1;
+    height: 44px;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--color-white);
+    font-size: 16px;
+  }
+
+  .drawer__search input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .drawer__search input:focus {
+    outline: none;
+    border-color: var(--color-accent-500);
+  }
+
+  .drawer__search button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    background: var(--color-accent-500);
+    color: var(--color-primary-900);
   }
 
   .header__toggle {

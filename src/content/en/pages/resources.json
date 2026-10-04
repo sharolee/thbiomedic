@@ -1,0 +1,18 @@
+{
+  "downloads": {
+    "banner": {
+      "title": "Downloads",
+      "subtitle": "Product brochures and technical documentation"
+    },
+    "empty_title": "No downloads available",
+    "empty_body": "Download materials are being prepared. Stay tuned."
+  },
+  "videos": {
+    "banner": {
+      "title": "Videos",
+      "subtitle": "Product demonstrations and corporate videos"
+    },
+    "empty_title": "Videos are in production. Stay tuned.",
+    "empty_body": "Product demonstration videos are being prepared. Please contact us for more information."
+  }
+}

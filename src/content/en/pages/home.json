@@ -1,7 +1,66 @@
 {
+  "meta": {
+    "title": "Guangzhou Tianhong Medical Technology Co., Ltd. - Orthopedic Rehabilitation & Patient Immobilization Solutions",
+    "description": "Guangzhou Tianhong Medical Technology Co., Ltd. - a professional medical device company in orthopedic rehabilitation, patient immobilization and pet rehabilitation, certified by NMPA, FDA, CE and TGA, serving 400+ grade-A hospitals in 30+ countries"
+  },
   "hero": {
-    "title": "Orthopedic Rehabilitation & Patient Immobilization Solutions",
-    "subtitle": "Tianhong Medical — a trusted partner in orthopedic medical devices",
+    "aria_label": "Brand carousel",
+    "slide_label": "Slide {current} of {total}",
+    "slide_1": {
+      "brand": "Polyeasy®",
+      "title": "Thermoplastic Splints · Physical Rehabilitation",
+      "subtitle": "Easy-to-lock thermoplastic splint series for wrist, ankle and knee rehabilitation",
+      "cta": "Learn More",
+      "href": "/products/"
+    },
+    "slide_2": {
+      "brand": "iFIX®",
+      "title": "Immobilization System · Patient Immobilization",
+      "subtitle": "A revolutionary patient immobilization system for thoracolumbar, cervico-thoracic and pelvic fixation",
+      "cta": "Learn More",
+      "href": "/products/"
+    },
+    "slide_3": {
+      "brand": "Polyeasy® Pet",
+      "title": "Thermoplastic · Pet Rehabilitation",
+      "subtitle": "Pet thermoplastic splinting for joint and soft-tissue rehabilitation support",
+      "cta": "Learn More",
+      "href": "/products/"
+    }
+  },
+  "trust_bar": {
+    "title": "Certifications & Scale",
+    "item_1": "NMPA",
+    "item_2": "FDA",
+    "item_3": "CE",
+    "item_4": "TGA",
+    "item_5": "ISO13485",
+    "item_6": "30+ Countries",
+    "item_7": "400+ Grade-A Hospitals"
+  },
+  "product_entries": {
+    "title": "Products",
+    "subtitle": "Product series covering orthopedic rehabilitation, patient immobilization and pet rehabilitation",
+    "coming_soon": "Coming Soon",
+    "empty_title": "Product series details are being prepared",
+    "empty_body": "Product series details are being prepared. Please contact us for more information.",
+    "cta": "Contact Us",
+    "view_all": "View All"
+  },
+  "about_summary": {
+    "title": "About Us",
+    "body": "Tianhong Medical focuses on orthopedic rehabilitation, radiation therapy fixation and pet rehabilitation. Our core products are certified by NMPA, FDA, CE and TGA, exported to 30+ countries and serving 400+ grade-A hospitals.",
     "cta": "Learn More"
+  },
+  "promo_video": {
+    "title": "About Tianhong",
+    "subtitle": "Corporate Video",
+    "placeholder": "Video asset pending migration",
+    "play_label": "Play video"
+  },
+  "contact_cta": {
+    "title": "Need product brochures or a quote?",
+    "body": "Contact us for product brochures and technical documentation",
+    "cta": "Contact Us"
   }
 }

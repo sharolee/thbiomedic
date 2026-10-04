@@ -1,0 +1,65 @@
+---
+import type { CategoryCardProps } from '../../types/components';
+import Icon from '../ui/Icon.astro';
+import { getCategoryPath } from '../../utils/url';
+
+type Props = CategoryCardProps;
+
+// 一级分类卡（design-spec §6.3 / page-structure §3.1）：图 + 分类名 + 一句话简介
+// 空分类右上角「筹备中」胶囊标签（--color-warning-600 字 / --color-warning-50 底）
+// 分类图素材缺失 → 浅灰占位区
+const { category, lang, comingSoonLabel } = Astro.props;
+const href = getCategoryPath(category.slug, lang);
+const image = category.banner;
+const hasProducts = category.children?.some((c) => c.hasProducts) ?? false;
+---
+
+<a class="category-card card" href={href}>
+  <div class="category-card__media card__media">
+    {image ? (
+      <img src={image.src} alt={image.alt} loading="lazy" />
+    ) : (
+      <span class="category-card__placeholder">
+        <Icon name="image" size={40} />
+      </span>
+    )}
+    {!hasProducts && (
+      <span class="category-card__badge">{comingSoonLabel}</span>
+    )}
+  </div>
+  <div class="category-card__body card__body">
+    <h3 class="category-card__title card__title">{category.name}</h3>
+    {category.desc && <p class="category-card__summary card__summary">{category.desc}</p>}
+  </div>
+</a>
+
+<style>
+  .category-card {
+    display: block;
+  }
+
+  .category-card__media {
+    position: relative;
+  }
+
+  .category-card__placeholder {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    background: var(--color-primary-50);
+    color: var(--color-neutral-500);
+  }
+
+  .category-card__badge {
+    position: absolute;
+    top: var(--space-xs);
+    right: var(--space-xs);
+    padding: var(--space-3xs) var(--space-2xs);
+    border-radius: var(--radius-pill);
+    background: var(--color-warning-50);
+    color: var(--color-warning-600);
+    font-size: var(--text-caption);
+    font-weight: var(--weight-medium);
+  }
+</style>

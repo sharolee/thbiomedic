@@ -1,0 +1,26 @@
+---
+import type { NewsListProps } from '../../types/components';
+import NewsCard from './NewsCard.astro';
+import EmptyState from '../ui/EmptyState.astro';
+import Button from '../ui/Button.astro';
+
+type Props = NewsListProps;
+
+// 新闻列表（page-structure §5：单一列表页，当前为空 → 空态面板）
+// 数据来自 data/news.json，日后新增条目即自动渲染卡片列表
+const { items, emptyTitle, emptyBody, emptyActionLabel, emptyActionHref } = Astro.props;
+---
+
+{items.length > 0 ? (
+  <div class="u-card-grid news-list">
+    {items.map((item) => (
+      <NewsCard item={item} />
+    ))}
+  </div>
+) : (
+  <EmptyState title={emptyTitle} body={emptyBody} icon="calendar">
+    {emptyActionLabel && emptyActionHref && (
+      <Button href={emptyActionHref} variant="secondary">{emptyActionLabel}</Button>
+    )}
+  </EmptyState>
+)}

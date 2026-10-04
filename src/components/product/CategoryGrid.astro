@@ -1,0 +1,24 @@
+---
+import type { CategoryGridProps } from '../../types/components';
+import CategoryCard from './CategoryCard.astro';
+import EmptyState from '../ui/EmptyState.astro';
+import Button from '../ui/Button.astro';
+
+type Props = CategoryGridProps;
+
+// 产品一级分类网格（page-structure §3.1 / 首页 §1-3）
+// 数据为空 → 空态面板（不显示假占位，page-structure §3.2）
+const { categories, lang, comingSoonLabel, emptyTitle, emptyBody, emptyActionLabel, emptyActionHref } = Astro.props;
+---
+
+{categories.length > 0 ? (
+  <div class="u-card-grid category-grid">
+    {categories.map((category) => (
+      <CategoryCard category={category} lang={lang} comingSoonLabel={comingSoonLabel} />
+    ))}
+  </div>
+) : (
+  <EmptyState title={emptyTitle} body={emptyBody} icon="file">
+    <Button href={emptyActionHref} variant="secondary">{emptyActionLabel}</Button>
+  </EmptyState>
+)}

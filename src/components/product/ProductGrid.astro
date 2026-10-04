@@ -1,0 +1,24 @@
+---
+import type { ProductGridProps } from '../../types/components';
+import ProductCard from './ProductCard.astro';
+import EmptyState from '../ui/EmptyState.astro';
+import Button from '../ui/Button.astro';
+
+type Props = ProductGridProps;
+
+// 产品卡网格（page-structure §3.2 §4）：无数据 → 空态面板 + 联系 CTA
+// 无 JS 可用（纯静态渲染，架构 §3.5）
+const { products, lang, emptyTitle, emptyBody, emptyActionLabel, emptyActionHref } = Astro.props;
+---
+
+{products.length > 0 ? (
+  <div class="u-card-grid">
+    {products.map((product) => (
+      <ProductCard product={product} lang={lang} />
+    ))}
+  </div>
+) : (
+  <EmptyState title={emptyTitle} body={emptyBody} icon="file">
+    <Button href={emptyActionHref} variant="secondary">{emptyActionLabel}</Button>
+  </EmptyState>
+)}

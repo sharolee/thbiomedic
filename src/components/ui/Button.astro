@@ -1,0 +1,29 @@
+---
+import type { ButtonProps } from '../../types/components';
+import Icon from './Icon.astro';
+
+type Props = ButtonProps;
+
+// 按钮（design-spec §6.1）：主 / 次 / 品牌渐变（仅首页 CTA）/ 文字链接
+// 全局基类 .btn 与变体类在 global.css；最小点击目标 44×44
+const { variant = 'primary', href, type = 'button', disabled = false, loading = false, external = false, icon, class: className } = Astro.props;
+const cls = `btn btn-${variant}${className ? ` ${className}` : ''}`;
+---
+
+{href ? (
+  <a
+    href={href}
+    class={cls}
+    {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+    aria-busy={loading ? 'true' : undefined}
+  >
+    {icon && <Icon name={icon} size={16} />}
+    <slot />
+  </a>
+) : (
+  <button type={type} class={cls} disabled={disabled || loading} aria-busy={loading ? 'true' : undefined}>
+    {loading && <span class="btn__spinner" aria-hidden="true"></span>}
+    {icon && !loading && <Icon name={icon} size={16} />}
+    <slot />
+  </button>
+)}

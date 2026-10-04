@@ -1,11 +1,12 @@
 ---
 import type { FooterProps } from '../../types/components';
-import { getHomePath } from '../../utils/url';
+import Icon from '../ui/Icon.astro';
+import { getHomePath, getDownloadsPath, getVideosPath } from '../../utils/url';
 
 type Props = FooterProps;
 
 // 页脚（design-spec §6.5）：深底 #0B2B52，桌面四列栅格 / 移动单列堆叠
-// 联系方式列数据（电话/邮箱/地址/二维码）由 W3-3 内容任务从 data/contact.json 填充
+// 公众号二维码图缺失 → 占位框（素材由 W3-3 从原站迁移）
 const { lang, dict } = Astro.props;
 const t = dict.common;
 const year = new Date().getFullYear();
@@ -27,7 +28,8 @@ const columns = [
   {
     title: t.footer.column_resources,
     links: [
-      { href: `/${lang}/resources/downloads/`, label: t.nav.resources },
+      { href: getDownloadsPath(lang), label: t.nav.resources_downloads },
+      { href: getVideosPath(lang), label: t.nav.resources_videos },
     ],
   },
   {
@@ -45,6 +47,10 @@ const columns = [
       <div class="footer__brand">
         <a class="footer__logo" href={getHomePath(lang)}>{t.footer.brand}</a>
         <p class="footer__tagline">{t.footer.tagline}</p>
+        <span class="footer__qr" role="img" aria-label={t.footer.qr_label}>
+          <Icon name="image" size={40} />
+          <span class="footer__qr-label">{t.footer.qr_label}</span>
+        </span>
       </div>
 
       {columns.map((col) => (
@@ -107,6 +113,26 @@ const columns = [
     margin-top: var(--space-2xs);
     color: var(--color-neutral-500);
     max-width: 34em;
+  }
+
+  /* 公众号二维码占位（design-spec §6.5：96×96 白底 padding 8px 圆角 8px） */
+  .footer__qr {
+    display: grid;
+    place-items: center;
+    gap: var(--space-2xs);
+    width: 96px;
+    margin-top: var(--space-md);
+    padding: var(--space-2xs);
+    border: 1px dashed rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--color-neutral-300);
+    text-align: center;
+  }
+
+  .footer__qr-label {
+    font-size: var(--text-caption);
+    color: var(--color-neutral-500);
   }
 
   .footer__col-title {
