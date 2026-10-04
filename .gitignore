@@ -25,3 +25,4 @@ dist-ssr/
 Thumbs.db
 Desktop.ini
 .DS_Store
+.pi/

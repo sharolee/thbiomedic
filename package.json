@@ -1,0 +1,25 @@
+{
+  "name": "thbiomedic",
+  "version": "0.1.0",
+  "private": true,
+  "description": "广州天泓医疗科技有限公司新版双语官网（Astro SSG，中英 /zh/ /en/）",
+  "type": "module",
+  "packageManager": "npm@11.6.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "typecheck": "astro check",
+    "i18n:check": "node scripts/i18n-check.mjs",
+    "check:all": "npm run typecheck && npm run i18n:check && npm run build"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@types/node": "^26.6.4",
+    "astro": "^7.3.5",
+    "typescript": "^5.9.3"
+  }
+}

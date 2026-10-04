@@ -1,0 +1,154 @@
+/* ==========================================================================
+   设计令牌（variables.css）— 唯一令牌来源（architecture.md C9 / design-spec §1-7）
+   仅定义 CSS 变量与令牌，不写规则；组件/工具类一律引用这里的变量。
+   数值为 design-spec.md 强制值，不接受近似。
+   ========================================================================== */
+
+:root {
+  /* ── 配色：主色（医疗信任蓝）design-spec §2.1 ────────────── */
+  --color-primary-900: #0B2B52;  /* 页头/页脚深色底、Hero 叠加层 */
+  --color-primary-700: #123F77;  /* 导航悬停、标题强调 */
+  --color-primary-600: #1A5FB4;  /* 品牌主色：主按钮、链接、激活态 */
+  --color-primary-500: #3584E4;  /* 悬停提亮、次级按钮 */
+  --color-primary-100: #D8E7F8;  /* 选中底色、标签底 */
+  --color-primary-50:  #EFF5FC;  /* 区块浅底 */
+
+  /* ── 配色：辅助色（科技青）design-spec §2.2 ──────────────── */
+  --color-accent-500: #00B3A6;   /* 次要强调、悬停下划线 */
+  --color-accent-100: #D6F3F0;   /* 辅助浅底 */
+  --gradient-brand: linear-gradient(120deg, #1A5FB4 0%, #00B3A6 100%);
+
+  /* ── 配色：中性色 design-spec §2.3 ───────────────────────── */
+  --color-neutral-900: #1F2933;  /* 正文标题 */
+  --color-neutral-700: #3E4C59;  /* 正文 */
+  --color-neutral-500: #7B8794;  /* 次要文本、占位符、面包屑分隔 */
+  --color-neutral-300: #C9D1D9;  /* 边框、分隔线 */
+  --color-neutral-200: #E4E7EB;  /* 卡片边框、输入框边框 */
+  --color-neutral-100: #F5F7FA;  /* 页面浅灰区块底 */
+  --color-white: #FFFFFF;        /* 主背景 */
+
+  /* ── 配色：语义色 design-spec §2.4 ───────────────────────── */
+  --color-success-600: #1E8E5A;
+  --color-warning-600: #B7791F;
+  --color-error-600:   #C53030;
+  --color-info-600:    #1A5FB4;
+  --color-error-50:    #FDECEA;
+  --color-success-50:  #E6F6EE;
+  --color-warning-50:  #FBF3E4;
+
+  /* ── 字体（design-spec §3.1）─────────────────────────────── */
+  --font-sans-zh: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-sans-en: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: var(--font-sans-en), var(--font-sans-zh);
+
+  /* 字重仅三档（design-spec §3.2：400/600/700） */
+  --weight-normal: 400;
+  --weight-medium: 600;
+  --weight-bold: 700;
+
+  /* ── 字号阶梯（移动优先；桌面值在 ≥1024px 升档）design-spec §3.2 ── */
+  --text-display: 32px;   /* 首页 Hero 主标题 */
+  --text-h1: 28px;        /* 内页 H1（页横幅标题） */
+  --text-h2: 24px;        /* 区块标题 */
+  --text-h3: 20px;        /* 卡片组标题、侧边栏标题 */
+  --text-h4: 17px;        /* 卡片标题 */
+  --text-body-lg: 16px;   /* 首段/摘要 */
+  --text-body: 15px;      /* 正文（中文最小 15px） */
+  --text-small: 13px;     /* 辅助文本、面包屑、页脚 */
+  --text-caption: 12px;   /* 标签、图注、ICP 备案行 */
+
+  /* 行高（对应字号档位） */
+  --leading-display: 1.2;
+  --leading-h1: 1.25;
+  --leading-h2: 1.3;
+  --leading-h3: 1.35;
+  --leading-h4: 1.4;
+  --leading-body: 1.7;
+  --leading-small: 1.6;
+  --leading-caption: 1.5;
+
+  /* 段落最大行宽（design-spec §3.2） */
+  --measure-zh: 34em;
+  --measure-en: 68ch;
+
+  /* ── 间距阶梯（4px 基数）design-spec §4.1 ────────────────── */
+  --space-3xs: 4px;
+  --space-2xs: 8px;
+  --space-xs: 12px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 32px;
+  --space-xl: 48px;
+  --space-2xl: 64px;
+  --space-3xl: 96px;
+
+  /* ── 栅格与容器 design-spec §4.2（断点升档见本文件末尾） ── */
+  --container-max: 1280px;
+  --container-padding: 16px;      /* <768px */
+  --grid-columns: 4;              /* 移动 */
+  --grid-gap: 16px;               /* <768px */
+
+  /* ── 圆角、阴影、边框、动效 design-spec §5 ───────────────── */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-pill: 999px;
+
+  --shadow-sm: 0 1px 2px rgba(11, 43, 82, 0.08);
+  --shadow-md: 0 4px 12px rgba(11, 43, 82, 0.12);
+  --shadow-lg: 0 12px 32px rgba(11, 43, 82, 0.16);
+
+  --border-default: 1px solid #E4E7EB;
+
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --easing: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ── 响应式断点 design-spec §7 / PROJECT_STANDARDS §3.6 ──── */
+  --bp-sm: 640px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1280px;
+  --bp-2xl: 1536px;
+
+  /* ── 层级 ────────────────────────────────────────────────── */
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-modal: 300;
+  --z-popover: 400;
+  --z-tooltip: 500;
+
+  /* 全站统一焦点环（design-spec §6） */
+  --focus-ring: 2px solid #3584E4;
+  --focus-offset: 2px;
+}
+
+/* ── 字号桌面升档（≥1024px）design-spec §3.2 ─────────────────── */
+@media (min-width: 1024px) {
+  :root {
+    --text-display: 48px;
+    --text-h1: 40px;
+    --text-h2: 32px;
+    --text-h3: 24px;
+    --text-h4: 19px;
+    --text-body-lg: 18px;
+    --text-body: 16px;
+    --text-small: 14px;
+  }
+}
+
+/* ── 栅格与容器升档 design-spec §4.2 ─────────────────────────── */
+@media (min-width: 768px) {
+  :root {
+    --container-padding: 24px;
+    --grid-columns: 8;
+    --grid-gap: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --container-padding: 32px;
+    --grid-columns: 12;
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "nav": {
+    "aria_label": "Primary navigation",
+    "home": "Home",
+    "about": "About Us",
+    "products": "Products",
+    "resources": "Resources",
+    "news": "News",
+    "contact": "Contact Us"
+  },
+  "footer": {
+    "brand": "Tianhong Medical",
+    "tagline": "Orthopedic Rehabilitation · Patient Immobilization · Pet Rehabilitation",
+    "column_about": "About Us",
+    "column_products": "Products",
+    "column_resources": "Resources",
+    "column_contact": "Contact Us",
+    "copyright": "© {year} Guangzhou Tianhong Medical Technology Co., Ltd.",
+    "icp": "ICP证0301"
+  },
+  "lang_switcher": {
+    "label": "Switch language",
+    "zh": "中",
+    "cn": "CN",
+    "en": "EN",
+    "aria_switch_zh": "Switch to Chinese",
+    "aria_switch_en": "Switch to English"
+  },
+  "skip_link": "Skip to main content",
+  "menu_open": "Open menu",
+  "menu_close": "Close menu",
+  "common": {
+    "not_found_body": "The page you are looking for does not exist or has been moved.",
+    "back_home": "Back to Home"
+  }
+}

@@ -1,0 +1,57 @@
+---
+import type { PageLayoutProps } from '../../types/components';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import { getCanonicalUrl, getHreflangLinks } from '../../utils/seo';
+import { getLangFromPath } from '../../utils/url';
+import '../../styles/variables.css';
+import '../../styles/global.css';
+import '../../styles/utilities.css';
+
+type Props = PageLayoutProps;
+
+// 页面外壳（architecture.md §3.2 布局类组件）：
+// <html>/<head>（title/meta/canonical/hreflang）、Header、main、Footer
+const { lang, dict, title, description } = Astro.props;
+const pathname = Astro.url.pathname;
+const hreflang = getHreflangLinks(pathname, lang);
+const canonical = getCanonicalUrl(pathname);
+const htmlLang = lang === 'zh' ? 'zh-CN' : 'en';
+const resolvedLang = getLangFromPath(pathname);
+---
+
+<!doctype html>
+<html lang={htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="canonical" href={canonical} />
+    {hreflang.map((link) => (
+      <link rel="alternate" hreflang={link.hreflang} href={link.href} />
+    ))}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{dict.common.skip_link}</a>
+    <Header lang={resolvedLang} pathname={pathname} dict={dict} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer lang={resolvedLang} dict={dict} />
+  </body>
+</html>
+
+<script>
+  import { initLanguageSwitcher } from '../../scripts/language-switcher';
+  initLanguageSwitcher();
+</script>
+
+<style>
+  /* 语言切换器偏好记忆脚本挂载 */
+  main {
+    min-height: 60vh;
+  }
+</style>

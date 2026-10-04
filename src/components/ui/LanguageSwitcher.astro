@@ -1,0 +1,79 @@
+---
+import type { LanguageSwitcherProps } from '../../types/components';
+import { getOtherLangPath } from '../../utils/url';
+
+type Props = LanguageSwitcherProps;
+
+// 语言切换器（ADR-002 §5.4 / page-structure §0.2）
+// 中文站：中(current) / EN(link)；英文站：CN(link) / EN(current)
+const { lang, pathname, dict } = Astro.props;
+const t = dict.common.lang_switcher;
+const zhPath = getOtherLangPath(pathname, 'en'); // /zh/<rest> 或 /zh/
+const enPath = getOtherLangPath(pathname, 'zh'); // /en/<rest> 或 /en/
+const isZh = lang === 'zh';
+const zhLabel = isZh ? t.zh : t.cn;
+---
+
+<span class="lang-switcher" role="group" aria-label={t.label}>
+  {isZh ? (
+    <span class="lang-switcher__link is-current" aria-current="true">
+      {zhLabel}
+    </span>
+  ) : (
+    <a class="lang-switcher__link" href={zhPath} hreflang="zh-CN" data-lang-switch="zh" aria-label={t.aria_switch_zh}>
+      {zhLabel}
+    </a>
+  )}
+  <span class="lang-switcher__sep" aria-hidden="true">/</span>
+  {isZh ? (
+    <a class="lang-switcher__link" href={enPath} hreflang="en" data-lang-switch="en" aria-label={t.aria_switch_en}>
+      {t.en}
+    </a>
+  ) : (
+    <span class="lang-switcher__link is-current" aria-current="true">
+      {t.en}
+    </span>
+  )}
+</span>
+
+<style>
+  .lang-switcher {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    padding: var(--space-3xs);
+    border: var(--border-default);
+    border-radius: var(--radius-pill);
+    background: var(--color-white);
+  }
+
+  .lang-switcher__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    min-height: 28px;
+    padding: 0 var(--space-xs);
+    border-radius: var(--radius-pill);
+    font-size: var(--text-small);
+    font-weight: var(--weight-medium);
+    color: var(--color-primary-600);
+    transition: background-color var(--duration-fast) var(--easing), color var(--duration-fast) var(--easing);
+  }
+
+  .lang-switcher__link:hover {
+    background: var(--color-primary-50);
+    color: var(--color-primary-700);
+  }
+
+  .lang-switcher__link.is-current {
+    background: var(--color-primary-600);
+    color: var(--color-white);
+    pointer-events: none;
+  }
+
+  .lang-switcher__sep {
+    color: var(--color-neutral-300);
+    font-size: var(--text-small);
+  }
+</style>

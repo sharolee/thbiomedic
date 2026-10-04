@@ -1,0 +1,365 @@
+---
+import type { HeaderProps } from '../../types/components';
+import LanguageSwitcher from '../ui/LanguageSwitcher.astro';
+import Icon from '../ui/Icon.astro';
+import { getHomePath } from '../../utils/url';
+
+type Props = HeaderProps;
+
+// 页头（design-spec §6.2）：桌面 72px sticky / 移动 56px；抽屉导航
+// 导航项路由指向 W3-2 待建页面；未建成前落到双语 404（骨架阶段预期行为）
+const { lang, pathname, dict } = Astro.props;
+const t = dict.common;
+const navItems = [
+  { href: `/${lang}/`, label: t.nav.home },
+  { href: `/${lang}/about/`, label: t.nav.about },
+  { href: `/${lang}/products/`, label: t.nav.products },
+  { href: `/${lang}/resources/`, label: t.nav.resources },
+  { href: `/${lang}/news/`, label: t.nav.news },
+  { href: `/${lang}/contact/`, label: t.nav.contact },
+];
+const normalize = (p: string) => p.replace(/\/+$/, '');
+const current = normalize(pathname);
+const isActive = (href: string) => href === `/${lang}/` ? current === `/${lang}` : current.startsWith(href.replace(/\/+$/, ''));
+---
+
+<header class="header" data-header>
+  <div class="header__bar u-container">
+    <a class="header__logo" href={getHomePath(lang)}>
+      <span class="header__logo-mark" aria-hidden="true">天</span>
+      <span class="header__logo-name">{t.footer.brand}</span>
+    </a>
+
+    <nav class="header__nav" aria-label={t.nav.aria_label}>
+      <ul class="header__nav-list">
+        {navItems.map((item) => (
+          <li>
+            <a
+              class:list={{ 'header__nav-link': true, 'is-active': isActive(item.href) }}
+              href={item.href}
+              aria-current={isActive(item.href) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="header__actions">
+      <LanguageSwitcher lang={lang} pathname={pathname} dict={dict} />
+      <button
+        class="header__toggle"
+        type="button"
+        data-drawer-toggle
+        data-label-open={t.menu_open}
+        data-label-close={t.menu_close}
+        aria-expanded="false"
+        aria-label={t.menu_open}
+        aria-controls="mobile-drawer"
+      >
+        <Icon name="menu" />
+      </button>
+    </div>
+  </div>
+
+  <div class="drawer" id="mobile-drawer" data-drawer aria-hidden="true">
+    <div class="drawer__backdrop" data-drawer-backdrop></div>
+    <div class="drawer__panel">
+      <div class="drawer__head">
+        <span class="drawer__title">{t.footer.brand}</span>
+        <button class="drawer__close" type="button" data-drawer-toggle aria-label={t.menu_close}>
+          <Icon name="close" />
+        </button>
+      </div>
+      <nav class="drawer__nav" aria-label={t.nav.aria_label}>
+        <ul>
+          {navItems.map((item) => (
+            <li>
+              <a class:list={{ 'is-active': isActive(item.href) }} href={item.href} data-drawer-close>
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <div class="drawer__lang">
+        <LanguageSwitcher lang={lang} pathname={pathname} dict={dict} />
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  import { initHeader } from '../../scripts/header-drawer';
+  initHeader();
+</script>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--color-white);
+    transition: box-shadow var(--duration-base) var(--easing);
+  }
+
+  .header.is-scrolled {
+    box-shadow: var(--shadow-sm);
+  }
+
+  .header__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    height: 56px;
+  }
+
+  @media (min-width: 1024px) {
+    .header__bar {
+      height: 72px;
+    }
+  }
+
+  .header__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    flex-shrink: 0;
+    color: var(--color-neutral-900);
+  }
+
+  .header__logo:hover {
+    color: var(--color-primary-600);
+  }
+
+  .header__logo-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    background: var(--gradient-brand);
+    color: var(--color-white);
+    font-size: var(--text-body-lg);
+    font-weight: var(--weight-bold);
+  }
+
+  @media (min-width: 1024px) {
+    .header__logo-mark {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  .header__logo-name {
+    font-size: var(--text-body);
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.02em;
+  }
+
+  .header__nav {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .header__nav {
+      display: block;
+    }
+
+    .header__nav-list {
+      display: flex;
+      gap: var(--space-lg);
+    }
+
+    .header__nav-link {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      height: 72px;
+      font-size: var(--text-body);
+      font-weight: var(--weight-medium);
+      color: var(--color-neutral-700);
+    }
+
+    .header__nav-link:hover {
+      color: var(--color-primary-600);
+    }
+
+    /* 悬停指示条：2px 青下滑入（150ms） */
+    .header__nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 2px;
+      background: var(--color-accent-500);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--duration-fast) var(--easing);
+    }
+
+    .header__nav-link:hover::after,
+    .header__nav-link.is-active::after {
+      transform: scaleX(1);
+    }
+
+    .header__nav-link.is-active {
+      color: var(--color-primary-600);
+    }
+  }
+
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .header__toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--color-neutral-900);
+    cursor: pointer;
+  }
+
+  .header__toggle:hover {
+    background: var(--color-primary-50);
+  }
+
+  @media (min-width: 1024px) {
+    .header__toggle {
+      display: none;
+    }
+  }
+
+  /* ── 移动抽屉（design-spec §6.2：深底右滑入 250ms） ────────────── */
+  .drawer {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .drawer.is-open {
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .drawer__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(11, 43, 82, 0.5);
+    opacity: 0;
+    transition: opacity var(--duration-base) var(--easing);
+  }
+
+  .drawer.is-open .drawer__backdrop {
+    opacity: 1;
+  }
+
+  .drawer__panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    width: min(320px, 85vw);
+    background: var(--color-primary-900);
+    color: var(--color-white);
+    transform: translateX(100%);
+    transition: transform var(--duration-base) var(--easing);
+  }
+
+  .drawer.is-open .drawer__panel {
+    transform: translateX(0);
+  }
+
+  .drawer__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-md);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .drawer__title {
+    font-size: var(--text-body-lg);
+    font-weight: var(--weight-bold);
+  }
+
+  .drawer__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--color-white);
+    cursor: pointer;
+  }
+
+  .drawer__close:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  .drawer__nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--space-md);
+  }
+
+  .drawer__nav a {
+    display: block;
+    padding: var(--space-sm) 0;
+    font-size: var(--text-body-lg);
+    color: rgba(255, 255, 255, 0.85);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .drawer__nav a:hover,
+  .drawer__nav a.is-active {
+    color: var(--color-white);
+  }
+
+  .drawer__lang {
+    padding: var(--space-md);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .drawer__lang .lang-switcher {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .drawer__lang .lang-switcher__link {
+    color: var(--color-white);
+  }
+
+  .drawer__lang .lang-switcher__link:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  .drawer__lang .lang-switcher__sep {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .drawer__panel,
+    .drawer__backdrop {
+      transition: none;
+    }
+  }
+</style>

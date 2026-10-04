@@ -1,0 +1,96 @@
+/* ==========================================================================
+   工具类（utilities）：布局、容器、栅格、显隐、间距、文本对齐
+   architecture.md §3.4：以 u- 前缀，不跨组件引用
+   ========================================================================== */
+
+/* ── 容器：居中定宽 + 语言前缀无关的响应式内边距 ─────────────────── */
+.u-container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}
+
+/* ── 栅格：移动 4 列 / 平板 8 列 / 桌面 12 列（variables.css 升档） ─ */
+.u-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  gap: var(--grid-gap);
+}
+
+/* 卡片网格：1 列 → 2（≥640px）→ 3（≥1024px）→ 4（≥1536px）
+   design-spec §4.2：产品/视频卡片专用 */
+.u-card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--grid-gap);
+}
+
+@media (min-width: 640px) {
+  .u-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .u-card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1536px) {
+  .u-card-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* ── 布局辅助 ─────────────────────────────────────────────────────── */
+.u-flex {
+  display: flex;
+  align-items: center;
+}
+
+.u-flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.u-stack {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── 间距工具（按需少量使用，主体间距走组件样式） ─────────────────── */
+.u-mt-sm { margin-top: var(--space-sm); }
+.u-mt-md { margin-top: var(--space-md); }
+.u-mt-lg { margin-top: var(--space-lg); }
+.u-mb-sm { margin-bottom: var(--space-sm); }
+.u-mb-md { margin-bottom: var(--space-md); }
+.u-mb-lg { margin-bottom: var(--space-lg); }
+
+/* ── 文本 ─────────────────────────────────────────────────────────── */
+.u-text-center { text-align: center; }
+
+.u-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── 区块节奏：移动 48px / 桌面 64px（design-spec §4.1） ───────────── */
+.u-section {
+  padding-block: var(--space-xl);
+}
+
+@media (min-width: 1024px) {
+  .u-section {
+    padding-block: var(--space-2xl);
+  }
+}

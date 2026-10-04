@@ -1,0 +1,59 @@
+---
+import PageLayout from '../components/layout/PageLayout.astro';
+import { getLangFromPath } from '../utils/url';
+import { getDict } from '../utils/i18n';
+
+// 404（design-spec §6.6）：双语按请求路径语言前缀渲染，默认中文
+const lang = getLangFromPath(Astro.url.pathname);
+const dict = getDict(lang);
+---
+
+<PageLayout
+  lang={lang}
+  dict={dict}
+  title={lang === 'zh' ? '页面未找到' : 'Page Not Found'}
+  description={lang === 'zh' ? '抱歉，您访问的页面不存在。' : 'Sorry, the page you are looking for does not exist.'}
+>
+  <section class="notfound u-section">
+    <div class="u-container u-text-center">
+      <p class="notfound__code">404</p>
+      <h1 class="notfound__title">{lang === 'zh' ? '页面未找到' : 'Page Not Found'}</h1>
+      <p class="notfound__body">
+        {lang === 'zh' ? '抱歉，您访问的页面不存在或已移动。' : 'Sorry, the page you are looking for does not exist or has been moved.'}
+      </p>
+      <a href={`/${lang}/`} class="btn btn-primary">
+        {lang === 'zh' ? '返回首页' : 'Back to Home'}
+      </a>
+    </div>
+  </section>
+
+  <style>
+    .notfound {
+      display: grid;
+      place-items: center;
+      text-align: center;
+    }
+
+    .notfound__code {
+      font-size: var(--text-display);
+      font-weight: var(--weight-bold);
+      line-height: 1;
+      color: var(--color-primary-100);
+      margin-bottom: var(--space-xs);
+    }
+
+    .notfound__title {
+      font-size: var(--text-h2);
+      font-weight: var(--weight-medium);
+      color: var(--color-neutral-900);
+      margin-bottom: var(--space-2xs);
+    }
+
+    .notfound__body {
+      font-size: var(--text-body);
+      color: var(--color-neutral-500);
+      margin-bottom: var(--space-lg);
+      max-width: var(--measure-zh);
+    }
+  </style>
+</PageLayout>

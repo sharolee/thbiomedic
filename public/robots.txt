@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+# Sitemap 行待接入 @astrojs/sitemap 后补充（architecture.md §6，属后续 SEO 阶段）

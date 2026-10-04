@@ -1,0 +1,157 @@
+---
+import type { FooterProps } from '../../types/components';
+import { getHomePath } from '../../utils/url';
+
+type Props = FooterProps;
+
+// 页脚（design-spec §6.5）：深底 #0B2B52，桌面四列栅格 / 移动单列堆叠
+// 联系方式列数据（电话/邮箱/地址/二维码）由 W3-3 内容任务从 data/contact.json 填充
+const { lang, dict } = Astro.props;
+const t = dict.common;
+const year = new Date().getFullYear();
+
+const columns = [
+  {
+    title: t.footer.column_about,
+    links: [
+      { href: `/${lang}/about/`, label: t.nav.about },
+      { href: `/${lang}/news/`, label: t.nav.news },
+    ],
+  },
+  {
+    title: t.footer.column_products,
+    links: [
+      { href: `/${lang}/products/`, label: t.nav.products },
+    ],
+  },
+  {
+    title: t.footer.column_resources,
+    links: [
+      { href: `/${lang}/resources/downloads/`, label: t.nav.resources },
+    ],
+  },
+  {
+    title: t.footer.column_contact,
+    links: [
+      { href: `/${lang}/contact/`, label: t.nav.contact },
+    ],
+  },
+];
+---
+
+<footer class="footer">
+  <div class="footer__inner u-container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a class="footer__logo" href={getHomePath(lang)}>{t.footer.brand}</a>
+        <p class="footer__tagline">{t.footer.tagline}</p>
+      </div>
+
+      {columns.map((col) => (
+        <nav class="footer__col" aria-label={col.title}>
+          <h3 class="footer__col-title">{col.title}</h3>
+          <ul>
+            {col.links.map((link) => (
+              <li><a href={link.href}>{link.label}</a></li>
+            ))}
+          </ul>
+        </nav>
+      ))}
+    </div>
+
+    <div class="footer__bottom">
+      <p class="footer__copyright">{t.footer.copyright.replace('{year}', String(year))}</p>
+      <a class="footer__icp" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">
+        {t.footer.icp}
+      </a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--color-primary-900);
+    color: var(--color-neutral-300);
+    font-size: var(--text-small);
+  }
+
+  .footer__inner {
+    padding-block: var(--space-2xl) var(--space-lg);
+  }
+
+  .footer__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  @media (min-width: 1024px) {
+    .footer__grid {
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: var(--space-md);
+    }
+  }
+
+  .footer__logo {
+    font-size: var(--text-body-lg);
+    font-weight: var(--weight-bold);
+    color: var(--color-white);
+  }
+
+  .footer__logo:hover {
+    color: var(--color-white);
+    text-decoration: underline;
+  }
+
+  .footer__tagline {
+    margin-top: var(--space-2xs);
+    color: var(--color-neutral-500);
+    max-width: 34em;
+  }
+
+  .footer__col-title {
+    margin-bottom: var(--space-sm);
+    font-size: var(--text-body);
+    font-weight: var(--weight-medium);
+    color: var(--color-white);
+  }
+
+  .footer__col li + li {
+    margin-top: var(--space-2xs);
+  }
+
+  .footer__col a {
+    color: var(--color-neutral-300);
+  }
+
+  .footer__col a:hover {
+    color: var(--color-white);
+    text-decoration: underline;
+  }
+
+  .footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2xs);
+    margin-top: var(--space-xl);
+    padding-top: var(--space-sm);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    font-size: var(--text-caption);
+    color: var(--color-neutral-500);
+  }
+
+  .footer__copyright {
+    max-width: none;
+  }
+
+  .footer__icp {
+    color: var(--color-neutral-500);
+  }
+
+  .footer__icp:hover {
+    color: var(--color-white);
+    text-decoration: underline;
+  }
+</style>

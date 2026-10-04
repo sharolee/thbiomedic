@@ -1,0 +1,35 @@
+---
+// 根路径（prerendered 静态页）：无服务端请求头，默认重定向到 /zh/（ADR-002 默认语言）。
+// 浏览器语言偏好由页面内脚本渐进增强处理：匹配 en 且无显式偏好则跳 /en/。
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content="0; url=/zh/" />
+    <title>广州天泓医疗科技有限公司</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <script>
+      // 渐进增强：静态部署无服务端 Accept-Language，浏览器端按偏好首跳
+      // 显式语言偏好（localStorage）优先；其次 accept-language；兜底 /zh/
+      try {
+        const stored = localStorage.getItem('thb:lang');
+        const target =
+          stored === 'en' || (!stored && /^en/i.test(navigator.language || ''))
+            ? '/en/'
+            : '/zh/';
+        if (target !== location.pathname) {
+          location.replace(target);
+        }
+      } catch {
+        /* 隐私模式等场景忽略，交给 <meta refresh> 兜底 */
+      }
+    </script>
+    <noscript>
+      <meta http-equiv="refresh" content="0; url=/zh/" />
+    </noscript>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+{
+  "nav": {
+    "aria_label": "主导航",
+    "home": "首页",
+    "about": "关于我们",
+    "products": "产品中心",
+    "resources": "资源",
+    "news": "新闻动态",
+    "contact": "联系我们"
+  },
+  "footer": {
+    "brand": "天泓医疗",
+    "tagline": "骨科康复 · 患者固定 · 宠物康复",
+    "column_about": "关于我们",
+    "column_products": "产品中心",
+    "column_resources": "资源",
+    "column_contact": "联系我们",
+    "copyright": "© {year} 广州天泓医疗科技有限公司",
+    "icp": "ICP证0301"
+  },
+  "lang_switcher": {
+    "label": "切换语言",
+    "zh": "中",
+    "cn": "CN",
+    "en": "EN",
+    "aria_switch_zh": "切换到中文版",
+    "aria_switch_en": "切换到英文版"
+  },
+  "skip_link": "跳到主要内容",
+  "menu_open": "打开菜单",
+  "menu_close": "关闭菜单",
+  "common": {
+    "not_found_body": "您访问的页面不存在或已被移动",
+    "back_home": "返回首页"
+  }
+}

@@ -1,0 +1,48 @@
+---
+import PageLayout from '../../components/layout/PageLayout.astro';
+import { loadHomeDict } from '../../utils/i18n';
+
+const lang = 'zh';
+const dict = loadHomeDict(lang);
+
+// 首页骨架（W3-1）：Hero 区块占位，完整区块（轮播/信任条/产品入口/视频）由 W3-2 实现
+---
+
+<PageLayout
+  lang={lang}
+  dict={dict}
+  title="广州天泓医疗科技有限公司"
+  description="广州天泓医疗科技有限公司 - 专业医疗康复辅具制造商，提供低温热塑板材、支具、康复解决方案"
+>
+  <section class="hero u-section">
+    <div class="u-container u-text-center">
+      <h1 class="hero__title">{dict.home.hero.title}</h1>
+      <p class="hero__subtitle">{dict.home.hero.subtitle}</p>
+      <a href="/zh/products/" class="btn btn-primary">{dict.home.hero.cta}</a>
+    </div>
+  </section>
+
+  <style>
+    .hero {
+      display: grid;
+      place-items: center;
+      text-align: center;
+    }
+
+    .hero__title {
+      font-size: var(--text-display);
+      line-height: var(--leading-display);
+      font-weight: var(--weight-bold);
+      color: var(--color-neutral-900);
+      margin-bottom: var(--space-sm);
+    }
+
+    .hero__subtitle {
+      font-size: var(--text-body-lg);
+      line-height: var(--leading-body);
+      color: var(--color-neutral-700);
+      margin-bottom: var(--space-lg);
+      max-width: var(--measure-zh);
+    }
+  </style>
+</PageLayout>
