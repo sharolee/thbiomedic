@@ -46,6 +46,18 @@ export interface NewsItem {
   category?: string;
 }
 
+/** 新闻数据（预留，当前为空；content-model.md §6） */
+export interface NewsData {
+  categories: string[];
+  items: NewsItem[];
+}
+
+/** 视频数据（content-model.md §7） */
+export interface VideosData {
+  categories: VideoCategory[];
+  items: VideoItem[];
+}
+
 /** 下载资源（content-model.md §7；file 字段中英可不同，已核实例外） */
 export interface Download {
   slug: string;

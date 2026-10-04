@@ -33,3 +33,49 @@ export function getOtherLangPath(pathname: string, lang: Lang): string {
 export function getHomePath(lang: Lang): string {
   return `/${lang}/`;
 }
+
+/** 产品中心一级页路径 */
+export function getProductsPath(lang: Lang): string {
+  return `/${lang}/products/`;
+}
+
+/** 产品二级分类列表页路径 */
+export function getCategoryPath(categorySlug: string, lang: Lang): string {
+  return `/${lang}/products/${categorySlug}/`;
+}
+
+/** 产品详情页路径 */
+export function getProductPath(categorySlug: string, productSlug: string, lang: Lang): string {
+  return `/${lang}/products/${categorySlug}/${productSlug}/`;
+}
+
+/** 新闻列表页路径 */
+export function getNewsPath(lang: Lang): string {
+  return `/${lang}/news/`;
+}
+
+/** 搜索页路径（query 以 `?q=...` 拼接到路径） */
+export function getSearchPath(lang: Lang, query?: string): string {
+  const base = `/${lang}/search/`;
+  return query ? `${base}?q=${encodeURIComponent(query)}` : base;
+}
+
+/** 资源-下载页路径 */
+export function getDownloadsPath(lang: Lang): string {
+  return `/${lang}/resources/downloads/`;
+}
+
+/** 资源-视频页路径 */
+export function getVideosPath(lang: Lang): string {
+  return `/${lang}/resources/videos/`;
+}
+
+/** 联系我们页路径 */
+export function getContactPath(lang: Lang): string {
+  return `/${lang}/contact/`;
+}
+
+/** 关于我们页路径 */
+export function getAboutPath(lang: Lang): string {
+  return `/${lang}/about/`;
+}
