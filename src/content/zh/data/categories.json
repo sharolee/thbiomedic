@@ -1,1 +1,86 @@
-[]
+[
+  {
+    "slug": "low-temp-thermoplastics",
+    "name": "低温热塑系列",
+    "order": 1,
+    "children": [
+      { "slug": "low-temp-sheets", "name": "低温热塑板", "hasProducts": false },
+      { "slug": "easy-lock", "name": "易锁式低温热塑系列", "hasProducts": true },
+      { "slug": "pre-cut", "name": "低温热塑预裁型系列", "hasProducts": false },
+      { "slug": "skin-friendly", "name": "热塑亲肤系列", "hasProducts": false }
+    ]
+  },
+  {
+    "slug": "air-mesh-thermoplastic",
+    "name": "低温网格系列",
+    "order": 2,
+    "children": [
+      { "slug": "air-mesh-sheets", "name": "低温网格板", "hasProducts": false },
+      { "slug": "air-mesh-thoracolumbar", "name": "低温网格胸腰支具", "hasProducts": false }
+    ]
+  },
+  {
+    "slug": "comfort-orthosis",
+    "name": "低温热塑支具系列",
+    "desc": "低温热塑支具系列是专为满足医疗康复和运动防护需求而设计的创新产品线。本系列包括胸腰支具、头颈胸支具、腰围支具和骨盆支具，每一款产品都旨在提供专业的支撑和保护以促进康复。",
+    "order": 3,
+    "children": [
+      { "slug": "thoracolumbar-orthosis", "name": "胸腰支具", "hasProducts": false },
+      { "slug": "cervico-thoracic-lumbar", "name": "头颈胸支具", "hasProducts": false },
+      { "slug": "lumbar-orthosis", "name": "腰围支具", "hasProducts": false },
+      { "slug": "pelvic-orthosis", "name": "骨盆支具", "hasProducts": false }
+    ]
+  },
+  {
+    "slug": "adjustable-orthosis",
+    "name": "可调节支具",
+    "order": 4,
+    "children": [
+      { "slug": "adjustable-knee", "name": "可调膝关节支具", "hasProducts": false },
+      { "slug": "adjustable-elbow", "name": "可调肘关节支具", "hasProducts": false }
+    ]
+  },
+  {
+    "slug": "extension-tendon-splints",
+    "name": "动力支具",
+    "order": 5,
+    "children": []
+  },
+  {
+    "slug": "accessory",
+    "name": "配件",
+    "order": 6,
+    "children": []
+  },
+  {
+    "slug": "high-temp-thermoplastics",
+    "name": "高温板",
+    "order": 7,
+    "children": []
+  },
+  {
+    "slug": "rehab-cushion",
+    "name": "空气能姿势垫",
+    "order": 8,
+    "children": []
+  },
+  {
+    "slug": "patient-immobilization",
+    "name": "IFIX体位固定方案",
+    "order": 9,
+    "children": [
+      { "slug": "patch", "name": "网纹易撕胶贴", "hasProducts": false },
+      { "slug": "strap", "name": "高分子绷带", "hasProducts": false },
+      { "slug": "adapter", "name": "适配器", "hasProducts": false }
+    ]
+  },
+  {
+    "slug": "pet-rehabilitation",
+    "name": "宠物康复",
+    "order": 10,
+    "children": [
+      { "slug": "pet-thermoplastic", "name": "宠物可塑性外固定网膜", "hasProducts": true },
+      { "slug": "pet-health-clothes", "name": "宠物保健衣", "hasProducts": false }
+    ]
+  }
+]

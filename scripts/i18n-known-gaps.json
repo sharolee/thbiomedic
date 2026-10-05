@@ -1,0 +1,51 @@
+{
+  "$comment": "双语已知差异登记（key-convention.md §5 规则 5 的豁免清单）。每条必须引用 translation-matrix.md 的条目编号；条目解决后从此文件移除。slug 集合不一致时的豁免写在 exemptions，纯内容层差异仅登记（notes），不影响校验。",
+  "exemptions": [],
+  "notes": [
+    {
+      "matrix": "R-02 / P-1",
+      "topic": "首页宣传视频",
+      "detail": "中英首页宣传片为不同文件（zh 20251112162344793.mp4 / en 20251112163145210.mp4），内容是否一致待客户确认；视频文件待素材迁移后接入 PromoVideo（home.promo_video 区块）。"
+    },
+    {
+      "matrix": "R-03 / P-2",
+      "topic": "荣誉资质图片跨语言暂用",
+      "detail": "取并集后双语各 10 项。en 侧 innovative-sme、specialized-new-sme 无英文版证书图，暂用中文版图；zh 侧 patent 无中文版图，暂用英文版 20210907171150902.png。待客户提供对应语言版证书图后替换。"
+    },
+    {
+      "matrix": "R-37",
+      "topic": "Elbow Splint 英文描述",
+      "detail": "英文站产品详情页（itemid=227）无描述文案；按双向对齐规则译自中文源（itemid=242），待客户确认。"
+    },
+    {
+      "matrix": "R-44 / P-3",
+      "topic": "骨科康复解决方案 PDF",
+      "detail": "中英指向不同 PDF（zh 20251112135837464.pdf 6.5MB / en 20251112134647962.pdf 31.1MB），按 content-model §7 已核实例外保留各自文件，内容是否一致待客户确认。"
+    },
+    {
+      "matrix": "R-46 / P-4",
+      "topic": "视频栏目取并集",
+      "detail": "Physical Rehabilitation 英文 16 支 / 中文 6 支 → 双语均补全为 16 支（zh 侧 10 支标题译自英文）。7 对同主题视频中英为不同文件，file 字段按语言保留各自原站文件（同 P-3 类例外）；zh 侧 10 支共用英文站文件。请客户确认哪版视频文件为准。"
+    },
+    {
+      "matrix": "R-47",
+      "topic": "患者固定视频文件不同",
+      "detail": "中文站为固德易（20211214145246460.mp4），英文站为 iFIX Operation（20211213132229319.mp4），按原站保留各自文件。"
+    },
+    {
+      "matrix": "R-48 / P-5",
+      "topic": "宠物康复视频中文侧补齐",
+      "detail": "中文站该栏目为空，按并集规则补入英文站 Hock Thermoplastic（20220104085806452.mp4），标题译作「跗关节热塑支具」。"
+    },
+    {
+      "matrix": "R-49 / P-6",
+      "topic": "新闻栏目",
+      "detail": "双站新闻列表均为空、三个子栏目 404；data/news.json 仅保留 categories 预留结构（company/industry/exhibition），items 为空。栏目去留待客户定。"
+    },
+    {
+      "matrix": "R-50 / P-7",
+      "topic": "联系方式差异",
+      "detail": "电话分机 -2018 仅英文站有（en contact.json 保留 phoneExt，zh 不加）；公众号命名 天泓医疗 / Onesky Medical 各自保留。以哪版为准待客户确认。"
+    }
+  ]
+}

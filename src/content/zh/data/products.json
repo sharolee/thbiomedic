@@ -1,1 +1,86 @@
-[]
+[
+  {
+    "slug": "ankle-splint",
+    "categorySlug": "easy-lock",
+    "name": "踝关节拉链型",
+    "desc": "用于踝关节软组织、跟腱损伤及矫形术后的固定。",
+    "order": 1
+  },
+  {
+    "slug": "wrist-splint",
+    "categorySlug": "easy-lock",
+    "name": "腕关节拉链型",
+    "desc": "用于腕关节或前臂远端骨折，腕关节成形术的功能固定及腕关节等病变的休息位制动或月骨脱位及colles骨折固定。",
+    "order": 2
+  },
+  {
+    "slug": "knee-ankle-splint",
+    "categorySlug": "easy-lock",
+    "name": "膝踝关节拉链型",
+    "desc": "用于膝、踝关节损伤的固定，膝、踝关节术后制动及矫形术后的固定。",
+    "order": 3
+  },
+  {
+    "slug": "lumbar-splint",
+    "categorySlug": "easy-lock",
+    "name": "腰背心拉链型",
+    "desc": "用于脊柱术后、脑瘫及儿童脊柱侧弯矫正、脊柱损伤等外固定，保持脊柱的生理弯曲，使用腰脊部脊柱的肌肉及软组织得到充分的休息。",
+    "order": 4
+  },
+  {
+    "slug": "drop-foot-splint",
+    "categorySlug": "easy-lock",
+    "name": "足托拉链型",
+    "desc": "用于踝关节软组织、跟腱损伤及矫形术后的固定，双拉链设计更易于操作。",
+    "order": 5
+  },
+  {
+    "slug": "elbow-splint",
+    "categorySlug": "easy-lock",
+    "name": "肘关节拉链型",
+    "desc": "用于肘、腕关节肌腱、软组织、神经损伤及肘关节术后的固定，双拉链设计更易于操作",
+    "order": 6
+  },
+  {
+    "slug": "hock-thermoplastic",
+    "categorySlug": "pet-thermoplastic",
+    "name": "跗关节",
+    "desc": "适用于关节炎症，肌肉肌腱、软组织或韧带受损后康复期辅助矫正以及保守治疗期辅助治疗。",
+    "order": 7
+  },
+  {
+    "slug": "radioulna-thermoplastic",
+    "categorySlug": "pet-thermoplastic",
+    "name": "桡尺骨",
+    "desc": "适用于关节炎症，肌肉肌腱、软组织或韧带受损后康复期辅助矫正以及保守治疗期辅助治疗。",
+    "order": 8
+  },
+  {
+    "slug": "knee-thermoplastic",
+    "categorySlug": "pet-thermoplastic",
+    "name": "膝关节",
+    "desc": "适用于关节炎症，肌肉肌腱、软组织或韧带受损后康复期辅助矫正以及保守治疗期辅助治疗。",
+    "order": 9
+  },
+  {
+    "slug": "elbow-thermoplastic",
+    "categorySlug": "pet-thermoplastic",
+    "name": "肘关节",
+    "desc": "适用于关节炎症，肌肉肌腱、软组织或韧带受损后康复期辅助矫正以及保守治疗期辅助治疗。",
+    "order": 10
+  },
+  {
+    "slug": "feet-thermoplastic",
+    "categorySlug": "pet-thermoplastic",
+    "name": "脚掌",
+    "desc": "适用于韧带损伤，趾骨、腕关节炎症辅助治疗以及神经损伤导致的脚掌外翻矫正。",
+    "order": 11
+  },
+  {
+    "slug": "neck-thermoplastic",
+    "categorySlug": "pet-thermoplastic",
+    "name": "颈部",
+    "desc": "适用于寰枢椎脱位，颈椎间盘突出/增生术后固定顶部确保康复或保守治疗期间辅助治疗。",
+    "order": 12
+  }
+]

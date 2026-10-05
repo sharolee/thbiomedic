@@ -1,1 +1,86 @@
-[]
+[
+  {
+    "slug": "ankle-splint",
+    "categorySlug": "easy-lock",
+    "name": "Ankle Splint",
+    "desc": "Used for immobilization of soft tissues of the ankle joint, Achilles tendon injuries and after orthopedic surgery.",
+    "order": 1
+  },
+  {
+    "slug": "wrist-splint",
+    "categorySlug": "easy-lock",
+    "name": "Wrist Splint",
+    "desc": "Used for fractures of the wrist or distal forearm, functional fixation of wrist arthroplasty and resting position braking or fixation of dislocation of the lunate and colles fracture of the wrist and other lesions.",
+    "order": 2
+  },
+  {
+    "slug": "knee-ankle-splint",
+    "categorySlug": "easy-lock",
+    "name": "Knee and Ankle Splint",
+    "desc": "Used for immobilization of knee and ankle injuries, postoperative braking of knee and ankle joints and immobilization after orthopedic surgery.",
+    "order": 3
+  },
+  {
+    "slug": "lumbar-splint",
+    "categorySlug": "easy-lock",
+    "name": "Lumbar Splint",
+    "desc": "Used for external fixation after spinal surgery, cerebral palsy and children scoliosis correction, spinal injury, etc., to maintain the physiological curvature of the spine, the use of lumbar spine spinal muscles and soft tissues to get enough rest.",
+    "order": 4
+  },
+  {
+    "slug": "drop-foot-splint",
+    "categorySlug": "easy-lock",
+    "name": "Drop Foot Splint",
+    "desc": "Use for immobilization of ankle soft tissues, Achilles tendon injuries and after orthopedic surgery, the double zipper design is easier to operate.",
+    "order": 5
+  },
+  {
+    "slug": "elbow-splint",
+    "categorySlug": "easy-lock",
+    "name": "Elbow Splint",
+    "desc": "Used for immobilization of elbow and wrist tendon, soft tissue and nerve injuries and postoperative fixation of the elbow joint; the double zipper design makes it easier to operate.",
+    "order": 6
+  },
+  {
+    "slug": "hock-thermoplastic",
+    "categorySlug": "pet-thermoplastic",
+    "name": "Hock Thermoplastic",
+    "desc": "Suitable for joints inflammation, muscle tendon, soft tissue or ligament damaged immobilization and rehabilitation treatment.",
+    "order": 7
+  },
+  {
+    "slug": "radioulna-thermoplastic",
+    "categorySlug": "pet-thermoplastic",
+    "name": "Radioulna Thermoplastic",
+    "desc": "Suitable for joints inflammation, muscle tendon, soft tissue or ligament damaged immobilization and rehabilitation treatment.",
+    "order": 8
+  },
+  {
+    "slug": "knee-thermoplastic",
+    "categorySlug": "pet-thermoplastic",
+    "name": "Knee Thermoplastic",
+    "desc": "Suitable for joints inflammation, muscle tendon, soft tissue or ligament damaged immobilization and rehabilitation treatment.",
+    "order": 9
+  },
+  {
+    "slug": "elbow-thermoplastic",
+    "categorySlug": "pet-thermoplastic",
+    "name": "Elbow Thermoplastic",
+    "desc": "Suitable for joints inflammation, muscle tendon, soft tissue or ligament damaged immobilization and rehabilitation treatment.",
+    "order": 10
+  },
+  {
+    "slug": "feet-thermoplastic",
+    "categorySlug": "pet-thermoplastic",
+    "name": "Feet Thermoplastic",
+    "desc": "Suitable for ligament injury, phalanges, carpal inflammation adjuvant therapy and nerve damage induced feet evagination correct.",
+    "order": 11
+  },
+  {
+    "slug": "neck-thermoplastic",
+    "categorySlug": "pet-thermoplastic",
+    "name": "Neck Thermoplastic",
+    "desc": "Suitable for atlantoaxial dislocation, cervical disc herniation/hyperplasia postoperative immobilization and treatment.",
+    "order": 12
+  }
+]

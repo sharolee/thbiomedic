@@ -16,73 +16,104 @@
 
 | # | 语义页面 | 中文源（盘点依据） | 英文目标（盘点依据） | 状态 | 备注 |
 |---|---|---|---|---|---|
-| R-01 | 全站通用（导航/页脚/表单/搜索） | §3.1、§3.4、§4.5 | §3.1、§3.4、§4.5 | 已翻译 | 表单字段中英一一对应（§4.5 表） |
-| R-02 | 首页 | §4.3（3 品牌卡+关于摘要+宣传视频） | §4.3 | 待确认 | ⚠️ 中英首页宣传视频为不同文件（§7-4）；见 P-1 |
-| R-03 | 关于我们 | §4.2（简介+历程图+荣誉 9 项） | §4.2（简介+历程图+荣誉 8 项） | 待确认 | ⚠️ 荣誉数量不一致；英文站 Company Profile/Culture 子页 404（§7-3）；见 P-2 |
-| R-04 | 产品中心首页（一级分类导航） | §1-3 | §2-5 | 已翻译 | 10 分类入口 |
-| R-05 | 一级分类：低温热塑系列 | §3.2（lcid 58） | Low temperature thermoplastics（42） | 已翻译 | |
-| R-06 | 一级分类：低温网格系列 | §3.2（36） | Air Mesh Thermoplastic Series（77） | 已翻译 | |
-| R-07 | 一级分类：低温热塑支具系列 | §3.2（37，含简介文案） | Thermoplastic Comfort Orthosis Series（49，含简介） | 已翻译 | |
-| R-08 | 一级分类：可调节支具 | §3.2（64） | Adjustable Orthosis & Supports（50） | 已翻译 | |
-| R-09 | 一级分类：动力支具 | §3.2（72） | Extension Tendon Splints（69） | 已翻译 | 无产品 |
-| R-10 | 一级分类：配件 | §3.2（74） | Accessory（71） | 已翻译 | 无产品 |
-| R-11 | 一级分类：高温板 | §3.2（63） | High Temperature Thermoplastics（51） | 已翻译 | 无产品 |
-| R-12 | 一级分类：空气能姿势垫 | §3.2（73） | Cushion for Rehabilitation（70） | 已翻译 | 无产品 |
-| R-13 | 一级分类：IFIX体位固定方案 | §3.2（14） | Patient Immobilization（7） | 已翻译 | 品牌词 IFIX（§7-5） |
-| R-14 | 一级分类：宠物康复 | §3.2（13） | Pet Rehabilitation（6） | 已翻译 | |
-| R-15 | 二级：低温热塑板 | §3.3（59） | Low Temperature Thermoplastic Sheets（43） | 已翻译 | 空分类 |
-| R-16 | 二级：易锁式低温热塑系列 | §3.3（62） | Easy-to-lock Thermoplastic Splint（46） | 已翻译 | ✅ 有 6 产品 |
-| R-17 | 二级：低温热塑预裁型系列 | §3.3（61） | Pre-Cut Thermoplastic Splints（45） | 已翻译 | 空分类 |
-| R-18 | 二级：热塑亲肤系列 | §3.3（60） | Skin-friendly Thermoplastics（44） | 已翻译 | 空分类 |
-| R-19 | 二级：低温网格板 | §3.3（75） | Air Mesh Thermoplastic Sheets & Splints（48） | 已翻译 | 空分类 |
-| R-20 | 二级：低温网格胸腰支具 | §3.3（76） | Air Mesh Thermoplastic Thoracolumbar Orthosis（78） | 已翻译 | 空分类 |
-| R-21 | 二级：胸腰支具 | §3.3（38） | Thoracolumbar Orthosis（52） | 已翻译 | 空分类 |
-| R-22 | 二级：头颈胸支具 | §3.3（39） | Cervico-Thoracic-Lumbar Orthosis（53） | 已翻译 | 空分类 |
-| R-23 | 二级：腰围支具 | §3.3（65） | Lumbar Orthosis（54） | 已翻译 | 空分类 |
-| R-24 | 二级：骨盆支具 | §3.3（66） | Pelvic Orthosis（55） | 已翻译 | 空分类 |
-| R-25 | 二级：可调膝关节支具 | §3.3（68） | Adjustable Knee Orthosis（57） | 已翻译 | 空分类 |
-| R-26 | 二级：可调肘关节支具 | §3.3（67） | Adjustable Elbow Orthosis（56） | 已翻译 | 空分类 |
-| R-27 | 二级：网纹易撕胶贴 | §3.3（18） | Patch（10） | 已翻译 | 空分类 |
-| R-28 | 二级：高分子绷带 | §3.3（17） | Strap（9） | 已翻译 | 空分类 |
-| R-29 | 二级：适配器 | §3.3（16） | Adapter（8） | 已翻译 | 空分类 |
-| R-30 | 二级：宠物可塑性外固定网膜 | §3.3（20） | Pet thermoplastic（12） | 已翻译 | ✅ 有 6 产品 |
-| R-31 | 二级：宠物保健衣 | §3.3（19） | Pet health clothes（11） | 已翻译 | 空分类 |
-| R-32 | 产品：踝关节拉链型 | §4.1（itemid 239） | Ankle Splint（224） | 已翻译 | 直译，无实质差异 |
-| R-33 | 产品：腕关节拉链型 | §4.1（240） | Wrist Splint（222） | 已翻译 | |
-| R-34 | 产品：膝踝关节拉链型 | §4.1（244） | Knee and Ankle Splint（223） | 已翻译 | |
-| R-35 | 产品：腰背心拉链型 | §4.1（241） | Lumbar Splint（226） | 已翻译 | |
-| R-36 | 产品：足托拉链型 | §4.1（243） | Drop Foot Splint（225） | 已翻译 | |
-| R-37 | 产品：肘关节拉链型 | §4.1（242） | Elbow Splint（227） | 已翻译 | |
-| R-38 | 产品：跗关节（宠物） | §4.1（190） | Hock Thermoplastic（98） | 已翻译 | |
-| R-39 | 产品：桡尺骨（宠物） | §4.1（191） | Radioulna Thermoplastic（101） | 已翻译 | |
-| R-40 | 产品：膝关节（宠物） | §4.1（192） | Knee Thermoplastic（102） | 已翻译 | |
-| R-41 | 产品：肘关节（宠物） | §4.1（193） | Elbow Thermoplastic（103） | 已翻译 | |
-| R-42 | 产品：脚掌（宠物） | §4.1（194） | Feet Thermoplastic（99） | 已翻译 | |
-| R-43 | 产品：颈部（宠物） | §4.1（195） | Neck Thermoplastic（100） | 已翻译 | |
-| R-44 | 资源：下载 | §4.4（中文 3 PDF） | §4.4（英文 3 PDF） | 待确认 | ⚠️ 骨科康复方案中英为不同 PDF 文件，内容是否一致待确认（§7-4）；见 P-3 |
-| R-45 | 资源：视频总页 | §4.4（3 栏目） | §4.4（3 栏目） | 已翻译 | |
-| R-46 | 视频子栏目：低温热塑板材 ↔ Physical Rehabilitation | 中文 6 支 | 英文 16 支 | 待确认 | ⚠️ 数量不一致（英文多 10 支）；见 P-4 |
-| R-47 | 视频子栏目：患者固定 ↔ Patient Immobilization | 中文 1 支（固德易） | 英文 1 支（iFIX Operation） | 已翻译 | |
-| R-48 | 视频子栏目：宠物康复 ↔ Pet Rehabilitation | 中文 0 支（空） | 英文 1 支（Hock Thermoplastic） | 待确认 | ⚠️ 中文侧缺失；见 P-5 |
-| R-49 | 新闻动态 | §4.6（空列表） | §4.6（空列表） | 待确认 | ⚠️ 双站均空、子栏目 404，栏目去留待客户定（§7-1）；见 P-6 |
-| R-50 | 联系我们 | §4.5 | §4.5 | 待确认 | ⚠️ 电话分机差异（英文多 -2018）、公众号命名（天泓医疗 vs Onesky Medical）（§7-4）；见 P-7 |
+| R-01 | 全站通用（导航/页脚/表单/搜索） | §3.1、§3.4、§4.5 | §3.1、§3.4、§4.5 | 已对齐（SHAR-40 批次1） | 表单字段中英一一对应（§4.5 表）；common.json 双语各 65 键，键集合一致 |
+| R-02 | 首页 | §4.3（3 品牌卡+关于摘要+宣传视频） | §4.3 | 已对齐（SHAR-40 批次1，待确认 P-1） | 品牌卡/摘要已按原站填充；⚠️ 中英首页宣传视频为不同文件（§7-4），素材迁移后接入；见 P-1 |
+| R-03 | 关于我们 | §4.2（简介+历程图+荣誉 9 项） | §4.2（简介+历程图+荣誉 8 项） | 已填充（待确认 P-2） | 简介/历程已填充；荣誉按并集双语各 10 项，3 张证书图跨语言暂用；英文站 Company Profile/Culture 子页 404 已废弃为页内区块；见 P-2 |
+| R-04 | 产品中心首页（一级分类导航） | §1-3 | §2-5 | 已填充 | 10 分类入口 |
+| R-05 | 一级分类：低温热塑系列 | §3.2（lcid 58） | Low temperature thermoplastics（42） | 已填充 | |
+| R-06 | 一级分类：低温网格系列 | §3.2（36） | Air Mesh Thermoplastic Series（77） | 已填充 | |
+| R-07 | 一级分类：低温热塑支具系列 | §3.2（37，含简介文案） | Thermoplastic Comfort Orthosis Series（49，含简介） | 已填充 | |
+| R-08 | 一级分类：可调节支具 | §3.2（64） | Adjustable Orthosis & Supports（50） | 已填充 | |
+| R-09 | 一级分类：动力支具 | §3.2（72） | Extension Tendon Splints（69） | 已填充 | 无产品 |
+| R-10 | 一级分类：配件 | §3.2（74） | Accessory（71） | 已填充 | 无产品 |
+| R-11 | 一级分类：高温板 | §3.2（63） | High Temperature Thermoplastics（51） | 已填充 | 无产品 |
+| R-12 | 一级分类：空气能姿势垫 | §3.2（73） | Cushion for Rehabilitation（70） | 已填充 | 无产品 |
+| R-13 | 一级分类：IFIX体位固定方案 | §3.2（14） | Patient Immobilization（7） | 已填充 | 品牌词 IFIX（§7-5） |
+| R-14 | 一级分类：宠物康复 | §3.2（13） | Pet Rehabilitation（6） | 已填充 | |
+| R-15 | 二级：低温热塑板 | §3.3（59） | Low Temperature Thermoplastic Sheets（43） | 已填充 | 空分类 |
+| R-16 | 二级：易锁式低温热塑系列 | §3.3（62） | Easy-to-lock Thermoplastic Splint（46） | 已填充 | ✅ 有 6 产品 |
+| R-17 | 二级：低温热塑预裁型系列 | §3.3（61） | Pre-Cut Thermoplastic Splints（45） | 已填充 | 空分类 |
+| R-18 | 二级：热塑亲肤系列 | §3.3（60） | Skin-friendly Thermoplastics（44） | 已填充 | 空分类 |
+| R-19 | 二级：低温网格板 | §3.3（75） | Air Mesh Thermoplastic Sheets & Splints（48） | 已填充 | 空分类 |
+| R-20 | 二级：低温网格胸腰支具 | §3.3（76） | Air Mesh Thermoplastic Thoracolumbar Orthosis（78） | 已填充 | 空分类 |
+| R-21 | 二级：胸腰支具 | §3.3（38） | Thoracolumbar Orthosis（52） | 已填充 | 空分类 |
+| R-22 | 二级：头颈胸支具 | §3.3（39） | Cervico-Thoracic-Lumbar Orthosis（53） | 已填充 | 空分类 |
+| R-23 | 二级：腰围支具 | §3.3（65） | Lumbar Orthosis（54） | 已填充 | 空分类 |
+| R-24 | 二级：骨盆支具 | §3.3（66） | Pelvic Orthosis（55） | 已填充 | 空分类 |
+| R-25 | 二级：可调膝关节支具 | §3.3（68） | Adjustable Knee Orthosis（57） | 已填充 | 空分类 |
+| R-26 | 二级：可调肘关节支具 | §3.3（67） | Adjustable Elbow Orthosis（56） | 已填充 | 空分类 |
+| R-27 | 二级：网纹易撕胶贴 | §3.3（18） | Patch（10） | 已填充 | 空分类 |
+| R-28 | 二级：高分子绷带 | §3.3（17） | Strap（9） | 已填充 | 空分类 |
+| R-29 | 二级：适配器 | §3.3（16） | Adapter（8） | 已填充 | 空分类 |
+| R-30 | 二级：宠物可塑性外固定网膜 | §3.3（20） | Pet thermoplastic（12） | 已填充 | ✅ 有 6 产品 |
+| R-31 | 二级：宠物保健衣 | §3.3（19） | Pet health clothes（11） | 已填充 | 空分类 |
+| R-32 | 产品：踝关节拉链型 | §4.1（itemid 239） | Ankle Splint（224） | 已填充 | 直译，无实质差异 |
+| R-33 | 产品：腕关节拉链型 | §4.1（240） | Wrist Splint（222） | 已填充 | |
+| R-34 | 产品：膝踝关节拉链型 | §4.1（244） | Knee and Ankle Splint（223） | 已填充 | |
+| R-35 | 产品：腰背心拉链型 | §4.1（241） | Lumbar Splint（226） | 已填充 | |
+| R-36 | 产品：足托拉链型 | §4.1（243） | Drop Foot Splint（225） | 已填充 | |
+| R-37 | 产品：肘关节拉链型 | §4.1（242） | Elbow Splint（227） | 已填充 | |
+| R-38 | 产品：跗关节（宠物） | §4.1（190） | Hock Thermoplastic（98） | 已填充 | |
+| R-39 | 产品：桡尺骨（宠物） | §4.1（191） | Radioulna Thermoplastic（101） | 已填充 | |
+| R-40 | 产品：膝关节（宠物） | §4.1（192） | Knee Thermoplastic（102） | 已填充 | |
+| R-41 | 产品：肘关节（宠物） | §4.1（193） | Elbow Thermoplastic（103） | 已填充 | |
+| R-42 | 产品：脚掌（宠物） | §4.1（194） | Feet Thermoplastic（99） | 已填充 | |
+| R-43 | 产品：颈部（宠物） | §4.1（195） | Neck Thermoplastic（100） | 已填充 | |
+| R-44 | 资源：下载 | §4.4（中文 3 PDF） | §4.4（英文 3 PDF） | 已填充（待确认 P-3） | ⚠️ 骨科康复方案中英为不同 PDF 文件，按已核实例外保留各自文件，内容是否一致待确认（§7-4）；见 P-3 |
+| R-45 | 资源：视频总页 | §4.4（3 栏目） | §4.4（3 栏目） | 已填充 | |
+| R-46 | 视频子栏目：低温热塑板材 ↔ Physical Rehabilitation | 中文 6 支 | 英文 16 支 | 已填充（待确认 P-4） | 已按并集双语各 16 支（zh 10 支标题译自英文）；7 对同主题视频中英为不同文件，以哪版为准待客户定；见 P-4 |
+| R-47 | 视频子栏目：患者固定 ↔ Patient Immobilization | 中文 1 支（固德易） | 英文 1 支（iFIX Operation） | 已填充 | 两侧文件不同，按原站各自保留 |
+| R-48 | 视频子栏目：宠物康复 ↔ Pet Rehabilitation | 中文 0 支（空） | 英文 1 支（Hock Thermoplastic） | 已填充 | 中文侧已按并集补入英文站视频（标题译作「跗关节热塑支具」）；见 P-5 |
+| R-49 | 新闻动态 | §4.6（空列表） | §4.6（空列表） | 待确认 | ⚠️ 双站均空、子栏目 404，栏目去留待客户定（§7-1）；字典仅保留预留结构；见 P-6 |
+| R-50 | 联系我们 | §4.5 | §4.5 | 已填充（待确认 P-7） | ⚠️ 电话分机 -2018 仅英文站保留、公众号命名各自保留（天泓医疗 vs Onesky Medical），以哪版为准待客户定（§7-4）；见 P-7 |
 
 > 注：R-01 为全站通用组件行，不占语义页面计数；语义页面行为 R-02~R-50 共 **49 行**，与 §1 计数一致 ✅。
 
 ## 3. 待确认项点名（升级条件触发，不自行判定）
 
-| # | 矩阵行 | 问题 | 需谁判定 |
-|---|---|---|---|
-| P-1 | R-02 | 中英首页宣传视频是**两个不同文件**（20251112162344793.mp4 vs 20251112163145210.mp4），内容是否一致？ | 客户 |
-| P-2 | R-03 | 中文荣誉 9 项含「广东省创新型中小企业」，英文版无对应；英文站 About 子页（Company Profile/Culture）404，新版是否改为页内锚点（同中文站）？ | 客户 |
-| P-3 | R-44 | 「骨科康复解决方案」中英指向不同 PDF（20251112135837464 vs 20251112134647962），内容是否一致？ | 客户 |
-| P-4 | R-46 | 视频栏目 Physical Rehabilitation 英文 16 支 vs 中文 6 支，新版以哪侧为准？ | 客户 |
-| P-5 | R-48 | 中文「宠物康复」视频栏目为空、英文有 1 支，新版是否补中文侧？ | 客户 |
-| P-6 | R-49 | 新闻栏目双站均空、子栏目 404，新版保留还是移除？ | 客户 |
-| P-7 | R-50 | 电话：英文站多分机 -2018；公众号英文称 Onesky Medical。以哪版为准？ | 客户 |
+> W3-3 填充后状态（2026-10-05）：P-2/P-4/P-5 已按客户「双向对齐取并集」口径落地；P-1/P-3/P-6/P-7 仍需客户判定（下表）。
+
+| # | 矩阵行 | 问题 | 状态 | 需谁判定 |
+|---|---|---|---|---|
+| P-1 | R-02 | 中英首页宣传视频是**两个不同文件**（20251112162344793.mp4 vs 20251112163145210.mp4），内容是否一致？ | 待客户 | 客户 |
+| P-2 | R-03 | 荣誉数量不一致 → 已按并集双语各 10 项；en 缺「创新型中小」「专精特新」英文版证书图、zh 缺「专利证书」中文版图，暂跨语言借用（登记于 scripts/i18n-known-gaps.json）。英文站 About 子页 404 → 新版已改为页内区块（同中文站） | 已落地，图片待客户原件 | 客户（提供证书图） |
+| P-3 | R-44 | 「骨科康复解决方案」中英指向不同 PDF（20251112135837464 vs 20251112134647962），内容是否一致？ | 待客户 | 客户 |
+| P-4 | R-46 | 视频栏目 Physical Rehabilitation 英文 16 支 vs 中文 6 支 → 已按并集双语各 16 支；其中 7 对同主题视频中英为不同文件，以哪版文件为准？ | 已落地，文件取舍待客户 | 客户 |
+| P-5 | R-48 | 中文「宠物康复」视频栏目为空 → 已按并集补入英文站 Hock Thermoplastic 视频 | 已落地 | 客户（知会） |
+| P-6 | R-49 | 新闻栏目双站均空、子栏目 404，新版保留还是移除？ | 待客户 | 客户 |
+| P-7 | R-50 | 电话：英文站多分机 -2018；公众号英文称 Onesky Medical。以哪版为准？ | 待客户 | 客户 |
 
 ## 4. 填充推进规则
 
 1. 状态为「已翻译」的行：填充任务直接把原站双语内容迁入 `src/content/{zh,en}/` 对应字典/数据文件，逐行打勾（状态 → `已填充`）。
 2. 状态为「待确认」的行：**先迁确定部分**（如 R-03 的公司简介长文已对齐），差异部分留空并在 PR/交付说明中引用 P-x 编号，待客户答复后补齐。
 3. 品牌词按盘点 §7-5 对照表统一（宝力易=Polyeasy、固德易=iFIX、宝力谊=Polyeasy Pet），商标 ® 标注位置待客户确认后写入 key-convention.md §4。
+
+---
+
+## 5. W3-3 填充核对（2026-10-05，架构师老欧）
+
+### 5.1 矩阵行 ↔ 字典条目对照（49 行全覆盖）
+
+| 矩阵行 | 字典/数据文件 | 条目数 | 状态 |
+|---|---|---|---|
+| R-01 | common.json | 导航/页脚/表单/搜索/面包屑/语言切换/通用 7 个命名空间 | 已填充 |
+| R-02 | pages/home.json | hero 3 卡 + about_summary + product_entries + promo_video + contact_cta | 已填充（P-1 视频文件待确认） |
+| R-03 | pages/about.json + data/certificates.json | profile 3 段 + history + 证书 10 项（并集） | 已填充（P-2 证书图待原件） |
+| R-04 | pages/products-index.json | intro + category_nav | 已填充 |
+| R-05~R-14 | data/categories.json 一级 | 10 | 已填充 |
+| R-15~R-31 | data/categories.json children | 17（hasProducts: 2 true / 15 false） | 已填充 |
+| R-32~R-43 | data/products.json | 12（easy-lock 6 + pet-thermoplastic 6），desc 为原站全文 | 已填充 |
+| R-44 | data/downloads.json | 3（file/size 按语言各自真实值） | 已填充（P-3 待确认） |
+| R-45~R-48 | data/videos.json | 3 栏目 + 18 条（并集：16+1+1） | 已填充（P-4 文件取舍待确认） |
+| R-49 | data/news.json + pages/news.json | categories 预留 3、items 空 | 待确认（P-6） |
+| R-50 | data/contact.json | phone/email/address/wechatQr | 已填充（P-7 待确认） |
+
+- 语义页面行 R-02~R-50 共 **49 行**，每行均有字典条目对应 ✅；与 §1 盘点计数（10+17+12+10=49）一致 ✅。
+- 校验：node scripts/i18n-check.mjs → PASS（16 个双语文件：键集合一致 / 命名合法 / 无空值 / 变量一致 / slug 对齐 / 无硬编码文案残留）。
+- 构建：npm run build → 62 页（每语言 31：首页/关于/产品中心/一级分类×10/产品详情×12/下载/视频/新闻/联系/搜索 + 根跳转 + 404）。
+
+### 5.2 已知结构缺口（非内容问题，交后续任务）
+
+- **17 个二级分类列表页未生成路由**：src/pages/{zh,en}/products/[category]/index.astro 的 getStaticPaths 只遍历一级分类；产品详情页已按 categorySlug（二级 slug）生成在 /products/easy-lock/<slug>/ 等路径下，但 /products/easy-lock/ 等 17 个二级页无路由。字典数据已就绪（children + hasProducts + empty_state），仅需路由层把 children 纳入 getStaticPaths。本任务边界（不改页面组件代码）内未处理。
+- **素材未迁移**：public/assets/ 仍为空，字典引用的全部媒体文件（证书图 12 个、历程图 2、关于配图 2、公众号二维码 2、视频 27 去重、PDF 6、首页宣传视频 2、首页品牌卡图 6）需素材迁移任务从原站 /uploadfiles/ 下载（防盗链需带 Referer，见盘点 §5.4）。

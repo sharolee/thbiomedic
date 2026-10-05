@@ -7,6 +7,23 @@
     "title": "About Us",
     "subtitle": "Orthopedic Rehabilitation · Patient Immobilization · Pet Rehabilitation"
   },
+  "profile": {
+    "title": "Company Overview",
+    "company_name": "Guangzhou Tianhong Medical Technology Co., Ltd",
+    "para_1": "Onesky is a professional medical device company integrating R&D, production, sales, and after-sales service. Headquartered in Hong Kong, it operates multiple wholly-owned subsidiaries in Mainland China, with its business focused on two core sectors: the R&D and production of its own proprietary brands, and the exclusive distribution of high-end international products.",
+    "para_2": "The company has deep expertise in radiotherapy, rehabilitation, and assisted reproduction, having established a dual-driven business system combining \"self-developed\" and \"distributed\" products. In the self-developed sector, Onesky has built several proprietary brands. Its core self-developed products have obtained market access certifications from major global regulatory bodies such as NMPA, FDA, CE, and TGA, and are exported to over 30 countries and regions, including North America, Europe, the Middle East, Central Asia, and Australia. In the distribution sector, as an exclusive distributor, the company has successfully introduced more than ten internationally renowned medical device brands from regions such as the United States and Europe, covering Mainland China as well as Hong Kong and Macau markets.",
+    "para_3": "Leveraging its solid industry foundation, Onesky has established a nationwide marketing network and customer system, serving over 400 top-tier and premium hospitals and collaborating with more than 200 regional core distributors. Since 2017, the company has been consistently recognized as a \"National High-Tech Enterprise\". In 2023, it received provincial-level certification as a \"Specialized, Refined, Differentiated, and Innovative SME of Guangdong Province\". With over 30 patents, Onesky possesses strong technological innovation capabilities. Its manufacturing system strictly adheres to international standards and has obtained authoritative certifications including ISO13485 and ISO14001, ensuring product quality and delivery capacity. Its sales teams are based in more than ten core cities, including Shenyang, Beijing, Jinan, Xi'an, Zhengzhou, Nanjing, Hefei, Wuhan, Changsha, and Chengdu, strategically positioned across the country's transportation and logistics hubs to achieve full market coverage and efficient service.",
+    "image_src": "images/about/20240920084236789.jpg",
+    "image_alt": "Company profile image"
+  },
+  "history": {
+    "title": "Enterprise Development History",
+    "image_src": "images/about/20240925141900944.jpg",
+    "image_alt": "Enterprise development history"
+  },
+  "certificates_intro": {
+    "title": "Honor"
+  },
   "skeleton_title": "Content being prepared",
   "skeleton_body": "Company profile, development history, honors and global presence are being prepared. Stay tuned.",
   "cta": "Contact Us"

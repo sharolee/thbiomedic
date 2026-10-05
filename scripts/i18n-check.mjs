@@ -7,7 +7,10 @@
  *  2. 命名合法：点键匹配 ^[a-z0-9_]+(\.[a-z0-9_]+){0,3}$，仅英文小写
  *  3. 无空值/占位：值为 ""、纯空白、待补充/TBD/TODO 即失败
  *  4. 变量一致：同一键双语值中的 {var} 集合一致
- *  5. slug 对齐：data/*.json 双语数组按 slug 集合比较（新增豁免需引用矩阵条目）
+ *  5. slug 对齐：data/*.json 双语数组按 slug 集合比较；不对称须登记在
+ *     scripts/i18n-known-gaps.json 的 exemptions（必须引用 translation-matrix.md 条目编号）
+ *  6. 硬编码文案残留：src/pages/** 与 src/components/** 的模板区（frontmatter 与
+ *     HTML 注释除外）不得出现 CJK 字符（文案必须来自 src/content 字典）
  *
  * 用法：node scripts/i18n-check.mjs
  */
@@ -75,13 +78,45 @@ function relativePath(file, langDir) {
   return path.relative(langDir, file).replace(/\\/g, '/');
 }
 
-/** 校验 data/*.json 双语数组的 slug 对齐 */
-function checkSlugAlignment(rel, zhData, enData, issues) {
-  const slugsOf = (data) => (Array.isArray(data) ? data.filter((i) => i && typeof i.slug === 'string').map((i) => i.slug) : []);
+/** 加载已知差异豁免清单（exemptions 按 data 文件相对路径登记豁免 slug） */
+function loadKnownGaps() {
+  const file = path.join(root, 'scripts', 'i18n-known-gaps.json');
+  try {
+    const data = JSON.parse(readFileSync(file, 'utf8'));
+    const exemptions = new Map();
+    for (const entry of data.exemptions ?? []) {
+      if (!entry.file || !Array.isArray(entry.slugs) || !entry.matrix) {
+        throw new Error(`豁免条目缺 file/slug/matrix 字段: ${JSON.stringify(entry)}`);
+      }
+      exemptions.set(entry.file, new Set(entry.slugs));
+    }
+    return exemptions;
+  } catch (err) {
+    if (err.code === 'ENOENT') return new Map();
+    throw err;
+  }
+}
+
+/** 校验 data/*.json 双语数组的 slug 对齐（豁免清单内的 slug 不计入差异） */
+function checkSlugAlignment(rel, zhData, enData, issues, exemptions) {
+  const exempt = exemptions.get(rel) ?? new Set();
+  // 递归收集所有数组中带 slug 的对象（兼容 categories/items 等嵌套结构）
+  const slugsOf = (data) => {
+    const found = [];
+    const walk = (v) => {
+      if (Array.isArray(v)) v.forEach(walk);
+      else if (v && typeof v === 'object') {
+        if (typeof v.slug === 'string') found.push(v.slug);
+        Object.values(v).forEach(walk);
+      }
+    };
+    walk(data);
+    return found;
+  };
   const zhSlugs = slugsOf(zhData);
   const enSlugs = slugsOf(enData);
-  const missingInEn = zhSlugs.filter((s) => !enSlugs.includes(s));
-  const missingInZh = enSlugs.filter((s) => !zhSlugs.includes(s));
+  const missingInEn = zhSlugs.filter((s) => !enSlugs.includes(s) && !exempt.has(s));
+  const missingInZh = enSlugs.filter((s) => !zhSlugs.includes(s) && !exempt.has(s));
   if (missingInEn.length) {
     issues.push(`[${rel}] en 缺少 slug: ${missingInEn.join(', ')}`);
   }
@@ -98,9 +133,67 @@ function checkEmptyValues(rel, data, issues) {
   }
 }
 
+const CJK_RE = /[一-鿿　-〿＀-￯]/;
+
+/** 规则 6 白名单：经评审的非文案 CJK（须写清理由，新增需复核） */
+const HARDCODED_ALLOWLIST = [
+  { file: 'src/pages/index.astro', reason: '根路径语言跳转页，<title> 为品牌名（无语言属性）' },
+  { file: 'src/components/layout/Header.astro', contains: 'logo-mark', reason: 'Logo 字形「天」为设计元素，非文案' },
+];
+
+/** 递归列出目录下所有 .astro 文件 */
+function listAstroFiles(dir) {
+  const result = [];
+  let entries;
+  try {
+    entries = readdirSync(dir, { withFileTypes: true });
+  } catch {
+    return result;
+  }
+  for (const entry of entries) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      result.push(...listAstroFiles(full));
+    } else if (entry.name.endsWith('.astro')) {
+      result.push(full);
+    }
+  }
+  return result;
+}
+
+/** 规则 6：硬编码文案残留 —— 模板区（去掉 frontmatter 与注释后）出现 CJK 即失败 */
+function checkHardcodedCopy(issues) {
+  const srcDir = path.join(root, 'src');
+  const files = [
+    ...listAstroFiles(path.join(srcDir, 'pages')),
+    ...listAstroFiles(path.join(srcDir, 'components')),
+  ];
+  for (const file of files) {
+    const rel = path.relative(root, file).replace(/\\/g, '/');
+    let text = readFileSync(file, 'utf8');
+    // 去掉 frontmatter（--- ... ---）、<style>/<script> 块、HTML/JS/CSS 注释
+    text = text.replace(/^---[\s\S]*?---/, '');
+    text = text.replace(/<style[\s\S]*?<\/style>/gi, '');
+    text = text.replace(/<script[\s\S]*?<\/script>/gi, '');
+    text = text.replace(/<!--[\s\S]*?-->/g, '');
+    text = text.replace(/\/\*[\s\S]*?\*\//g, '');
+    const lines = text.split('\n');
+    lines.forEach((line, i) => {
+      if (!CJK_RE.test(line)) return;
+      const allow = HARDCODED_ALLOWLIST.some(
+        (w) => w.file === rel && (!w.contains || line.includes(w.contains))
+      );
+      if (!allow) {
+        issues.push(`[${rel}:${i + 1}] 模板区疑似硬编码中文文案: ${line.trim().slice(0, 60)}`);
+      }
+    });
+  }
+}
+
 function main() {
   const issues = [];
   let checked = 0;
+  const exemptions = loadKnownGaps();
 
   const zhFiles = listJsonFiles(path.join(contentRoot, 'zh'));
   const enFiles = listJsonFiles(path.join(contentRoot, 'en'));
@@ -129,7 +222,7 @@ function main() {
 
     // data/ 目录：只做 slug 对齐 + 空值检查（结构化实体，不走点键）
     if (rel.startsWith('data/')) {
-      checkSlugAlignment(rel, zhData, enData, issues);
+      checkSlugAlignment(rel, zhData, enData, issues, exemptions);
       checkEmptyValues(rel, zhData, issues);
       checkEmptyValues(rel, enData, issues);
       continue;
@@ -171,6 +264,8 @@ function main() {
       }
     }
   }
+
+  checkHardcodedCopy(issues);
 
   if (issues.length) {
     console.error(`\u2717 双语完整性校验失败（共 ${issues.length} 项）:`);

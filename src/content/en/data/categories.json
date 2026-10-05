@@ -1,1 +1,86 @@
-[]
+[
+  {
+    "slug": "low-temp-thermoplastics",
+    "name": "Low temperature thermoplastics",
+    "order": 1,
+    "children": [
+      { "slug": "low-temp-sheets", "name": "Low Temperature Thermoplastic Sheets", "hasProducts": false },
+      { "slug": "easy-lock", "name": "Easy-to-lock Thermoplastic Splint", "hasProducts": true },
+      { "slug": "pre-cut", "name": "Pre-Cut Thermoplastic Splints", "hasProducts": false },
+      { "slug": "skin-friendly", "name": "Skin-friendly Thermoplastics", "hasProducts": false }
+    ]
+  },
+  {
+    "slug": "air-mesh-thermoplastic",
+    "name": "Air Mesh Thermoplastic Series",
+    "order": 2,
+    "children": [
+      { "slug": "air-mesh-sheets", "name": "Air Mesh Thermoplastic Sheets & Splints", "hasProducts": false },
+      { "slug": "air-mesh-thoracolumbar", "name": "Air Mesh Thermoplastic Thoracolumbar Orthosis", "hasProducts": false }
+    ]
+  },
+  {
+    "slug": "comfort-orthosis",
+    "name": "Thermoplastic Comfort Orthosis Series",
+    "desc": "The Low-Temperature Thermoplastic Comfort Orthosis is an innovative product line specifically designed to meet the needs of medical rehabilitation and sports protection. The series includes the Thoracolumbar Orthosis, Cervico-Thoracic-Lumbar Orthosis, Lumbar Orthosis, and Pelvic Orthosis, each product aimed at providing professional support and protection to facilitate rehabilitation.",
+    "order": 3,
+    "children": [
+      { "slug": "thoracolumbar-orthosis", "name": "Thoracolumbar Orthosis", "hasProducts": false },
+      { "slug": "cervico-thoracic-lumbar", "name": "Cervico-Thoracic-Lumbar Orthosis", "hasProducts": false },
+      { "slug": "lumbar-orthosis", "name": "Lumbar Orthosis", "hasProducts": false },
+      { "slug": "pelvic-orthosis", "name": "Pelvic Orthosis", "hasProducts": false }
+    ]
+  },
+  {
+    "slug": "adjustable-orthosis",
+    "name": "Adjustable Orthosis & Supports",
+    "order": 4,
+    "children": [
+      { "slug": "adjustable-knee", "name": "Adjustable Knee Orthosis", "hasProducts": false },
+      { "slug": "adjustable-elbow", "name": "Adjustable Elbow Orthosis", "hasProducts": false }
+    ]
+  },
+  {
+    "slug": "extension-tendon-splints",
+    "name": "Extension Tendon Splints",
+    "order": 5,
+    "children": []
+  },
+  {
+    "slug": "accessory",
+    "name": "Accessory",
+    "order": 6,
+    "children": []
+  },
+  {
+    "slug": "high-temp-thermoplastics",
+    "name": "High Temperature Thermoplastics",
+    "order": 7,
+    "children": []
+  },
+  {
+    "slug": "rehab-cushion",
+    "name": "Cushion for Rehabilitation",
+    "order": 8,
+    "children": []
+  },
+  {
+    "slug": "patient-immobilization",
+    "name": "Patient Immobilization",
+    "order": 9,
+    "children": [
+      { "slug": "patch", "name": "Patch", "hasProducts": false },
+      { "slug": "strap", "name": "Strap", "hasProducts": false },
+      { "slug": "adapter", "name": "Adapter", "hasProducts": false }
+    ]
+  },
+  {
+    "slug": "pet-rehabilitation",
+    "name": "Pet Rehabilitation",
+    "order": 10,
+    "children": [
+      { "slug": "pet-thermoplastic", "name": "Pet thermoplastic", "hasProducts": true },
+      { "slug": "pet-health-clothes", "name": "Pet health clothes", "hasProducts": false }
+    ]
+  }
+]
