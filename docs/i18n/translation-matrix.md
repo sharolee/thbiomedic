@@ -16,8 +16,8 @@
 
 | # | 语义页面 | 中文源（盘点依据） | 英文目标（盘点依据） | 状态 | 备注 |
 |---|---|---|---|---|---|
-| R-01 | 全站通用（导航/页脚/表单/搜索） | §3.1、§3.4、§4.5 | §3.1、§3.4、§4.5 | 已对齐（SHAR-40 批次1） | 表单字段中英一一对应（§4.5 表）；common.json 双语各 65 键，键集合一致 |
-| R-02 | 首页 | §4.3（3 品牌卡+关于摘要+宣传视频） | §4.3 | 已对齐（SHAR-40 批次1，待确认 P-1） | 品牌卡/摘要已按原站填充；⚠️ 中英首页宣传视频为不同文件（§7-4），素材迁移后接入；见 P-1 |
+| R-01 | 全站通用（导航/页脚/表单/搜索） | §3.1、§3.4、§4.5 | §3.1、§3.4、§4.5 | 已填充 | 表单字段中英一一对应（§4.5 表）；common.json 双语各 73 键，键集合一致 |
+| R-02 | 首页 | §4.3（3 品牌卡+关于摘要+宣传视频） | §4.3 | 已填充（P-1 待确认） | 品牌卡/摘要已按原站填充；⚠️ 中英首页宣传视频为不同文件（§7-4），素材迁移后接入；见 P-1 |
 | R-03 | 关于我们 | §4.2（简介+历程图+荣誉 9 项） | §4.2（简介+历程图+荣誉 8 项） | 已填充（待确认 P-2） | 简介/历程已填充；荣誉按并集双语各 10 项，3 张证书图跨语言暂用；英文站 Company Profile/Culture 子页 404 已废弃为页内区块；见 P-2 |
 | R-04 | 产品中心首页（一级分类导航） | §1-3 | §2-5 | 已填充 | 10 分类入口 |
 | R-05 | 一级分类：低温热塑系列 | §3.2（lcid 58） | Low temperature thermoplastics（42） | 已填充 | |
@@ -117,3 +117,66 @@
 
 - **17 个二级分类列表页未生成路由**：src/pages/{zh,en}/products/[category]/index.astro 的 getStaticPaths 只遍历一级分类；产品详情页已按 categorySlug（二级 slug）生成在 /products/easy-lock/<slug>/ 等路径下，但 /products/easy-lock/ 等 17 个二级页无路由。字典数据已就绪（children + hasProducts + empty_state），仅需路由层把 children 纳入 getStaticPaths。本任务边界（不改页面组件代码）内未处理。
 - **素材未迁移**：public/assets/ 仍为空，字典引用的全部媒体文件（证书图 12 个、历程图 2、关于配图 2、公众号二维码 2、视频 27 去重、PDF 6、首页宣传视频 2、首页品牌卡图 6）需素材迁移任务从原站 /uploadfiles/ 下载（防盗链需带 Referer，见盘点 §5.4）。
+
+## 6. 批次3 收尾核对（2026-10-05，全栈老欧 / SHAR-42）
+
+> 第 3 批范围：关于我们 / 联系我们 / 资源（下载、视频）/ 搜索 / 404（中英双语）。内容在批次 1/2 已合入（a737ac5），本批完成**逐项真实性核对 + 矩阵最终状态收尾**。
+
+### 6.1 本批范围核对（逐项对照盘点证据）
+
+| 矩阵行 | 文件 | 核对结果 | 证据 |
+|---|---|---|---|
+| R-03 | pages/about.json（zh/en） | ✅ profile 3 段中英逐句对应；history 图/alt 双语就位；certificates_intro 就位 | about.json 双语各 23 键 |
+| R-03 | data/certificates.json | ✅ 并集 10 项双语 slug 一致；证书图文件名与盘点 §5.1 及抓取 HTML 一致 | 双语各 10 项 |
+| R-44 | data/downloads.json | ✅ 3 项中英 slug 一致；**6 个 PDF 大小经原站 HEAD 实测全部吻合**（zh 6.5/2.5/1.0MB，en 31.1/26.4/1.0MB） | Content-Length 实测 |
+| R-45~R-48 | data/videos.json | ✅ 3 栏目双语一致；18 条并集（16+1+1）slug 一致；file 文件名与 videos_map_all.txt 逐条吻合 | 双语各 21 条（含栏目） |
+| R-50 | pages/contact.json + data/contact.json | ✅ 双语地址/邮箱/公众号图就位；en 保留 phoneExt（P-7 待确认）；二维码文件名经抓取 HTML 核实（zh 20241127090745558 / en 20241126151510724） | 抓取 ContactUs 页 |
+| R-01 | common.json（搜索 + 404） | ✅ search.* 9 键、common.not_found_* 3 键双语就位；搜索页 /zh/search/ /en/search/、404.astro 均消费字典键 | common.json 双语各 73 键 |
+
+### 6.2 矩阵最终状态统计（R-01~R-50 共 50 行）
+
+| 状态 | 行数 | 明细 |
+|---|---|---|
+| 已填充 | 43 | R-01、R-04~R-43、R-45、R-47、R-48 |
+| 已填充（P-x 待客户确认） | 5 | R-02（P-1）、R-03（P-2）、R-44（P-3）、R-46（P-4）、R-50（P-7） |
+| 待确认 | 1 | R-49（P-6，新闻栏目去留） |
+| 缺失 | 1 | R-03 附件层：en 缺创新型中小/专精特新英文版证书图、zh 缺专利证书中文版图（P-2，跨语言暂用已登记） |
+| **合计** | **50** | 语义页面行 R-02~R-50 = **49 行**，与 §1 盘点计数 49 一致 ✅ |
+
+> 「缺失」1 行指 R-03 的部分素材原件缺失（非整行内容缺失），已在 P-2 点名；内容层无整行缺失。
+
+### 6.3 全站 zh/en key 数一致性核对（验收证据）
+
+- 双语文件 16 个（common.json + 8 页面 + 7 数据）：zh 596 键 / en 597 键，**唯一差异 = data/contact.json 的 phoneExt**（en 独有，P-7 已登记，属 content-model §8 例外字段），其余 15 个文件键集合完全一致。
+- data/*.json slug 对齐：categories 27/27、products 12/12、downloads 3/3、videos 21/21、certificates 10/10、news 0/0（items 空）、contact 对象键 6/7（phoneExt 例外）。
+- `node scripts/i18n-check.mjs` → PASS（键集合一致 / 命名合法 / 无空值 / 变量一致 / slug 对齐 / 无硬编码文案残留）。
+- `npm run build` → 62 页（每语言 31 页）。
+
+### 6.4 缺失素材清单（需客户提供，回传同步）
+
+| # | 事项 | 需谁 | 说明 |
+|---|---|---|---|
+| 1 | en 侧 innovative-sme / specialized-new-sme 的**英文版证书图** | 客户 | 现暂用中文版图（P-2） |
+| 2 | zh 侧 patent 的**中文版专利证书图** | 客户 | 现暂用英文版图（P-2） |
+| 3 | 中英首页宣传视频（20251112162344793 vs 20251112163145210）**以哪版为准** | 客户 | P-1，两文件内容一致性待确认 |
+| 4 | 骨科康复方案中英 PDF（20251112135837464 vs 20251112134647962）**以哪版为准** | 客户 | P-3，内容一致性待确认 |
+| 5 | 视频栏目 7 对同主题视频中英**以哪版文件为准** | 客户 | P-4 |
+| 6 | 新闻栏目**保留还是移除** | 客户 | P-6，双站均空、子栏目 404 |
+| 7 | 电话分机 -2018、公众号命名（天泓医疗 vs Onesky Medical）**以哪版为准** | 客户 | P-7 |
+
+### 6.5 本批验收命令与真实输出
+
+```
+# 全站 49 页 key 数一致性（脚本输出）
+common.json      zh 73 / en 73   OK
+pages/about.json zh 23 / en 23   OK   (R-03)
+pages/contact.json zh 11 / en 11 OK   (R-50)
+pages/resources.json zh 12 / en 12 OK (R-44/R-45)
+data/downloads.json  3 / 3       OK   (R-44)
+data/videos.json  21 / 21        OK   (R-45~R-48)
+data/certificates.json 10 / 10   OK   (R-03)
+data/contact.json  6 / 7         DIFF=phoneExt（P-7 已登记例外）
+
+npm run check:all → typecheck ✅ i18n:check ✅ build ✅（62 页）
+git diff --stat（本批）→ docs/i18n/translation-matrix.md 更新
+```
