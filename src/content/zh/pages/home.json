@@ -55,7 +55,8 @@
   "promo_video": {
     "title": "走进天泓",
     "subtitle": "公司宣传片",
-    "placeholder": "视频素材待迁移",
+    "video_key": "vid-20251112162344793",
+    "fallback": "您的浏览器不支持视频播放，请升级浏览器后重试。",
     "play_label": "播放视频"
   },
   "contact_cta": {

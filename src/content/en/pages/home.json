@@ -55,7 +55,8 @@
   "promo_video": {
     "title": "About Tianhong",
     "subtitle": "Corporate Video",
-    "placeholder": "Video asset pending migration",
+    "video_key": "vid-20251112163145210",
+    "fallback": "Your browser does not support video playback. Please upgrade your browser and try again.",
     "play_label": "Play video"
   },
   "contact_cta": {

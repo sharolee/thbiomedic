@@ -10,6 +10,7 @@ import Icon from '../../components/ui/Icon.astro';
 import { loadHomeDict } from '../../utils/i18n';
 import { getCategories } from '../../utils/content';
 import { getProductsPath, getContactPath } from '../../utils/url';
+import { assetUrl } from '../../utils/assets';
 
 // 首页（page-structure §1，中文站）
 const lang = 'zh';
@@ -76,8 +77,9 @@ const trustItems = [
   <PromoVideo
     title={home.promo_video.title}
     subtitle={home.promo_video.subtitle}
-    placeholder={home.promo_video.placeholder}
+    placeholder={home.promo_video.fallback}
     playLabel={home.promo_video.play_label}
+    videoSrc={assetUrl(home.promo_video.video_key)}
   />
 
   <!-- 联系引导条（page-structure §1-7） -->

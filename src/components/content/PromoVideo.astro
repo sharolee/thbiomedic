@@ -17,7 +17,7 @@ const { title, subtitle, placeholder, playLabel, videoSrc } = Astro.props;
     <p class="promo-video__subtitle">{subtitle}</p>
     <div class="promo-video__player">
       {videoSrc ? (
-        <video controls preload="metadata" poster="" aria-label={playLabel}>
+        <video controls preload="metadata" aria-label={playLabel}>
           <source src={videoSrc} type="video/mp4" />
           <p>{placeholder}</p>
         </video>

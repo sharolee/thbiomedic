@@ -176,10 +176,10 @@ export interface TrustBarProps {
 export interface PromoVideoProps {
   title: string;
   subtitle: string;
-  /** 素材缺失占位文案 */
+  /** 浏览器不支持 <video> 时的降级文案 */
   placeholder: string;
   playLabel: string;
-  /** 视频文件路径（public/assets 下），缺失则不渲染 <video> */
+  /** 视频素材完整 URL（经 utils/assets.ts 映射，ADR-003 原站直引）；缺失则渲染占位块 */
   videoSrc?: string;
 }
 

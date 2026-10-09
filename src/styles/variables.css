@@ -102,6 +102,11 @@
   --bp-xl: 1280px;
   --bp-2xl: 1536px;
 
+  /* ── 栅格（utilities.css .u-grid / .u-card-grid 依赖，B0 遗漏补齐）──
+     移动 4 列 / 平板 8 列 / 桌面 12 列；列间距走 spacing 阶梯派生。 */
+  --grid-columns: 4;
+  --grid-gap: var(--sp-4);
+
   /* ── 补充令牌（原型 :root 未覆盖，扩写见 design-spec.md v2 §9）─────────
      仅补功能必需项；色值走中性/品牌阶梯派生，对比度满足 WCAG AA。 */
   --color-success-600: #1E8E5A;
@@ -128,6 +133,7 @@
 
   /* ── 行高 / 字重 / 次级字号 别名（承接仓库约定，值引用源令牌或规范常量）── */
   --leading-title: var(--lh-title);
+  --leading-display: var(--lh-title);
   --leading-body:  var(--lh-body);
   --leading-h1: var(--lh-title);
   --leading-h2: var(--lh-title);
@@ -147,6 +153,13 @@
   --border-default: 1px solid var(--c-neutral-200);
 }
 
+/* ── 栅格列数平板升档（移动 4 → 平板 8）───────────────────────────── */
+@media (min-width: 640px) {
+  :root {
+    --grid-columns: 8;
+  }
+}
+
 /* ── 字号桌面升档（direction-a-plus @media 1024px，整块移植）────────────── */
 @media (min-width: 1024px) {
   :root {
@@ -157,5 +170,8 @@
     --fs-body: 16px;
     --fs-small: 14px;
     --gutter: 32px;
+
+    --grid-columns: 12;
+    --grid-gap: var(--sp-6);
   }
 }

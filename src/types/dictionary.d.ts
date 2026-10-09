@@ -167,8 +167,10 @@ export interface HomeDict {
   promo_video: {
     title: string;
     subtitle: string;
-    /** 视频素材缺失时的占位文案 */
-    placeholder: string;
+    /** utils/assets.ts 素材 key（ADR-003 原站直引） */
+    video_key: string;
+    /** 浏览器不支持 <video> 时的降级文案 */
+    fallback: string;
     play_label: string;
   };
   contact_cta: {
