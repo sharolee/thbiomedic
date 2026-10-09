@@ -90,9 +90,10 @@ const keysOf = (lang) => ({
   first: data[lang].categories.map((c) => c.slug).sort().join('|'),
   second: data[lang].categories.flatMap((c) => (c.children ?? []).map((c) => c.slug)).sort().join('|'),
   product: data[lang].products.map((p) => p.slug).sort().join('|'),
-  image: data[lang].products
-    .map((p) => `${p.slug}=[${(p.images ?? []).map((i) => i.key).sort().join(',')}=]`)
-    .join('|'),
+  // 只核对条数，不核对 key：中英产品实拍图为不同语言版本的文件
+  // （同 ADR-002 例外口径：Certificate.image / Download.file 中英可不同），
+  // key 存在性已在上方逐项校验
+  imageCount: data[lang].products.map((p) => `${p.slug}=[${(p.images ?? []).length}]=`).join('|'),
 });
 const kz = keysOf('zh');
 const ke = keysOf('en');
@@ -100,7 +101,7 @@ for (const [field, a, b] of [
   ['一级 slug', kz.first, ke.first],
   ['二级 slug', kz.second, ke.second],
   ['产品 slug', kz.product, ke.product],
-  ['产品素材 key 逐条', kz.image, ke.image],
+  ['产品素材条数', kz.imageCount, ke.imageCount],
 ]) {
   if (a !== b) failuresPush(`中英镜像不一致（${field}）:\n  zh=${a}\n  en=${b}`);
 }
