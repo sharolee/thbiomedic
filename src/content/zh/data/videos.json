@@ -5,23 +5,54 @@
     { "slug": "pet-rehabilitation", "name": "宠物康复" }
   ],
   "items": [
-    { "slug": "finger-splint", "categorySlug": "physical-rehabilitation", "title": "手指固定支具", "file": "20211216085643476.mp4" },
-    { "slug": "thumb", "categorySlug": "physical-rehabilitation", "title": "拇指固定支具", "file": "20220103203347843.mp4" },
-    { "slug": "knee-splint", "categorySlug": "physical-rehabilitation", "title": "膝关节支具", "file": "20220103203041812.mp4" },
-    { "slug": "body-splint", "categorySlug": "physical-rehabilitation", "title": "腰背心支具", "file": "20211209112600896.mp4" },
-    { "slug": "soft-cloth-chest-waist", "categorySlug": "physical-rehabilitation", "title": "覆布胸腰支具", "file": "20220103203138468.mp4" },
-    { "slug": "soft-cloth-waist", "categorySlug": "physical-rehabilitation", "title": "覆布腰围支具", "file": "20211215104002648.mp4" },
-    { "slug": "elbow-wrist-splint", "categorySlug": "physical-rehabilitation", "title": "肘腕关节支具", "file": "20220103202626905.mp4" },
-    { "slug": "wrist-splint", "categorySlug": "physical-rehabilitation", "title": "腕关节支具", "file": "20220103195319077.mp4" },
-    { "slug": "tibiofibular-splint", "categorySlug": "physical-rehabilitation", "title": "胫腓骨支具", "file": "20220103195111749.mp4" },
-    { "slug": "shoulder-elbow-splint", "categorySlug": "physical-rehabilitation", "title": "肩肘支具", "file": "20220103200540062.mp4" },
-    { "slug": "drop-foot-splint", "categorySlug": "physical-rehabilitation", "title": "足下垂支具", "file": "20220103194303249.mp4" },
-    { "slug": "ankle-splint", "categorySlug": "physical-rehabilitation", "title": "踝关节支具", "file": "20211215104112648.mp4" },
-    { "slug": "adjustable-knee-splint", "categorySlug": "physical-rehabilitation", "title": "可调膝关节支具", "file": "20211209094814255.mp4" },
-    { "slug": "intrinsic-plus-splint", "categorySlug": "physical-rehabilitation", "title": "内在肌加强位固定支具", "file": "20211217105159648.mp4" },
-    { "slug": "extension-tendon-splint", "categorySlug": "physical-rehabilitation", "title": "伸肌腱动力支具", "file": "20211209104947146.mp4" },
-    { "slug": "rest-hand-splint", "categorySlug": "physical-rehabilitation", "title": "休息位手支具", "file": "20211217105408836.mp4" },
-    { "slug": "ifix-operation", "categorySlug": "patient-immobilization", "title": "固德易", "file": "20211214145246460.mp4" },
-    { "slug": "hock-thermoplastic", "categorySlug": "pet-rehabilitation", "title": "跗关节热塑支具", "file": "20220104085806452.mp4" }
+    {
+      "slug": "adjustable-knee-splint",
+      "categorySlug": "physical-rehabilitation",
+      "title": "可调膝关节支具",
+      "file": "vid-20211209094814255",
+      "poster": "img-20211209095056427"
+    },
+    {
+      "slug": "finger-splint",
+      "categorySlug": "physical-rehabilitation",
+      "title": "手指固定支具",
+      "file": "vid-20211216085643476",
+      "poster": "img-20211202213355925"
+    },
+    {
+      "slug": "ankle-splint",
+      "categorySlug": "physical-rehabilitation",
+      "title": "踝关节支具",
+      "file": "vid-20211215104112648",
+      "poster": "img-20211202213435613"
+    },
+    {
+      "slug": "body-splint",
+      "categorySlug": "physical-rehabilitation",
+      "title": "腰背心支具",
+      "file": "vid-20211209112600896",
+      "poster": "img-20211202213607722"
+    },
+    {
+      "slug": "extension-tendon-splint",
+      "categorySlug": "physical-rehabilitation",
+      "title": "伸肌腱动力支具",
+      "file": "vid-20211209104947146",
+      "poster": "img-20211202213652972"
+    },
+    {
+      "slug": "soft-cloth-waist",
+      "categorySlug": "physical-rehabilitation",
+      "title": "覆布腰围支具",
+      "file": "vid-20211215104002648",
+      "poster": "img-20211202213730784"
+    },
+    {
+      "slug": "ifix-operation",
+      "categorySlug": "patient-immobilization",
+      "title": "固德易",
+      "file": "vid-20211214145246460",
+      "poster": "img-20211202213904019"
+    }
   ]
 }

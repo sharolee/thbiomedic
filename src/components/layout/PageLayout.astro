@@ -12,9 +12,10 @@ type Props = PageLayoutProps;
 
 // 页面外壳（architecture.md §3.2 布局类组件）：
 // <html>/<head>（title/meta/canonical/hreflang）、Header、main、Footer
-const { lang, dict, title, description } = Astro.props;
+const { lang, dict, title, description, hreflangLinks = true } = Astro.props;
 const pathname = Astro.url.pathname;
-const hreflang = getHreflangLinks(pathname, lang);
+// m-4：404 等无语言变体的页面可关掉 hreflang（无互指关系，输出反而误导爬虫）
+const hreflang = hreflangLinks ? getHreflangLinks(pathname, lang) : [];
 const canonical = getCanonicalUrl(pathname);
 const htmlLang = lang === 'zh' ? 'zh-CN' : 'en';
 const resolvedLang = getLangFromPath(pathname);

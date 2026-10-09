@@ -2,18 +2,26 @@
 import PageLayout from '../../../../components/layout/PageLayout.astro';
 import Banner from '../../../../components/layout/Banner.astro';
 import EmptyState from '../../../../components/ui/EmptyState.astro';
+import SectionHeader from '../../../../components/ui/SectionHeader.astro';
+import Button from '../../../../components/ui/Button.astro';
 import { loadHomeDict } from '../../../../utils/i18n';
 import { getVideos } from '../../../../utils/content';
-import Icon from '../../../../components/ui/Icon.astro';
+import { assetUrl } from '../../../../utils/assets';
+import { getVideosPath, getContactPath } from '../../../../utils/url';
+import type { Lang } from '../../../../types/dictionary';
+import type { BreadcrumbItem } from '../../../../types/components';
 
-// Videos (page-structure §4.2, skeleton: video list filled by W3-3)
-const lang = 'en';
+// Videos index (page-structure §4.2, English site): full video list grouped by
+// category + one entry card per category; empty state panel when no data.
+const lang = 'en' as Lang;
 const dict = loadHomeDict(lang);
 const page = dict.resources.videos;
 const t = dict.common;
 const videos = getVideos(lang);
+const items = videos.items;
+const catPath = (slug: string) => getVideosPath(lang).replace('/$', '') + `${slug}/`;
 
-const trail = [
+const trail: BreadcrumbItem[] = [
   { label: t.breadcrumb.home, href: `/${lang}/` },
   { label: t.nav.resources },
   { label: page.banner.title },
@@ -32,57 +40,77 @@ const trail = [
 
   <section class="u-section">
     <div class="u-container">
-      {videos.items.length > 0 ? (
-        <div class="u-card-grid">
-          {videos.items.map((item) => (
-            <div class="video-card card">
-              <div class="video-card__media card__media">
-                {item.poster ? (
-                  <img src={item.poster} alt={item.title} loading="lazy" />
-                ) : (
-                  <span class="video-card__placeholder"><Icon name="play" size={40} /></span>
-                )}
-                <span class="video-card__play" aria-hidden="true"><Icon name="play" size={20} /></span>
-              </div>
-              <div class="video-card__body card__body">
-                <h3 class="video-card__title card__title">{item.title}</h3>
-              </div>
-            </div>
+      {videos.categories.length > 0 && (
+        <div class="video-cats">
+          {videos.categories.map((c) => (
+            <Button href={catPath(c.slug)} variant="secondary">{c.name}</Button>
           ))}
         </div>
+      )}
+      {items.length > 0 ? (
+        <div class="video-groups">
+          {videos.categories.map((c) => {
+            const group = items.filter((v) => v.categorySlug === c.slug);
+            if (group.length === 0) return null;
+            return (
+              <div class="video-group">
+                <SectionHeader title={c.name} />
+                <div class="u-card-grid">
+                  {group.map((item) => (
+                    <div class="video-card card">
+                      <div class="video-card__media card__media">
+                        <video
+                          controls
+                          preload="none"
+                          playsinline
+                          onerror="this.remove()"
+                        >
+                          <source src={assetUrl(item.file)} type="video/mp4" />
+                        </video>
+                      </div>
+                      <div class="video-card__body card__body">
+                        <h3 class="video-card__title card__title">{item.title}</h3>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       ) : (
-        <EmptyState title={page.empty_title} body={page.empty_body} icon="play" />
+        <EmptyState title={page.empty_title} body={page.empty_body} icon="play">
+          <Button href={getContactPath(lang)} variant="secondary">{page.empty_cta}</Button>
+        </EmptyState>
       )}
     </div>
   </section>
 </PageLayout>
 
 <style>
-  .video-card__media {
-    position: relative;
+  .video-cats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
   }
 
-  .video-card__placeholder {
-    display: grid;
-    place-items: center;
+  .video-groups {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  .video-card__media {
+    background: var(--color-neutral-100);
+  }
+
+  .video-card__media video {
     width: 100%;
     height: 100%;
-    background: var(--color-neutral-100);
-    color: var(--color-neutral-500);
-  }
-
-  /* Play icon: bottom-left 28px circle (design-spec §6.3 video card) */
-  .video-card__play {
-    position: absolute;
-    left: var(--space-sm);
-    bottom: var(--space-sm);
-    display: grid;
-    place-items: center;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: rgba(11, 43, 82, 0.72);
-    color: var(--color-white);
+    object-fit: cover;
+    display: block;
+    aspect-ratio: 16 / 9;
   }
 
   .video-card__title {

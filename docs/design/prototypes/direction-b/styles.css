@@ -1,0 +1,251 @@
+/* ============================================================
+   方向 B · 科技未来型（Med-Tech Dark）
+   设计令牌 — 全部集中于此，后续实现直接复用
+   ============================================================ */
+:root {
+  /* 配色：深墨青底 + 青蓝辉光 + 橙红高能点缀（均自 Logo 双色派生） */
+  --c-ink-950: #04181F;   /* 页面深底 */
+  --c-ink-900: #06222E;   /* 区块深底 */
+  --c-ink-800: #0B3040;   /* 卡片底 */
+  --c-ink-line: rgba(122, 199, 224, .16); /* 发丝线 */
+  --c-primary-400: #2FB6DC;
+  --c-primary-500: #0D8FB5;  /* 品牌青蓝 */
+  --c-primary-700: #0A6E88;
+  --c-accent-500: #E75306;   /* 品牌橙红 */
+  --c-accent-400: #FF6B1F;
+  --c-text-hi:  #EAF6FA;     /* 深底高亮文字 */
+  --c-text-mid: #9FBCC8;     /* 深底正文 */
+  --c-text-dim: #6C8B97;
+  --c-paper:    #F7FAFB;     /* 浅底区块 */
+  --c-neutral-900: #16242B;
+  --c-neutral-700: #3D4F59;
+  --c-neutral-500: #71838D;
+  --c-neutral-200: #E1E9ED;
+
+  --glow-teal: 0 0 40px rgba(47, 182, 220, .25);
+  --grad-brand: linear-gradient(100deg, #0D8FB5 0%, #2FB6DC 55%, #7FE0C3 100%);
+  --grad-hero: radial-gradient(1200px 600px at 70% -10%, rgba(13, 143, 181, .35), transparent 60%),
+               radial-gradient(800px 500px at 10% 110%, rgba(231, 83, 6, .14), transparent 55%);
+
+  --font-sans: "Inter", "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-num: "Inter", var(--font-sans);
+
+  --fs-display: 36px;
+  --fs-h2: 26px;
+  --fs-h3: 19px;
+  --fs-body-lg: 16px;
+  --fs-body: 15px;
+  --fs-small: 13px;
+
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-6: 24px; --sp-8: 32px; --sp-12: 48px; --sp-16: 64px; --sp-24: 96px;
+
+  --container: 1280px;
+  --gutter: 16px;
+
+  --r-md: 12px; --r-lg: 20px; --r-pill: 999px;
+  --shadow-glass: 0 8px 32px rgba(2, 12, 16, .45);
+
+  --dur: 220ms;
+  --ease: cubic-bezier(.22, .8, .3, 1);
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --fs-display: 60px;
+    --fs-h2: 38px;
+    --fs-h3: 22px;
+    --fs-body-lg: 18px;
+    --fs-body: 16px;
+    --fs-small: 14px;
+    --gutter: 32px;
+  }
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  color: var(--c-text-mid);
+  background: var(--c-ink-950);
+}
+img { max-width: 100%; display: block; }
+a { color: var(--c-primary-400); text-decoration: none; }
+h1, h2, h3 { color: var(--c-text-hi); line-height: 1.15; font-weight: 700; letter-spacing: -0.01em; }
+
+.container { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
+
+/* ---------- 语言切换 ---------- */
+.lang-cb { position: absolute; opacity: 0; pointer-events: none; }
+.t-en { display: none; }
+.lang-cb:checked ~ .page .t-zh { display: none; }
+.lang-cb:checked ~ .page .t-en { display: inline; }
+.lang-pill {
+  display: inline-flex; border: 1px solid var(--c-ink-line); border-radius: var(--r-pill);
+  overflow: hidden; cursor: pointer; font-size: var(--fs-small); line-height: 1; user-select: none;
+  background: rgba(255, 255, 255, .03); backdrop-filter: blur(8px);
+}
+.lang-pill span { padding: 7px 12px; color: var(--c-text-dim); transition: all var(--dur) var(--ease); }
+.lang-pill .opt-zh { background: var(--grad-brand); color: #04181F; font-weight: 700; }
+.lang-cb:checked ~ .page .lang-pill .opt-zh { background: transparent; color: var(--c-text-dim); font-weight: 400; }
+.lang-cb:checked ~ .page .lang-pill .opt-en { background: var(--grad-brand); color: #04181F; font-weight: 700; }
+
+/* ---------- 页头（悬浮玻璃） ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 10;
+  background: rgba(4, 24, 31, .72);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--c-ink-line);
+}
+.site-header .container { height: 60px; display: flex; align-items: center; gap: var(--sp-6); }
+.brand img { height: 30px; width: auto; }
+.main-nav { display: none; }
+.main-nav a { color: var(--c-text-mid); font-size: var(--fs-body); font-weight: 500; transition: color var(--dur) var(--ease); position: relative; }
+.main-nav a:hover, .main-nav a.active { color: var(--c-text-hi); }
+.main-nav a.active::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px;
+  background: var(--grad-brand); border-radius: 2px;
+}
+.header-right { margin-left: auto; display: flex; align-items: center; gap: var(--sp-4); }
+.btn-nav { display: none; }
+@media (min-width: 1024px) {
+  .site-header .container { height: 76px; }
+  .brand img { height: 40px; }
+  .main-nav { display: flex; gap: var(--sp-8); margin-left: var(--sp-12); }
+  .btn-nav { display: inline-flex; }
+}
+
+/* ---------- 按钮 ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 46px; padding: 0 var(--sp-8); border-radius: var(--r-pill);
+  font-size: var(--fs-body); font-weight: 600; cursor: pointer;
+  transition: all var(--dur) var(--ease); border: 1px solid transparent;
+}
+.btn-glow { background: var(--grad-brand); color: #04181F; box-shadow: var(--glow-teal); }
+.btn-glow:hover { transform: translateY(-2px); filter: brightness(1.06); }
+.btn-ghost { border-color: var(--c-ink-line); color: var(--c-text-hi); background: rgba(255, 255, 255, .02); }
+.btn-ghost:hover { border-color: var(--c-primary-400); box-shadow: var(--glow-teal); }
+
+/* ---------- Hero ---------- */
+.hero { background: var(--grad-hero); padding: var(--sp-24) 0 var(--sp-16); position: relative; overflow: hidden; }
+.hero::before {
+  content: ""; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--c-ink-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--c-ink-line) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(70% 60% at 50% 40%, #000 30%, transparent 75%);
+  opacity: .5;
+}
+.hero-inner { position: relative; text-align: center; max-width: 880px; margin: 0 auto; }
+.hero-eyebrow {
+  display: inline-block; font-size: var(--fs-small); letter-spacing: .18em; font-weight: 600;
+  color: var(--c-primary-400); text-transform: uppercase;
+  border: 1px solid var(--c-ink-line); border-radius: var(--r-pill);
+  padding: 8px 18px; margin-bottom: var(--sp-8); background: rgba(13, 143, 181, .08);
+}
+.hero h1 { font-size: var(--fs-display); margin-bottom: var(--sp-6); }
+.hero h1 .grad { background: var(--grad-brand); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero .lead { font-size: var(--fs-body-lg); max-width: 40em; margin: 0 auto var(--sp-8); }
+.hero-actions { display: flex; flex-wrap: wrap; gap: var(--sp-4); justify-content: center; }
+.hero-metric-row {
+  margin: var(--sp-16) auto 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px;
+  background: var(--c-ink-line); border: 1px solid var(--c-ink-line); border-radius: var(--r-lg);
+  overflow: hidden; max-width: 820px;
+}
+.hero-metric { background: rgba(6, 34, 46, .8); padding: var(--sp-6); }
+.hero-metric b {
+  display: block; font-family: var(--font-num); font-size: 34px; font-weight: 700;
+  color: var(--c-text-hi); font-variant-numeric: tabular-nums;
+}
+.hero-metric b i { font-style: normal; color: var(--c-accent-400); }
+.hero-metric span { font-size: var(--fs-small); color: var(--c-text-dim); }
+@media (min-width: 1024px) {
+  .hero { padding: 140px 0 var(--sp-24); }
+  .hero-metric-row { grid-template-columns: repeat(4, 1fr); }
+  .hero-metric b { font-size: 44px; }
+}
+
+/* ---------- 资质条 ---------- */
+.trustbar { border-block: 1px solid var(--c-ink-line); background: var(--c-ink-900); }
+.trustbar .row { display: flex; gap: var(--sp-8); overflow-x: auto; padding: var(--sp-5, 20px) 0; align-items: center; scrollbar-width: none; }
+.trustbar .row::-webkit-scrollbar { display: none; }
+.trust-item {
+  white-space: nowrap; font-family: var(--font-num); font-weight: 600; font-size: var(--fs-small);
+  letter-spacing: .08em; color: var(--c-text-dim); display: flex; align-items: center; gap: var(--sp-3);
+}
+.trust-item::before { content: "//"; color: var(--c-primary-500); }
+@media (min-width: 1024px) { .trustbar .row { justify-content: space-between; } }
+
+/* ---------- 区块 ---------- */
+.section { padding: var(--sp-16) 0; }
+.section-dark { background: var(--c-ink-950); }
+.section-light { background: var(--c-paper); color: var(--c-neutral-700); }
+.section-light h2, .section-light h3 { color: var(--c-neutral-900); }
+.section-head { max-width: 46em; margin-bottom: var(--sp-12); }
+.section-head .kicker {
+  font-family: var(--font-num); font-size: var(--fs-small); font-weight: 600;
+  letter-spacing: .16em; color: var(--c-primary-400); text-transform: uppercase; margin-bottom: var(--sp-3);
+}
+.section-light .kicker { color: var(--c-primary-700); }
+.section-head h2 { font-size: var(--fs-h2); margin-bottom: var(--sp-4); }
+.section-head p { font-size: var(--fs-body-lg); }
+
+/* ---------- 产品卡（深底玻璃） ---------- */
+.card-grid { display: grid; gap: var(--sp-6); grid-template-columns: 1fr; }
+@media (min-width: 640px) { .card-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .card-grid { grid-template-columns: repeat(3, 1fr); } }
+.p-card {
+  position: relative; border-radius: var(--r-lg); padding: var(--sp-8);
+  background: linear-gradient(160deg, rgba(47, 182, 220, .10), rgba(6, 34, 46, .6) 45%);
+  border: 1px solid var(--c-ink-line);
+  display: flex; flex-direction: column; gap: var(--sp-4); overflow: hidden;
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.p-card::before {
+  content: ""; position: absolute; inset: 0 0 auto 0; height: 1px;
+  background: var(--grad-brand); opacity: .8;
+}
+.p-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-glass), var(--glow-teal); }
+.p-card .tag {
+  align-self: flex-start; font-family: var(--font-num); font-size: var(--fs-small); font-weight: 600;
+  color: var(--c-primary-400); border: 1px solid var(--c-ink-line); border-radius: var(--r-pill); padding: 4px 12px;
+}
+.p-card h3 { font-size: var(--fs-h3); }
+.p-card p { flex: 1; }
+.p-card .more { font-weight: 600; }
+.p-card .num {
+  position: absolute; right: var(--sp-6); top: var(--sp-4); font-family: var(--font-num);
+  font-size: 64px; font-weight: 700; color: rgba(47, 182, 220, .10); line-height: 1;
+}
+
+/* ---------- 新闻（浅底） ---------- */
+.news-grid { display: grid; gap: var(--sp-6); grid-template-columns: 1fr; }
+@media (min-width: 1024px) { .news-grid { grid-template-columns: repeat(3, 1fr); } }
+.n-card {
+  background: #fff; border: 1px solid var(--c-neutral-200); border-radius: var(--r-md);
+  padding: var(--sp-6); display: flex; flex-direction: column; gap: var(--sp-3);
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.n-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(6, 34, 46, .12); }
+.n-card time { font-family: var(--font-num); font-size: var(--fs-small); color: var(--c-neutral-500); font-variant-numeric: tabular-nums; }
+.n-card h3 { font-size: var(--fs-h3); font-weight: 600; }
+.n-card p { color: var(--c-neutral-500); flex: 1; }
+.n-card .accent-bar { width: 36px; height: 3px; border-radius: 3px; background: var(--c-accent-500); }
+
+/* ---------- 页脚 ---------- */
+.site-footer { background: var(--c-ink-900); border-top: 1px solid var(--c-ink-line); padding: var(--sp-16) 0 0; }
+.site-footer .cols { display: grid; gap: var(--sp-8); grid-template-columns: 1fr; }
+@media (min-width: 1024px) { .site-footer .cols { grid-template-columns: 2fr 1fr 1fr 1fr; } }
+.site-footer h4 { color: var(--c-text-hi); font-size: var(--fs-body); margin-bottom: var(--sp-4); }
+.site-footer a { color: var(--c-text-dim); font-size: var(--fs-small); display: block; padding: 4px 0; transition: color var(--dur) var(--ease); }
+.site-footer a:hover { color: var(--c-primary-400); }
+.site-footer .f-brand img { height: 34px; margin-bottom: var(--sp-4); }
+.site-footer .f-brand p { font-size: var(--fs-small); max-width: 32em; }
+.legal { border-top: 1px solid var(--c-ink-line); margin-top: var(--sp-12); padding: var(--sp-6) 0; font-size: 12px; color: var(--c-text-dim); display: flex; flex-wrap: wrap; gap: var(--sp-4); justify-content: space-between; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}

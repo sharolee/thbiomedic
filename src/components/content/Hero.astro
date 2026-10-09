@@ -27,7 +27,12 @@ const { lang, slides, ariaLabel, slideLabel } = Astro.props;
         <div class="hero__slide-bg" aria-hidden="true"></div>
         <div class="hero__slide-content u-container">
           <p class="hero__brand">{slide.brand}</p>
-          <h1 class="hero__title">{slide.title}</h1>
+          {/* m-5：轮播每张卡都用 h1 会产生 3 个 h1 —— 首张卡为主标题 h1，其余降为 h2 */}
+          {index === 0 ? (
+            <h1 class="hero__title">{slide.title}</h1>
+          ) : (
+            <h2 class="hero__title">{slide.title}</h2>
+          )}
           <p class="hero__subtitle">{slide.subtitle}</p>
           <a class="btn btn-gradient hero__cta" href={withLangPrefix(slide.href, lang)}>{slide.cta}</a>
         </div>

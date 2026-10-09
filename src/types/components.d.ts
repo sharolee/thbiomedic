@@ -11,6 +11,8 @@ export interface PageLayoutProps {
   dict: Dict;
   title: string;
   description?: string;
+  /** 无语言变体的页面（如 404）置 false 以不输出 hreflang（R-S7 m-4） */
+  hreflangLinks?: boolean;
 }
 
 export interface HeaderProps {

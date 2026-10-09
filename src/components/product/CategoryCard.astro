@@ -1,13 +1,14 @@
 ---
 import type { CategoryCardProps } from '../../types/components';
 import Icon from '../ui/Icon.astro';
+import { assetUrl } from '../../utils/assets';
 import { getCategoryPath } from '../../utils/url';
 
 type Props = CategoryCardProps;
 
 // 一级分类卡（design-spec §6.3 / page-structure §3.1）：图 + 分类名 + 一句话简介
 // 空分类右上角「筹备中」胶囊标签（--color-warning-600 字 / --color-warning-50 底）
-// 分类图素材缺失 → 浅灰占位区
+// 分类图素材缺失 → 浅灰占位区；图失败 onerror 兜底（ADR-003 §5.2 约束 4）
 const { category, lang, comingSoonLabel } = Astro.props;
 const href = getCategoryPath(category.slug, lang);
 const image = category.banner;
@@ -17,7 +18,14 @@ const hasProducts = category.children?.some((c) => c.hasProducts) ?? false;
 <a class="category-card card" href={href}>
   <div class="category-card__media card__media">
     {image ? (
-      <img src={image.src} alt={image.alt} loading="lazy" />
+      <img
+        src={assetUrl(image.key)}
+        alt={image.alt}
+        loading="lazy"
+        width={800}
+        height={600}
+        onerror="this.remove()"
+      />
     ) : (
       <span class="category-card__placeholder">
         <Icon name="image" size={40} />

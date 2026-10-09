@@ -2,6 +2,8 @@
   {
     "slug": "low-temp-thermoplastics",
     "name": "Low temperature thermoplastics",
+    "desc": "Low-temperature thermoplastic sheets can be softened at the appropriate temperature and molded to fit the body, then stretched into the required shape.",
+    "banner": { "key": "img-20241126162714239", "alt": "Low temperature thermoplastics" },
     "order": 1,
     "children": [
       { "slug": "low-temp-sheets", "name": "Low Temperature Thermoplastic Sheets", "hasProducts": false },
@@ -13,6 +15,8 @@
   {
     "slug": "air-mesh-thermoplastic",
     "name": "Air Mesh Thermoplastic Series",
+    "desc": "Air Mesh Thermoplastics is an innovative medical auxiliary material made of advanced 3D mesh fabric technology and low-temperature thermoplastic polymer.",
+    "banner": { "key": "img-20251111092606427", "alt": "Air Mesh Thermoplastic Series" },
     "order": 2,
     "children": [
       { "slug": "air-mesh-sheets", "name": "Air Mesh Thermoplastic Sheets & Splints", "hasProducts": false },
@@ -23,6 +27,7 @@
     "slug": "comfort-orthosis",
     "name": "Thermoplastic Comfort Orthosis Series",
     "desc": "The Low-Temperature Thermoplastic Comfort Orthosis is an innovative product line specifically designed to meet the needs of medical rehabilitation and sports protection. The series includes the Thoracolumbar Orthosis, Cervico-Thoracic-Lumbar Orthosis, Lumbar Orthosis, and Pelvic Orthosis, each product aimed at providing professional support and protection to facilitate rehabilitation.",
+    "banner": { "key": "img-20251111092629932", "alt": "Thermoplastic Comfort Orthosis Series" },
     "order": 3,
     "children": [
       { "slug": "thoracolumbar-orthosis", "name": "Thoracolumbar Orthosis", "hasProducts": false },

@@ -2,6 +2,8 @@
   {
     "slug": "low-temp-thermoplastics",
     "name": "低温热塑系列",
+    "desc": "低温热塑板可以在合适的温度(65-70℃)软化，软化后能够依伏于体表任意成形，并可适当拉伸做成所需形状。",
+    "banner": { "key": "img-20241127150517487", "alt": "低温热塑系列产品" },
     "order": 1,
     "children": [
       { "slug": "low-temp-sheets", "name": "低温热塑板", "hasProducts": false },
@@ -13,6 +15,8 @@
   {
     "slug": "air-mesh-thermoplastic",
     "name": "低温网格系列",
+    "desc": "低温网格板是一种创新的医疗辅助材料，采用先进的3D网格织物技术和具有低温热塑性的高分子材料。",
+    "banner": { "key": "img-20251111090745331", "alt": "低温网格系列产品" },
     "order": 2,
     "children": [
       { "slug": "air-mesh-sheets", "name": "低温网格板", "hasProducts": false },
@@ -23,6 +27,7 @@
     "slug": "comfort-orthosis",
     "name": "低温热塑支具系列",
     "desc": "低温热塑支具系列是专为满足医疗康复和运动防护需求而设计的创新产品线。本系列包括胸腰支具、头颈胸支具、腰围支具和骨盆支具，每一款产品都旨在提供专业的支撑和保护以促进康复。",
+    "banner": { "key": "img-20251111090812864", "alt": "低温热塑支具系列产品" },
     "order": 3,
     "children": [
       { "slug": "thoracolumbar-orthosis", "name": "胸腰支具", "hasProducts": false },

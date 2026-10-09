@@ -24,7 +24,8 @@ export interface Category {
   slug: string;
   name: string;
   desc?: string;
-  banner?: MediaRef;
+  /** 素材 key 引用（ADR-003 §2），由组件经 assetUrl 解析 */
+  banner?: AssetRef;
   order?: number;
   children?: ChildCategory[];
 }
@@ -86,6 +87,7 @@ export interface VideoItem {
   categorySlug: string;
   title: string;
   desc?: string;
+  /** assets.ts 素材 key（ADR-003 §2：数据只引 key，经 assetUrl 解析） */
   file: string;
   poster?: string;
 }

@@ -1,26 +1,22 @@
 ---
-// 根路径（prerendered 静态页）：无服务端请求头，默认重定向到 /zh/（ADR-002 默认语言）。
-// 浏览器语言偏好由页面内脚本渐进增强处理：匹配 en 且无显式偏好则跳 /en/。
+// 根路径：与 x-default 口径统一指向英文版（ADR-002 §3.4，m-3 修复）。
+// 静态部署无服务端 Accept-Language；无 JS 一律跳 /en/；有 JS 时 localStorage 偏好优先。
 ---
 
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta http-equiv="refresh" content="0; url=/zh/" />
-    <title>广州天泓医疗科技有限公司</title>
+    <meta http-equiv="refresh" content="0; url=/en/" />
+    <title>Guangzhou Tianhong Medical Technology Co., Ltd.</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body>
     <script>
-      // 渐进增强：静态部署无服务端 Accept-Language，浏览器端按偏好首跳
-      // 显式语言偏好（localStorage）优先；其次 accept-language；兜底 /zh/
+      // 渐进增强：显式语言偏好（localStorage）优先，其余一律 /en/（与 x-default 一致）
       try {
         const stored = localStorage.getItem('thb:lang');
-        const target =
-          stored === 'en' || (!stored && /^en/i.test(navigator.language || ''))
-            ? '/en/'
-            : '/zh/';
+        const target = stored === 'zh' ? '/zh/' : '/en/';
         if (target !== location.pathname) {
           location.replace(target);
         }
@@ -29,7 +25,7 @@
       }
     </script>
     <noscript>
-      <meta http-equiv="refresh" content="0; url=/zh/" />
+      <meta http-equiv="refresh" content="0; url=/en/" />
     </noscript>
   </body>
 </html>

@@ -1,3 +1,6 @@
+
+
+
 <!-- BEGIN MULTICA-RUNTIME (auto-managed; do not edit) -->
 # Multica Agent Runtime
 
@@ -15,7 +18,7 @@ Never terminate `multica` or `multica.exe` by executable name: a long-lived matc
 
 ## Agent Identity
 
-**You are: 全栈老欧** (ID: `2c6f640d-27dc-4b58-bd81-cc71cebac9d8`)
+**You are: 全栈小欧** (ID: `2c6f640d-27dc-4b58-bd81-cc71cebac9d8`)
 
 【环境基线】执行 bash / PowerShell / multica 命令前，先加载 skill `cli-env-baseline`，按你所在运行时的那一节操作（工具面、路径写法、中文编码、`--output json` 与 stderr 分离、失败止损与终态收尾）。
 
@@ -147,9 +150,7 @@ Status reflects the state the ISSUE is in, not your run's lifecycle — keep it 
 
 You have the following skills installed (discovered automatically):
 
-- **api-patterns**
 - **clean-code**
-- **cli-env-baseline**
 - **python-pro**
 - **test-driven-development**
 - **verification-before-completion**

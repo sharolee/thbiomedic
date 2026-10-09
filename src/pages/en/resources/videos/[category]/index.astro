@@ -1,0 +1,94 @@
+---
+import PageLayout from '../../../../../components/layout/PageLayout.astro';
+import Banner from '../../../../../components/layout/Banner.astro';
+import EmptyState from '../../../../../components/ui/EmptyState.astro';
+import SectionHeader from '../../../../../components/ui/SectionHeader.astro';
+import Icon from '../../../../../components/ui/Icon.astro';
+import { loadHomeDict } from '../../../../../utils/i18n';
+import { getVideos } from '../../../../../utils/content';
+import { assetUrl } from '../../../../../utils/assets';
+import { getVideosPath } from '../../../../../utils/url';
+import type { Lang } from '../../../../../types/dictionary';
+import type { BreadcrumbItem } from '../../../../../types/components';
+
+// Video category page (page-structure §4.2 / build-plan §5, English site):
+// `resources/videos/[category]/` generates 3 pages from videos.json categories
+// (Physical Rehabilitation / Patient Immobilization / Pet Rehabilitation);
+// lists the videos of that category, or an empty state when bare
+export function getStaticPaths() {
+  const lang = 'en' as Lang;
+  return getVideos(lang).categories.map((category) => ({
+    params: { category: category.slug },
+    props: { slug: category.slug },
+  }));
+}
+
+const { slug } = Astro.props;
+const lang = 'en' as Lang;
+const dict = loadHomeDict(lang);
+const page = dict.resources.videos;
+const t = dict.common;
+const videos = getVideos(lang);
+const category = videos.categories.find((c) => c.slug === slug);
+const categoryName = category?.name ?? slug;
+const items = videos.items.filter((v) => v.categorySlug === slug);
+
+const trail: BreadcrumbItem[] = [
+  { label: t.breadcrumb.home, href: `/${lang}/` },
+  { label: t.nav.resources },
+  { label: page.banner.title, href: getVideosPath(lang) },
+  { label: categoryName },
+];
+---
+
+<PageLayout
+  lang={lang}
+  dict={dict}
+  title={`${categoryName} - ${page.banner.title}`}
+  description={page.banner.subtitle}
+>
+  <Banner
+    lang={lang}
+    title={categoryName}
+    homeLabel={t.breadcrumb.home}
+    ariaLabel={t.breadcrumb.home}
+    trail={trail}
+  />
+
+  <section class="u-section">
+    <div class="u-container">
+      <SectionHeader title={categoryName} subtitle={page.banner.subtitle} />
+      {items.length > 0 ? (
+        <div class="u-card-grid">
+          {items.map((item) => (
+            <div class="video-card card">
+              <video
+                class="video-card__media card__media"
+                src={assetUrl(item.file)}
+                controls
+                preload="none"
+                playsinline
+              ></video>
+              <div class="video-card__body card__body">
+                <h3 class="video-card__title card__title">{item.title}</h3>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <EmptyState title={page.empty_title} body={page.empty_body} icon="play" />
+      )}
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .video-card__media {
+    background: var(--color-neutral-100);
+  }
+
+  .video-card__title {
+    font-size: var(--text-h4);
+    font-weight: var(--weight-medium);
+  }
+</style>
