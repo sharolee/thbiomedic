@@ -7,11 +7,14 @@ import SectionHeader from '../../../../../components/ui/SectionHeader.astro';
 import Icon from '../../../../../components/ui/Icon.astro';
 import { assetUrl } from '../../../../../utils/assets';
 import { loadHomeDict } from '../../../../../utils/i18n';
-import { getProducts, getCategoryBySlug } from '../../../../../utils/content';
+import { getProducts, findChildCategory } from '../../../../../utils/content';
 import { getProductsPath, getCategoryPath, getContactPath } from '../../../../../utils/url';
 import type { Lang } from '../../../../../types/dictionary';
+import type { BreadcrumbItem } from '../../../../../types/components';
 
-// Product detail page (page-structure §3.3, skeleton, English site)
+// Product detail page (page-structure §3.3 / build-plan §5, English site)
+// getStaticPaths is driven by data/products.json: the 12 real product details
+// (route prefix comes from product.categorySlug)
 export function getStaticPaths() {
   const en = getProducts('en');
   return en.map((product) => ({
@@ -25,16 +28,24 @@ const lang = 'en' as Lang;
 const dict = loadHomeDict(lang);
 const page = dict.productDetail;
 const t = dict.common;
-const categoryName = getCategoryBySlug(lang, product.categorySlug)?.name ?? product.categorySlug;
+// categorySlug is a second-level slug; resolve both levels via findChildCategory
+// to match the original site's five-level breadcrumb
+const parent = findChildCategory(lang, product.categorySlug);
+const categoryName = parent?.child.name ?? product.categorySlug;
 const related = getProducts(lang).filter((p) => p.categorySlug === product.categorySlug && p.slug !== product.slug);
 const image = product.images?.[0];
 
-const trail = [
+const trail: BreadcrumbItem[] = [
   { label: t.breadcrumb.home, href: `/${lang}/` },
   { label: t.nav.products, href: getProductsPath(lang) },
-  { label: categoryName, href: getCategoryPath(product.categorySlug, lang) },
-  { label: product.name },
 ];
+if (parent) {
+  trail.push({ label: parent.parent.name, href: getCategoryPath(parent.parent.slug, lang) });
+  trail.push({ label: parent.child.name, href: getCategoryPath(parent.child.slug, lang) });
+} else {
+  trail.push({ label: categoryName, href: getCategoryPath(product.categorySlug, lang) });
+}
+trail.push({ label: product.name });
 ---
 
 <PageLayout
@@ -65,7 +76,6 @@ const trail = [
         <div class="product-detail__body">
           <h1 class="product-detail__title">{product.name}</h1>
           {product.desc && <p class="product-detail__desc">{product.desc}</p>}
-          <p class="product-detail__note">{page.empty_body}</p>
         </div>
       </article>
 
@@ -133,12 +143,6 @@ const trail = [
   .product-detail__desc {
     font-size: var(--text-body-lg);
     color: var(--color-neutral-700);
-    margin-bottom: var(--space-sm);
-  }
-
-  .product-detail__note {
-    font-size: var(--text-small);
-    color: var(--color-neutral-500);
   }
 
   .product-related {

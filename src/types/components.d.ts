@@ -136,6 +136,26 @@ export interface CategoryCardProps {
   comingSoonLabel: string;
 }
 
+export interface SubCategoryItem {
+  slug: string;
+  name: string;
+  /** 该二级分类下的产品条数（0 = 空态页） */
+  productCount: number;
+}
+
+export interface SubCategoryListProps {
+  lang: Lang;
+  items: SubCategoryItem[];
+  /** 产品条数标签模板，含 {count} 占位 */
+  countLabel: string;
+  /** 空分类「筹备中」标签文案 */
+  comingSoonLabel: string;
+  emptyTitle: string;
+  emptyBody: string;
+  emptyActionLabel: string;
+  emptyActionHref: string;
+}
+
 export interface NewsCardProps {
   item: NewsItem;
 }

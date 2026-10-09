@@ -84,8 +84,6 @@ for (const lang of LANGS) {
 }
 
 // ── 中英同键镜像（ADR-002：键集合一致）────────────────────────────────
-const zh = data.zh;
-const en = data.en;
 const keysOf = (lang) => ({
   first: data[lang].categories.map((c) => c.slug).sort().join('|'),
   second: data[lang].categories.flatMap((c) => (c.children ?? []).map((c) => c.slug)).sort().join('|'),

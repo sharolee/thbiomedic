@@ -1,0 +1,114 @@
+---
+import type { SubCategoryListProps } from '../../types/components';
+import EmptyState from '../ui/EmptyState.astro';
+import Button from '../ui/Button.astro';
+import { getCategoryPath } from '../../utils/url';
+
+type Props = SubCategoryListProps;
+
+// 一级分类页的二级子分类导航（page-structure §3.2）
+// 克制型列表：序号 + 名称 + 产品条数/「筹备中」+ 箭头，hover 序号变主色、箭头右移
+// 无二级分类的一级（配件/高温板等）走空态面板 + 联系 CTA，不出现假占位
+const { lang, items, countLabel, comingSoonLabel, emptyTitle, emptyBody, emptyActionLabel, emptyActionHref } = Astro.props;
+
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+
+{items.length > 0 ? (
+  <nav class="subcat" aria-label="Subcategories">
+    <ul class="subcat__list">
+      {items.map((item, i) => (
+        <li>
+          <a class="subcat__item" href={getCategoryPath(item.slug, lang)}>
+            <span class="subcat__index" aria-hidden="true">{pad(i + 1)}</span>
+            <span class="subcat__body">
+              <span class="subcat__name">{item.name}</span>
+              <span class="subcat__meta">{countLabel.replace('{count}', String(item.productCount))}</span>
+            </span>
+            {item.productCount === 0 && <span class="subcat__badge">{comingSoonLabel}</span>}
+            <span class="subcat__arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+) : (
+  <EmptyState title={emptyTitle} body={emptyBody} icon="file">
+    <Button href={emptyActionHref} variant="secondary">{emptyActionLabel}</Button>
+  </EmptyState>
+)}
+
+<style>
+  .subcat__list {
+    display: flex;
+    flex-direction: column;
+    border-top: var(--border-default);
+  }
+
+  .subcat__item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-sm);
+    border-bottom: var(--border-default);
+    text-decoration: none;
+    transition: background-color var(--duration-base) var(--easing);
+  }
+
+  .subcat__item:hover {
+    background-color: var(--color-primary-50);
+  }
+
+  .subcat__index {
+    flex-shrink: 0;
+    font-size: var(--text-body);
+    font-weight: var(--weight-medium);
+    font-variant-numeric: tabular-nums;
+    color: var(--color-neutral-500);
+    transition: color var(--duration-base) var(--easing);
+  }
+
+  .subcat__item:hover .subcat__index {
+    color: var(--color-primary-600);
+  }
+
+  .subcat__body {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-2xs) var(--space-sm);
+    min-width: 0;
+  }
+
+  .subcat__name {
+    font-size: var(--text-body-lg);
+    font-weight: var(--weight-medium);
+    color: var(--color-neutral-900);
+  }
+
+  .subcat__meta {
+    font-size: var(--text-small);
+    color: var(--color-neutral-500);
+  }
+
+  .subcat__badge {
+    padding: var(--space-3xs) var(--space-2xs);
+    border-radius: var(--radius-pill);
+    background: var(--color-warning-50);
+    color: var(--color-warning-600);
+    font-size: var(--text-caption);
+    font-weight: var(--weight-medium);
+  }
+
+  .subcat__arrow {
+    margin-left: auto;
+    color: var(--color-neutral-500);
+    transition: transform var(--duration-base) var(--easing),
+      color var(--duration-base) var(--easing);
+  }
+
+  .subcat__item:hover .subcat__arrow {
+    transform: translateX(4px);
+    color: var(--color-primary-600);
+  }
+</style>

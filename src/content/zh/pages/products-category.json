@@ -3,6 +3,8 @@
     "title": "产品列表 - 广州天泓医疗科技有限公司",
     "description": "产品列表 - 天泓医疗产品详情与资料"
   },
+  "subcategory_title": "子分类",
+  "count_label": "{count} 款产品",
   "empty_title": "该系列产品资料整理中",
   "empty_body": "该系列产品资料正在整理中，欢迎联系我们获取资料",
   "cta": "联系我们",

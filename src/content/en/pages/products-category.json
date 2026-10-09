@@ -3,6 +3,8 @@
     "title": "Products - Guangzhou Tianhong Medical Technology Co., Ltd.",
     "description": "Product list - Tianhong Medical product details and brochures"
   },
+  "subcategory_title": "Subcategories",
+  "count_label": "{count} products",
   "empty_title": "Product details for this series are being prepared",
   "empty_body": "Product details for this series are being prepared. Please contact us for more information.",
   "cta": "Contact Us",

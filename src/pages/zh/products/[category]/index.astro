@@ -1,24 +1,38 @@
 ---
 import PageLayout from '../../../../components/layout/PageLayout.astro';
 import Banner from '../../../../components/layout/Banner.astro';
-import ProductGrid from '../../../../components/product/ProductGrid.astro';
-import ContactForm from '../../../../components/ui/ContactForm.astro';
 import SectionHeader from '../../../../components/ui/SectionHeader.astro';
 import Button from '../../../../components/ui/Button.astro';
+import SubCategoryList from '../../../../components/product/SubCategoryList.astro';
+import ProductGrid from '../../../../components/product/ProductGrid.astro';
+import ContactForm from '../../../../components/ui/ContactForm.astro';
 import { loadHomeDict } from '../../../../utils/i18n';
-import { getCategories, getProductsByCategory, getCategoryBySlug } from '../../../../utils/content';
-import { getProductsPath, getContactPath } from '../../../../utils/url';
+import {
+  getCategories,
+  getCategoryBySlug,
+  getChildCategories,
+  findChildCategory,
+  isFirstLevelSlug,
+  getProductsByCategory,
+} from '../../../../utils/content';
+import { getProductsPath, getCategoryPath, getContactPath } from '../../../../utils/url';
 import type { Lang } from '../../../../types/dictionary';
+import type { BreadcrumbItem } from '../../../../types/components';
 
-// 产品二级分类列表页（page-structure §3.2）
-// getStaticPaths 由 data/categories.json 驱动（当前为空 → 不生成页面）；
-// 空分类渲染空态面板 + 在线留言表单（隐藏字段记录来源分类 slug）
+// 产品分类页（page-structure §3.2 / build-plan §5）：`[category]` 同时承载
+// 一级分类页（10）与二级分类列表页（17，其中 15 为空态页），两级 slug 汇入同一路由。
+// 一级 → 简介 + 二级子分类导航 + 彩页 CTA + 留言表单
+// 二级 → 产品网格（无产品则空态面板 + 引导 + 表单）+ 彩页 CTA + 留言表单
 export function getStaticPaths() {
-  const zh = getCategories('zh');
-  return zh.map((category) => ({
-    params: { category: category.slug },
-    props: { slug: category.slug },
-  }));
+  const lang = 'zh' as Lang;
+  const paths: { params: { category: string }; props: { slug: string } }[] = [];
+  for (const category of getCategories(lang)) {
+    paths.push({ params: { category: category.slug }, props: { slug: category.slug } });
+    for (const child of category.children ?? []) {
+      paths.push({ params: { category: child.slug }, props: { slug: child.slug } });
+    }
+  }
+  return paths;
 }
 
 const { slug } = Astro.props;
@@ -26,15 +40,28 @@ const lang = 'zh' as Lang;
 const dict = loadHomeDict(lang);
 const page = dict.productsCategory;
 const t = dict.common;
-const category = getCategoryBySlug(lang, slug);
-const categoryName = category?.name ?? slug;
-const products = getProductsByCategory(lang, slug);
 
-const trail = [
+const firstLevel = isFirstLevelSlug(lang, slug);
+const parent = firstLevel ? undefined : findChildCategory(lang, slug)?.parent;
+const children = firstLevel ? getChildCategories(lang, slug) : [];
+const categoryDesc = firstLevel ? getCategoryBySlug(lang, slug)?.desc : undefined;
+const categoryName = firstLevel
+  ? getCategoryBySlug(lang, slug)?.name ?? slug
+  : findChildCategory(lang, slug)?.child.name ?? slug;
+const products = firstLevel ? [] : getProductsByCategory(lang, slug);
+
+const subItems = children.map((child) => ({
+  slug: child.slug,
+  name: child.name,
+  productCount: getProductsByCategory(lang, child.slug).length,
+}));
+
+const trail: BreadcrumbItem[] = [
   { label: t.breadcrumb.home, href: `/${lang}/` },
   { label: t.nav.products, href: getProductsPath(lang) },
-  { label: categoryName },
 ];
+if (parent) trail.push({ label: parent.name, href: getCategoryPath(parent.slug, lang) });
+trail.push({ label: categoryName });
 ---
 
 <PageLayout
@@ -53,16 +80,32 @@ const trail = [
 
   <section class="u-section">
     <div class="u-container">
-      {category?.desc && <p class="category-intro">{category.desc}</p>}
+      {categoryDesc && <p class="category-intro">{categoryDesc}</p>}
 
-      <ProductGrid
-        products={products}
-        lang={lang}
-        emptyTitle={page.empty_title}
-        emptyBody={page.empty_body}
-        emptyActionLabel={page.cta}
-        emptyActionHref={getContactPath(lang)}
-      />
+      {firstLevel ? (
+        <div class="category-tree">
+          <SectionHeader title={page.subcategory_title} />
+          <SubCategoryList
+            lang={lang}
+            items={subItems}
+            countLabel={page.count_label}
+            comingSoonLabel={dict.productsIndex.coming_soon}
+            emptyTitle={page.empty_title}
+            emptyBody={page.empty_body}
+            emptyActionLabel={page.cta}
+            emptyActionHref={getContactPath(lang)}
+          />
+        </div>
+      ) : (
+        <ProductGrid
+          products={products}
+          lang={lang}
+          emptyTitle={page.empty_title}
+          emptyBody={page.empty_body}
+          emptyActionLabel={page.cta}
+          emptyActionHref={getContactPath(lang)}
+        />
+      )}
 
       <div class="category-actions">
         <Button href={getContactPath(lang)} variant="secondary" icon="external">{page.brochure_link}</Button>

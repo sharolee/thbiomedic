@@ -201,6 +201,10 @@ export interface ProductsCategoryDict {
     title: string;
     description: string;
   };
+  /** 一级分类页「子分类」区块标题 */
+  subcategory_title: string;
+  /** 二级子分类产品条数标签，含 {count} 占位 */
+  count_label: string;
   empty_title: string;
   empty_body: string;
   cta: string;

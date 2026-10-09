@@ -9,6 +9,7 @@ import type { Lang } from '../types/dictionary';
 import type {
   Category,
   Certificate,
+  ChildCategory,
   ContactInfo,
   Download,
   NewsData,
@@ -109,6 +110,28 @@ export function getContact(lang: Lang): ContactInfo | null {
 /** 按 slug 取分类（getStaticPaths 用） */
 export function getCategoryBySlug(lang: Lang, slug: string): Category | undefined {
   return categories[lang].find((c) => c.slug === slug);
+}
+
+/** 该 slug 是否为一级分类 slug（`[category]` 路由一/二级分流判定用） */
+export function isFirstLevelSlug(lang: Lang, slug: string): boolean {
+  return categories[lang].some((c) => c.slug === slug);
+}
+
+/** 一级分类下的二级子分类（保持 data 中的书写顺序） */
+export function getChildCategories(lang: Lang, parentSlug: string): ChildCategory[] {
+  return getCategoryBySlug(lang, parentSlug)?.children ?? [];
+}
+
+/** 按二级 slug 定位所属分类，返回一级父分类与二级节点 */
+export function findChildCategory(
+  lang: Lang,
+  childSlug: string,
+): { parent: Category; child: ChildCategory } | undefined {
+  for (const parent of categories[lang]) {
+    const child = parent.children?.find((c) => c.slug === childSlug);
+    if (child) return { parent, child };
+  }
+  return undefined;
 }
 
 /** 按分类 slug 过滤产品 */
