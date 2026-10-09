@@ -1,154 +1,161 @@
 /* ==========================================================================
-   设计令牌（variables.css）— 唯一令牌来源（architecture.md C9 / design-spec §1-7）
-   仅定义 CSS 变量与令牌，不写规则；组件/工具类一律引用这里的变量。
-   数值为 design-spec.md 强制值，不接受近似。
+   设计令牌 variables.css — 全站唯一令牌来源（ADR-004 / build-plan §3-D4）
+
+   事实源：docs/design/prototypes/direction-a-plus/styles.css 的 :root 块
+           （客户 2026-10-09 拍板方向，整块移植，数值零改动）
+   规范扩写：docs/design/design-spec.md v2
+   纪律：组件内禁止硬编码色值/字号/间距/断点，一律 var() 引用本文件。
    ========================================================================== */
 
 :root {
-  /* ── 配色：主色（医疗信任蓝）design-spec §2.1 ────────────── */
-  --color-primary-900: #0B2B52;  /* 页头/页脚深色底、Hero 叠加层 */
-  --color-primary-700: #123F77;  /* 导航悬停、标题强调 */
-  --color-primary-600: #1A5FB4;  /* 品牌主色：主按钮、链接、激活态 */
-  --color-primary-500: #3584E4;  /* 悬停提亮、次级按钮 */
-  --color-primary-100: #D8E7F8;  /* 选中底色、标签底 */
-  --color-primary-50:  #EFF5FC;  /* 区块浅底 */
+  /* ── direction-a-plus 源令牌（整块移植，勿改）────────────────────── */
+  --c-primary-900: #063845;
+  --c-primary-700: #0A6E88;
+  --c-primary-600: #0D8FB5;
+  --c-primary-100: #D6EEF5;
+  --c-primary-50:  #EFF8FB;
+  --c-accent-600:  #E75306;
+  --c-accent-50:   #FDEADD;
+  --c-neutral-900: #1B2A32;
+  --c-neutral-700: #3D4F59;
+  --c-neutral-500: #71838D;
+  --c-neutral-300: #CBD6DB;
+  --c-neutral-200: #E3EAEE;
+  --c-neutral-100: #F4F8FA;
+  --c-white:       #FFFFFF;
 
-  /* ── 配色：辅助色（科技青）design-spec §2.2 ──────────────── */
-  --color-accent-500: #00B3A6;   /* 次要强调、悬停下划线 */
-  --color-accent-100: #D6F3F0;   /* 辅助浅底 */
-  --gradient-brand: linear-gradient(120deg, #1A5FB4 0%, #00B3A6 100%);
+  --font-sans: "Inter", "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
 
-  /* ── 配色：中性色 design-spec §2.3 ───────────────────────── */
-  --color-neutral-900: #1F2933;  /* 正文标题 */
-  --color-neutral-700: #3E4C59;  /* 正文 */
-  --color-neutral-500: #7B8794;  /* 次要文本、占位符、面包屑分隔 */
-  --color-neutral-300: #C9D1D9;  /* 边框、分隔线 */
-  --color-neutral-200: #E4E7EB;  /* 卡片边框、输入框边框 */
-  --color-neutral-100: #F5F7FA;  /* 页面浅灰区块底 */
-  --color-white: #FFFFFF;        /* 主背景 */
+  --fs-display: 32px;
+  --fs-h2: 24px;
+  --fs-h3: 19px;
+  --fs-body-lg: 16px;
+  --fs-body: 15px;
+  --fs-small: 13px;
+  --lh-title: 1.25;
+  --lh-body: 1.75;
 
-  /* ── 配色：语义色 design-spec §2.4 ───────────────────────── */
-  --color-success-600: #1E8E5A;
-  --color-warning-600: #B7791F;
-  --color-error-600:   #C53030;
-  --color-info-600:    #1A5FB4;
-  --color-error-50:    #FDECEA;
-  --color-success-50:  #E6F6EE;
-  --color-warning-50:  #FBF3E4;
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-6: 24px; --sp-8: 32px; --sp-12: 48px; --sp-16: 64px; --sp-24: 96px;
 
-  /* ── 字体（design-spec §3.1）─────────────────────────────── */
-  --font-sans-zh: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
-  --font-sans-en: "Inter", "Helvetica Neue", Arial, sans-serif;
-  --font-sans: var(--font-sans-en), var(--font-sans-zh);
+  --container: 1200px;
+  --gutter: 16px;
 
-  /* 字重仅三档（design-spec §3.2：400/600/700） */
-  --weight-normal: 400;
-  --weight-medium: 600;
-  --weight-bold: 700;
+  --r-sm: 4px; --r-md: 8px; --r-lg: 12px; --r-pill: 999px;
+  --shadow-sm: 0 1px 2px rgba(6, 56, 69, .08);
+  --shadow-md: 0 4px 14px rgba(6, 56, 69, .10);
 
-  /* ── 字号阶梯（移动优先；桌面值在 ≥1024px 升档）design-spec §3.2 ── */
-  --text-display: 32px;   /* 首页 Hero 主标题 */
-  --text-h1: 28px;        /* 内页 H1（页横幅标题） */
-  --text-h2: 24px;        /* 区块标题 */
-  --text-h3: 20px;        /* 卡片组标题、侧边栏标题 */
-  --text-h4: 17px;        /* 卡片标题 */
-  --text-body-lg: 16px;   /* 首段/摘要 */
-  --text-body: 15px;      /* 正文（中文最小 15px） */
-  --text-small: 13px;     /* 辅助文本、面包屑、页脚 */
-  --text-caption: 12px;   /* 标签、图注、ICP 备案行 */
+  --dur: 180ms;
+  --ease: cubic-bezier(.4, 0, .2, 1);
 
-  /* 行高（对应字号档位） */
-  --leading-display: 1.2;
-  --leading-h1: 1.25;
-  --leading-h2: 1.3;
-  --leading-h3: 1.35;
-  --leading-h4: 1.4;
-  --leading-body: 1.7;
-  --leading-small: 1.6;
-  --leading-caption: 1.5;
+  /* ── 语义别名（值一律 var() 引用上方源令牌，不重复定义数值）─────────
+     目的：承接仓库既有 --color-* / --space-* / --font-* 约定，
+          使 PROJECT_STANDARDS §5.4 门禁 G4 的令牌可判定性检查不变。 */
+  --color-primary-900: var(--c-primary-900);
+  --color-primary-700: var(--c-primary-700);
+  --color-primary-600: var(--c-primary-600);
+  --color-primary-500: var(--c-primary-600);   /* 原型无 500 档，回落 600 */
+  --color-primary-100: var(--c-primary-100);
+  --color-primary-50:  var(--c-primary-50);
+  --color-accent-500:  var(--c-accent-600);
+  --color-accent-100:  var(--c-accent-50);
+  --color-neutral-900: var(--c-neutral-900);
+  --color-neutral-700: var(--c-neutral-700);
+  --color-neutral-500: var(--c-neutral-500);
+  --color-neutral-300: var(--c-neutral-300);
+  --color-neutral-200: var(--c-neutral-200);
+  --color-neutral-100: var(--c-neutral-100);
+  --color-white:       var(--c-white);
 
-  /* 段落最大行宽（design-spec §3.2） */
-  --measure-zh: 34em;
-  --measure-en: 68ch;
+  --space-2xs: var(--sp-2);
+  --space-xs:  var(--sp-3);
+  --space-sm:  var(--sp-4);
+  --space-md:  var(--sp-6);
+  --space-lg:  var(--sp-8);
+  --space-xl:  var(--sp-12);
+  --space-2xl: var(--sp-16);
+  --space-3xl: var(--sp-24);
 
-  /* ── 间距阶梯（4px 基数）design-spec §4.1 ────────────────── */
-  --space-3xs: 4px;
-  --space-2xs: 8px;
-  --space-xs: 12px;
-  --space-sm: 16px;
-  --space-md: 24px;
-  --space-lg: 32px;
-  --space-xl: 48px;
-  --space-2xl: 64px;
-  --space-3xl: 96px;
+  --text-display: var(--fs-display);
+  --text-h1:      var(--fs-h2);
+  --text-h2:      var(--fs-h2);
+  --text-h3:      var(--fs-h3);
+  --text-body-lg: var(--fs-body-lg);
+  --text-body:    var(--fs-body);
+  --text-small:   var(--fs-small);
 
-  /* ── 栅格与容器 design-spec §4.2（断点升档见本文件末尾） ── */
-  --container-max: 1280px;
-  --container-padding: 16px;      /* <768px */
-  --grid-columns: 4;              /* 移动 */
-  --grid-gap: 16px;               /* <768px */
+  --container-max: var(--container);
+  --container-padding: var(--gutter);
 
-  /* ── 圆角、阴影、边框、动效 design-spec §5 ───────────────── */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-pill: 999px;
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-md);
+  --radius-lg: var(--r-lg);
+  --radius-pill: var(--r-pill);
 
-  --shadow-sm: 0 1px 2px rgba(11, 43, 82, 0.08);
-  --shadow-md: 0 4px 12px rgba(11, 43, 82, 0.12);
-  --shadow-lg: 0 12px 32px rgba(11, 43, 82, 0.16);
+  --duration-base: var(--dur);
+  --easing: var(--ease);
 
-  --border-default: 1px solid #E4E7EB;
-
-  --duration-fast: 150ms;
-  --duration-base: 250ms;
-  --easing: cubic-bezier(0.4, 0, 0.2, 1);
-
-  /* ── 响应式断点 design-spec §7 / PROJECT_STANDARDS §3.6 ──── */
+  /* ── 响应式断点（PROJECT_STANDARDS §3.6 强制五档；原型实际使用 640/1024）*/
   --bp-sm: 640px;
   --bp-md: 768px;
   --bp-lg: 1024px;
   --bp-xl: 1280px;
   --bp-2xl: 1536px;
 
-  /* ── 层级 ────────────────────────────────────────────────── */
+  /* ── 补充令牌（原型 :root 未覆盖，扩写见 design-spec.md v2 §9）─────────
+     仅补功能必需项；色值走中性/品牌阶梯派生，对比度满足 WCAG AA。 */
+  --color-success-600: #1E8E5A;
+  --color-warning-600: #B7791F;
+  --color-error-600:   #C53030;
+  --color-error-50:    #FDECEA;
+  --color-success-50:  #E6F6EE;
+  --color-warning-50:  #FBF3E4;
+
+  --shadow-lg: 0 12px 32px rgba(6, 56, 69, .16);
+  --gradient-brand: linear-gradient(120deg, var(--c-primary-900) 0%, var(--c-primary-600) 100%);
+
+  --focus-ring: 2px solid var(--c-primary-600);
+  --focus-offset: 2px;
+
   --z-dropdown: 100;
   --z-sticky: 200;
   --z-modal: 300;
   --z-popover: 400;
   --z-tooltip: 500;
 
-  /* 全站统一焦点环（design-spec §6） */
-  --focus-ring: 2px solid #3584E4;
-  --focus-offset: 2px;
+  --measure-zh: 34em;
+  --measure-en: 68ch;
+
+  /* ── 行高 / 字重 / 次级字号 别名（承接仓库约定，值引用源令牌或规范常量）── */
+  --leading-title: var(--lh-title);
+  --leading-body:  var(--lh-body);
+  --leading-h1: var(--lh-title);
+  --leading-h2: var(--lh-title);
+  --leading-h3: 1.35;
+  --leading-h4: 1.4;
+  --leading-small: 1.6;
+  --leading-caption: 1.5;
+  --text-caption: 12px;
+
+  --weight-normal: 400;
+  --weight-medium: 600;
+  --weight-bold: 700;
+
+  --text-h4: var(--fs-h3);
+  --space-3xs: var(--sp-1);
+  --duration-fast: 150ms;
+  --border-default: 1px solid var(--c-neutral-200);
 }
 
-/* ── 字号桌面升档（≥1024px）design-spec §3.2 ─────────────────── */
+/* ── 字号桌面升档（direction-a-plus @media 1024px，整块移植）────────────── */
 @media (min-width: 1024px) {
   :root {
-    --text-display: 48px;
-    --text-h1: 40px;
-    --text-h2: 32px;
-    --text-h3: 24px;
-    --text-h4: 19px;
-    --text-body-lg: 18px;
-    --text-body: 16px;
-    --text-small: 14px;
-  }
-}
-
-/* ── 栅格与容器升档 design-spec §4.2 ─────────────────────────── */
-@media (min-width: 768px) {
-  :root {
-    --container-padding: 24px;
-    --grid-columns: 8;
-    --grid-gap: 24px;
-  }
-}
-
-@media (min-width: 1024px) {
-  :root {
-    --container-padding: 32px;
-    --grid-columns: 12;
+    --fs-display: 48px;
+    --fs-h2: 32px;
+    --fs-h3: 22px;
+    --fs-body-lg: 18px;
+    --fs-body: 16px;
+    --fs-small: 14px;
+    --gutter: 32px;
   }
 }

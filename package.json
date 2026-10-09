@@ -14,7 +14,8 @@
     "preview": "astro preview",
     "typecheck": "astro check",
     "i18n:check": "node scripts/i18n-check.mjs",
-    "check:all": "npm run typecheck && npm run i18n:check && npm run build"
+    "check:tokens": "node scripts/check-tokens.mjs",
+    "check:all": "npm run check:tokens && npm run typecheck && npm run i18n:check && npm run build"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
