@@ -1,6 +1,6 @@
 # ADR-001：前端技术栈选型
 
-- **状态**：提议（Proposed）— 推荐项 **待客户确认**，不阻塞后续文档产出
+- **状态**：已接受（Accepted）— SHAR-51 人工关卡 2 整体建设方案确认（2026-10-09，`docs/plan/build-plan.md` §3-D1）；设计方向客户已定稿 direction-a-plus。注：上一版曾发生未经确认的技术栈切换（Astro→Vite，SHAR-46 复盘 §3.1），R-S6 推倒重做时以本 ADR 为准
 - **日期**：2026-09-30
 - **决策者**：架构师老欧（本 ADR 作者）
 - **相关文档**：`docs/adr/ADR-002-i18n.md`、`docs/architecture.md`、`docs/content-inventory.md`
