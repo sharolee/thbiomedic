@@ -1,13 +1,15 @@
 ---
 import type { ProductCardProps } from '../../types/components';
 import Icon from '../ui/Icon.astro';
+import { assetUrl } from '../../utils/assets';
 import { getProductPath } from '../../utils/url';
 
 type Props = ProductCardProps;
 
 // 产品卡（design-spec §6.3）：图 16:9 + 名称 h4 2 行截断 + 适应症摘要 2 行截断
 // 悬停上移 4px + shadow-md + 图放大；整卡为单个 <a>
-// 图片素材缺失 → 浅灰占位区 + 图片图标
+// 素材走 assets.ts 唯一出口；img 带 onerror 兜底（ADR-003 §5.2 约束 4）：
+// 失败时移除 img，露出底层令牌色占位块，不出现空白媒体区
 const { product, lang } = Astro.props;
 const href = getProductPath(product.categorySlug, product.slug, lang);
 const image = product.images?.[0];
@@ -15,12 +17,18 @@ const image = product.images?.[0];
 
 <a class="product-card card" href={href}>
   <div class="product-card__media card__media">
-    {image ? (
-      <img src={image.src} alt={image.alt} loading="lazy" />
-    ) : (
-      <span class="product-card__placeholder">
-        <Icon name="image" size={40} />
-      </span>
+    <span class="product-card__placeholder">
+      <Icon name="image" size={40} />
+    </span>
+    {image && (
+      <img
+        src={assetUrl(image.key)}
+        alt={image.alt}
+        loading="lazy"
+        width={800}
+        height={600}
+        onerror="this.remove()"
+      />
     )}
   </div>
   <div class="product-card__body card__body">
@@ -31,6 +39,16 @@ const image = product.images?.[0];
 
 <style>
   .product-card {
+    display: block;
+  }
+
+  .product-card__media {
+    position: relative;
+  }
+
+  .product-card__media > img {
+    position: relative;
+    z-index: 1;
     display: block;
   }
 

@@ -10,6 +10,15 @@ export interface MediaRef {
   alt: string;
 }
 
+/**
+ * 素材 key 引用（ADR-003 §2：数据文件只引 assets.ts 的 key，禁止散落完整 URL）。
+ * key -> 原站 URL 由 assetUrl(key) 在页面/组件层解析。
+ */
+export interface AssetRef {
+  key: string;
+  alt: string;
+}
+
 /** 产品分类：一级含 children 二级（content-model.md §4） */
 export interface Category {
   slug: string;
@@ -32,7 +41,7 @@ export interface Product {
   categorySlug: string;
   name: string;
   desc?: string;
-  images?: MediaRef[];
+  images?: AssetRef[];
   video?: string;
   order?: number;
 }

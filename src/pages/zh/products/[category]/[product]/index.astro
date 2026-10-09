@@ -5,6 +5,7 @@ import ProductGrid from '../../../../../components/product/ProductGrid.astro';
 import ContactForm from '../../../../../components/ui/ContactForm.astro';
 import SectionHeader from '../../../../../components/ui/SectionHeader.astro';
 import Icon from '../../../../../components/ui/Icon.astro';
+import { assetUrl } from '../../../../../utils/assets';
 import { loadHomeDict } from '../../../../../utils/i18n';
 import { getProducts, getCategoryBySlug } from '../../../../../utils/content';
 import { getProductsPath, getCategoryPath, getContactPath } from '../../../../../utils/url';
@@ -28,6 +29,7 @@ const page = dict.productDetail;
 const t = dict.common;
 const categoryName = getCategoryBySlug(lang, product.categorySlug)?.name ?? product.categorySlug;
 const related = getProducts(lang).filter((p) => p.categorySlug === product.categorySlug && p.slug !== product.slug);
+const image = product.images?.[0];
 
 const trail = [
   { label: t.breadcrumb.home, href: `/${lang}/` },
@@ -49,8 +51,15 @@ const trail = [
 
       <article class="product-detail">
         <div class="product-detail__media" aria-hidden="true">
-          {product.images && product.images.length > 0 ? (
-            <img src={product.images[0]?.src} alt={product.images[0]?.alt} />
+          {image ? (
+            <img
+              src={assetUrl(image.key)}
+              alt={image.alt}
+              loading="lazy"
+              width={1000}
+              height={750}
+              onerror="this.remove()"
+            />
           ) : (
             <span class="product-detail__placeholder"><Icon name="image" size={40} /></span>
           )}
