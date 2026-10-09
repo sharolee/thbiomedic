@@ -1,0 +1,37 @@
+# 防盗链复测（第二轮） 时间=2026-10-09T04:22:30.910Z  轮次=3 × Referer=5 × 目标=2
+
+### uploadfiles/2021/11/20211129094722329.png
+  no-referer       200/0/672ms/(none)  200/0/496ms/(none)  200/0/177ms/(none)
+  thbiomedic.zh    200/753897/1808ms/image/png  200/753897/1645ms/image/png  200/753897/703ms/image/png
+  localhost.4321   200/753897/863ms/image/png  200/753897/1022ms/image/png  ERR:fetch failed
+  example.com      ERR:fetch failed  ERR:fetch failed  200/753897/1347ms/image/png
+  vercel.app       ERR:fetch failed  ERR:fetch failed  ERR:fetch failed
+
+### uploadfiles/2021/09/20210907083344481.jpg
+  no-referer       200/0/182ms/(none)  200/0/498ms/(none)  200/0/183ms/(none)
+  thbiomedic.zh    ERR:fetch failed  ERR:fetch failed  ERR:fetch failed
+  localhost.4321   ERR:fetch failed  ERR:fetch failed  ERR:fetch failed
+  example.com      200/42376/217ms/image/jpeg  200/42376/221ms/image/jpeg  200/42376/210ms/image/jpeg
+  vercel.app       200/42376/221ms/image/jpeg  200/42376/243ms/image/jpeg  200/42376/218ms/image/jpeg
+
+### Range 请求对照（bytes=0-1023，模拟浏览器视频/大图分片）
+  uploadfiles/2021/11/20211129094722329.png
+    no-referer:200/0/(none)  |  thbiomedic.zh:ERR:fetch failed  |  localhost.4321:ERR:fetch failed  |  example.com:ERR:fetch failed  |  vercel.app:ERR:fetch failed
+
+  uploadfiles/2021/09/20210907083344481.jpg
+    no-referer:206/1024/image/jpeg  |  thbiomedic.zh:206/1024/image/jpeg  |  localhost.4321:206/1024/image/jpeg  |  example.com:206/1024/image/jpeg  |  vercel.app:206/1024/image/jpeg
+
+### 汇总（ok=拿到非空字节 / fail=0 字节或连接失败）
+  uploadfiles/2021/09/20210907083344481.jpg|example.com                  ok=3 fail=0
+  uploadfiles/2021/09/20210907083344481.jpg|localhost.4321               ok=0 fail=3
+  uploadfiles/2021/09/20210907083344481.jpg|no-referer                   ok=0 fail=3
+  uploadfiles/2021/09/20210907083344481.jpg|thbiomedic.zh                ok=0 fail=3
+  uploadfiles/2021/09/20210907083344481.jpg|vercel.app                   ok=3 fail=0
+  uploadfiles/2021/11/20211129094722329.png|example.com                  ok=1 fail=2
+  uploadfiles/2021/11/20211129094722329.png|localhost.4321               ok=2 fail=1
+  uploadfiles/2021/11/20211129094722329.png|no-referer                   ok=0 fail=3
+  uploadfiles/2021/11/20211129094722329.png|thbiomedic.zh                ok=3 fail=0
+  uploadfiles/2021/11/20211129094722329.png|vercel.app                   ok=0 fail=3
+
+总请求=30  失败=18  失败率=60.0%
+结论：存在失败分组 → 需按 Referer 分组检查是否为定向拦截

@@ -1,0 +1,10 @@
+ALLOW  status=206 bytes= 1024 ms=1102 ct=image/jpeg               <- 鏃?Referer
+ALLOW  status=206 bytes= 1024 ms= 419 ct=image/jpeg               <- 鍘熺珯涓枃椤?/zn/
+ALLOW  status=206 bytes= 1024 ms= 355 ct=image/jpeg               <- 鍘熺珯鑻辨枃椤?/
+ALLOW  status=206 bytes= 1024 ms= 369 ct=image/jpeg               <- 鏂扮珯涓枃棣栭〉 /zh/ (鍚屽煙)
+ALLOW  status=206 bytes= 1024 ms= 362 ct=image/jpeg               <- 鏂扮珯浜у搧椤?/zh/products/ (鍚屽煙)
+ALLOW  status=206 bytes= 1024 ms= 356 ct=image/jpeg               <- 鏈湴寮€鍙?localhost:4321
+ALLOW  status=206 bytes= 1024 ms=1913 ct=image/jpeg               <- 鏈湴寮€鍙?127.0.0.1
+ALLOW  status=206 bytes= 1024 ms= 894 ct=image/jpeg               <- 鏃犲ご Referer (scheme only)
+ALLOW  status=206 bytes= 1024 ms=1358 ct=image/jpeg               <- 绗笁鏂瑰煙鍚?example.com
+ALLOW  status=206 bytes= 1024 ms= 362 ct=image/jpeg               <- Vercel 閮ㄧ讲鍩?

@@ -1,0 +1,34 @@
+[ OK ]  1 206   762ms ct=image/jpeg body=131072B            /uploadfiles/2021/07/20210728135953702.jpg?QmFubmVyMDAyOTIyLmpwZw==
+[FAIL]  2   0   498ms fetch failed                          /uploadfiles/2021/07/20210729165117608.jpg?QmFubmVyMDAzMDg2LTAzLmpwZw==
+[FAIL]  3   0   181ms fetch failed                          /uploadfiles/2021/07/20210729165156840.jpg?QmFubmVyMDAzMDg2LTAxLmpwZw==
+[FAIL]  4   0   181ms fetch failed                          /uploadfiles/2021/09/20210906161301684.jpg?5a6I5ZCI5ZCMLmpwZw==
+[FAIL]  5   0   178ms fetch failed                          /uploadfiles/2021/09/20210906161317543.png?5biM5pyb5LmL5YWJLnBuZw==
+[ OK ]  6 206   213ms ct=image/jpeg body=42376B             /uploadfiles/2021/09/20210907083344481.jpg?5a6g54mpLmpwZw==
+[ OK ]  7 206   384ms ct=image/jpeg body=131072B            /uploadfiles/2021/09/20210907085212090.jpg?RFNDMDIyNTUuanBn
+[ OK ]  8 206   379ms ct=image/jpeg body=131072B            /uploadfiles/2021/09/20210907085241434.jpg?RFNDMDM4OTYuanBn
+[ OK ]  9 206   536ms ct=image/png body=131072B             /uploadfiles/2021/11/20211129094722329.png
+[ OK ] 10 206   431ms ct=image/png body=131072B             /uploadfiles/2021/12/20211205210723238.png
+[ OK ] 11 206   383ms ct=image/png body=131072B             /uploadfiles/2021/12/20211205210753300.png
+[ OK ] 12 206   432ms ct=image/png body=131072B             /uploadfiles/2021/12/20211205210816206.png
+[ OK ] 13 206   354ms ct=image/png body=12516B              /uploadfiles/2021/12/20211205211807050.png
+[ OK ] 14 206   233ms ct=image/png body=131072B             /uploadfiles/2021/12/20211205211848019.png
+[ OK ] 15 206   387ms ct=image/jpeg body=78168B             /uploadfiles/2024/09/20240926095351580.jpg?MTcyNzA2ODAyMzE4MC5qcGc=
+[ OK ] 16 206   544ms ct=image/jpeg body=131072B            /uploadfiles/2024/09/20240926113056473.jpg?MTEwMDQwMS5qcGc=
+[ OK ] 17 206   379ms ct=image/jpeg body=131072B            /uploadfiles/2024/09/20240926170933712.jpg?5bel5Y6C6Zeo6Z2i6auY5riF5Zu+LkpQRw==
+[ OK ] 18 206   432ms ct=image/png body=131072B             /uploadfiles/2024/09/20240927085133678.png?5pyq5qCH6aKYLTEoMSkucG5n
+[ OK ] 19 206   375ms ct=image/jpeg body=131072B            /uploadfiles/2024/09/20240927092611098.jpg?5Lit5paHLeS8geS4muWPiuS6p+WTgeS7i+e7jS1PTkVTS1ktMjAyNDAyXzAxLmpwZw==
+[ OK ] 20 206   380ms ct=image/jpeg body=131072B            /uploadfiles/2024/09/20240927093426650.jpg?5bm/5Lic55yB5LiT57K+54m55paw5LyB5Lia77yIR3Vhbmdkb25nIFByb3ZpbmNlIFNwZWNpYWxpemVkIGFuZCBOZXcgSW5ub3ZhdGl2ZSBFbnRlcnByaXNlKS5qcGc=
+[ OK ] 21 206   697ms ct=video/mp4 body=131072B             /uploadfiles/2021/12/20211209094814255.mp4
+[ OK ] 22 206   391ms ct=video/mp4 body=131072B             /uploadfiles/2021/12/20211209104947146.mp4
+[ OK ] 23 206   385ms ct=video/mp4 body=131072B             /uploadfiles/2021/12/20211209105027396.mp4
+[ OK ] 24 206   385ms ct=video/mp4 body=131072B             /uploadfiles/2021/12/20211209112600896.mp4
+[ OK ] 25 206   412ms ct=video/mp4 body=131072B             /uploadfiles/2021/12/20211213132229319.mp4
+[ OK ] 26 206   424ms ct=video/mp4 body=131072B             /uploadfiles/2021/12/20211214145246460.mp4
+
+直引可达性冒烟：26 条抽样，22 可达 / 4 不可达（Referer=https://www.thbiomedic.com/zn/index.html）
+
+=== 阻塞上报：以下 URL 直引不可达（REDLINES v2，禁止静默占位）===
+  0 https://www.thbiomedic.com/uploadfiles/2021/07/20210729165117608.jpg?QmFubmVyMDAzMDg2LTAzLmpwZw==  fetch failed
+  0 https://www.thbiomedic.com/uploadfiles/2021/07/20210729165156840.jpg?QmFubmVyMDAzMDg2LTAxLmpwZw==  fetch failed
+  0 https://www.thbiomedic.com/uploadfiles/2021/09/20210906161301684.jpg?5a6I5ZCI5ZCMLmpwZw==  fetch failed
+  0 https://www.thbiomedic.com/uploadfiles/2021/09/20210906161317543.png?5biM5pyb5LmL5YWJLnBuZw==  fetch failed
