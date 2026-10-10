@@ -16,6 +16,11 @@ const page = dict.contact;
 const t = dict.common;
 const contact = getContact(lang);
 
+// tel: href normalization: "+86 020-82350336" → "tel:+862082350336"
+const telHref = contact
+  ? 'tel:' + contact.phone.replace(/[^\d+]/g, '').replace(/^\+860(?=\d)/, '+86')
+  : undefined;
+
 const trail = [
   { label: t.breadcrumb.home, href: `/${lang}/` },
   { label: page.banner.title },
@@ -41,7 +46,7 @@ const trail = [
             <div class="contact-info__card">
               <Icon name="phone" size={24} />
               <h3 class="contact-info__label">{t.form.phone}</h3>
-              <a class="contact-info__value" href={`tel:${contact.phone.replace(/\s/g, '')}`}>{contact.phone}</a>
+              <a class="contact-info__value" href={telHref}>{contact.phone}</a>
               {contact.phoneExt && <p class="contact-info__ext">{contact.phoneExt}</p>}
             </div>
             <div class="contact-info__card">

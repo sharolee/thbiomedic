@@ -88,7 +88,9 @@ export function initContactForm(): void {
       lines.push(`${label('labelSource')}: ${source}`.trim());
     }
     const body = lines.filter(Boolean).join('\n\n');
-    return `mailto:${encodeURIComponent(targetEmail)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    // 收件邮箱是 mailto 的 target，必须保持明文（encodeURIComponent 会把 @ 编码成 %40，
+    // 大多数邮件客户端无法解析）；仅主题与正文 URI 编码。
+    return `mailto:${targetEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   form.addEventListener('submit', (event) => {
