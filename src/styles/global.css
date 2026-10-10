@@ -12,6 +12,13 @@
   padding: 0;
 }
 
+/* [hidden] 属性兜底：组件 scoped display（grid/flex）优先级高于
+   UA 默认样式，会导致 hidden 失效（表单错误/成功面板/空态常显）。
+   统一用 !important 恢复隐藏语义（HTML 规范推荐兜底写法）。 */
+[hidden] {
+  display: none !important;
+}
+
 html {
   font-size: 16px;
   scroll-behavior: smooth;

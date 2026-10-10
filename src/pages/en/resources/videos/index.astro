@@ -68,6 +68,7 @@ const trail: BreadcrumbItem[] = [
                           controls
                           preload="none"
                           playsinline
+                          poster={item.poster ? assetUrl(item.poster) : undefined}
                           onerror="this.remove()"
                         >
                           <source src={assetUrl(item.file)} type="video/mp4" />

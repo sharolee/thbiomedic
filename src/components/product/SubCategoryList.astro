@@ -9,13 +9,13 @@ type Props = SubCategoryListProps;
 // 一级分类页的二级子分类导航（page-structure §3.2）
 // 克制型列表：序号 + 名称 + 产品条数/「筹备中」+ 箭头，hover 序号变主色、箭头右移
 // 无二级分类的一级（配件/高温板等）走空态面板 + 联系 CTA，不出现假占位
-const { lang, items, countLabel, comingSoonLabel, emptyTitle, emptyBody, emptyActionLabel, emptyActionHref } = Astro.props;
+const { lang, items, countLabel, comingSoonLabel, emptyTitle, emptyBody, emptyActionLabel, emptyActionHref, ariaLabel } = Astro.props;
 
 const pad = (n: number) => String(n).padStart(2, '0');
 ---
 
 {items.length > 0 ? (
-  <nav class="subcat" aria-label="Subcategories">
+  <nav class="subcat" aria-label={ariaLabel}>
     <ul class="subcat__list">
       {items.map((item, i) => (
         <li>

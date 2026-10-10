@@ -150,6 +150,8 @@ export interface SubCategoryItem {
 export interface SubCategoryListProps {
   lang: Lang;
   items: SubCategoryItem[];
+  /** 导航 aria-label（本地化文案） */
+  ariaLabel: string;
   /** 产品条数标签模板，含 {count} 占位 */
   countLabel: string;
   /** 空分类「筹备中」标签文案 */

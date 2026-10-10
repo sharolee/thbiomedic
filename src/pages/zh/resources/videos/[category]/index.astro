@@ -69,6 +69,7 @@ const trail: BreadcrumbItem[] = [
                 controls
                 preload="none"
                 playsinline
+                poster={item.poster ? assetUrl(item.poster) : undefined}
               ></video>
               <div class="video-card__body card__body">
                 <h3 class="video-card__title card__title">{item.title}</h3>
