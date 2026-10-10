@@ -80,6 +80,13 @@
 | 31 | 空跑零产物不报：任务被取消、无输出、超时后不在 issue 留痕，导致编排者误判为进展 | `REWORK`，同题二次升 `HALT` |
 | 32 | idle 超时 / 被 watchdog 终止后，下一轮未说明上一轮状态与已完成部分即重头推进 | `REWORK` |
 
+## 六、版本库卫生（SHAR-55 方案A 新增）
+
+| # | 红线行为 | 后果 |
+|---|---|---|
+| 33 | **提交平台托管上下文文件进版本库**（`AGENTS.md`、`CLAUDE.md`、`CODEBUDDY.md`、`AGENTS.local.md`） | `HALT`（SHAR-55 事故根因；`git rm --cached` 回滚是止损不是后果，须执行停手 + 上报） |
+| 34 | 用 `git add -A` / `git commit -a` 一把梭暂存或提交，提交前未 `git status` 逐项核对暂存内容 | `REWORK`，同题二次升 `HALT` |
+
 ---
 
 ## 判定与执行

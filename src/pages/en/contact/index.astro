@@ -56,7 +56,7 @@ const trail = [
             </div>
             {contact.wechatQr && (
               <div class="contact-info__card">
-                <img class="contact-info__qr" src={assetUrl(contact.wechatQr.src)} alt={contact.wechatQr.alt} loading="lazy" />
+                <img class="contact-info__qr" src={assetUrl(contact.wechatQr.src)} alt={contact.wechatQr.alt} loading="lazy" onerror="this.closest('.contact-info__card').hidden = true" />
                 <p class="contact-info__value">{contact.wechatQr.alt}</p>
               </div>
             )}
@@ -66,7 +66,7 @@ const trail = [
 
       <div class="contact-form-section">
         <SectionHeader title={page.form_intro} />
-        <ContactForm dict={dict} />
+        <ContactForm dict={dict} email={contact?.email} />
       </div>
     </div>
   </section>

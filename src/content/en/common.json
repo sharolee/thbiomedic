@@ -20,7 +20,9 @@
     "column_contact": "Contact Us",
     "copyright": "© {year} Guangzhou Tianhong Medical Technology Co., Ltd.",
     "icp": "ICP证0301",
-    "qr_label": "WeChat Official Account"
+    "qr_label": "WeChat Official Account",
+    "honors": "Honor & Certificates",
+    "built_by": "Designed by"
   },
   "lang_switcher": {
     "label": "Switch language",
@@ -42,7 +44,8 @@
     "results_title": "Search Results",
     "empty_title": "No results found",
     "empty_body": "No content found for \"{query}\". Try a different keyword.",
-    "no_js_hint": "Search requires JavaScript to be enabled"
+    "no_js_hint": "Search requires JavaScript to be enabled",
+    "results_count": "{count} results for \"{query}\""
   },
   "form": {
     "salutation": "Salutation",
@@ -58,7 +61,11 @@
     "error_email": "Please enter a valid email address",
     "error_submit": "Submission failed. Please try again.",
     "success_title": "Thank you! Your message has been received",
-    "success_body": "We will get back to you as soon as possible"
+    "success_body": "Your email client has been opened — please confirm and send, or email us directly at the address below.",
+    "mailto_label": "Send email directly",
+    "mailto_subject": "Website enquiry - Tianhong Medical",
+    "source": "Source",
+    "no_js_hint": "Enable JavaScript to use the feedback form, or send an email directly:"
   },
   "pagination": {
     "prev": "Previous",

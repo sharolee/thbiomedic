@@ -5,20 +5,34 @@ import Icon from '../ui/Icon.astro';
 
 type Props = ContactFormProps;
 
-// 在线留言表单（design-spec §6.4 / page-structure §3.2 §6.3）
+// 在线留言表单（design-spec §6.4 / ADR-005）
 // 字段：称呼 / 公司* / 邮箱* / 名* / 姓* / 手机 / 内容；隐藏字段记录来源 slug
 // 交互岛屿（client:load，页面使用处标记）：客户端校验 + 成功/错误面板
-// 无 JS 降级：原生表单提交（method=post，端点为 PUBLIC_API_URL，预留）
-const { dict, sourceSlug } = Astro.props;
+// ADR-005：校验通过后拼装 mailto: 结构化邮件唤起邮件客户端；
+// 无 JS 降级：form action=mailto: + noscript 备用邮件链接
+const { dict, sourceSlug, email } = Astro.props;
 const t = dict.common.form;
-const apiEndpoint = import.meta.env.PUBLIC_API_URL;
+const mailtoHref = email ? `mailto:${email}` : undefined;
 ---
 
-<div class="contact-form" data-contact-form>
+<div
+  class="contact-form"
+  data-contact-form
+  data-email-target={email ?? ''}
+  data-mailto-subject={t.mailto_subject}
+  data-label-salutation={t.salutation}
+  data-label-company={t.company}
+  data-label-email={t.email}
+  data-label-first-name={t.first_name}
+  data-label-last-name={t.last_name}
+  data-label-phone={t.phone}
+  data-label-message={t.message}
+  data-label-source={t.source}
+>
   <form
     class="contact-form__form"
     method="post"
-    action={apiEndpoint}
+    action={mailtoHref}
     novalidate
     data-contact-form-el
   >
@@ -115,12 +129,22 @@ const apiEndpoint = import.meta.env.PUBLIC_API_URL;
     <div class="contact-form__actions">
       <Button type="submit" variant="primary" class="contact-form__submit">{t.submit}</Button>
     </div>
+
+    {mailtoHref && (
+      <noscript>
+        <p class="form-note">{t.no_js_hint}</p>
+        <a class="contact-form__mailto-link" href={mailtoHref}>{t.mailto_label}</a>
+      </noscript>
+    )}
   </form>
 
   <div class="contact-form__success" data-form-success hidden>
     <div class="contact-form__success-icon"><Icon name="check" size={40} /></div>
     <h3 class="contact-form__success-title">{t.success_title}</h3>
     <p class="contact-form__success-body">{t.success_body}</p>
+    {mailtoHref && (
+      <a class="contact-form__mailto-link" href={mailtoHref}>{t.mailto_label}</a>
+    )}
   </div>
 
   <div class="contact-form__error-bar" data-form-error-bar hidden>
@@ -173,6 +197,19 @@ const apiEndpoint = import.meta.env.PUBLIC_API_URL;
 
   .contact-form__actions {
     margin-top: var(--space-sm);
+  }
+
+  .contact-form__mailto-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    margin-top: var(--space-sm);
+    color: var(--color-primary-600);
+    font-weight: var(--weight-medium);
+  }
+
+  .contact-form__mailto-link:hover {
+    text-decoration: underline;
   }
 
   .contact-form__success {

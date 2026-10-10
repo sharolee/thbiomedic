@@ -5,10 +5,10 @@ import Icon from './Icon.astro';
 type Props = EmptyStateProps;
 
 // 空态面板（design-spec §6.6）：浅灰插图区 48px 线性图标 + 标题 + 说明 + 可选行动
-const { title, body, icon = 'alert' } = Astro.props;
+const { title, body, icon = 'alert', ...attrs } = Astro.props;
 ---
 
-<div class="empty-state">
+<div class="empty-state" {...attrs}>
   <div class="empty-state__icon"><Icon name={icon} size={40} /></div>
   <h3 class="empty-state__title">{title}</h3>
   {body && <p class="empty-state__body">{body}</p>}

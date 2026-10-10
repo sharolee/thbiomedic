@@ -20,7 +20,9 @@
     "column_contact": "联系我们",
     "copyright": "© {year} 广州天泓医疗科技有限公司",
     "icp": "ICP证0301",
-    "qr_label": "天泓医疗公众号"
+    "qr_label": "天泓医疗公众号",
+    "honors": "荣誉资质",
+    "built_by": "网站建设："
   },
   "lang_switcher": {
     "label": "切换语言",
@@ -42,7 +44,8 @@
     "results_title": "搜索结果",
     "empty_title": "未找到相关结果",
     "empty_body": "未找到与「{query}」相关的内容，请尝试其他关键词",
-    "no_js_hint": "搜索需要启用 JavaScript"
+    "no_js_hint": "搜索需要启用 JavaScript",
+    "results_count": "共 {count} 条与「{query}」相关的结果"
   },
   "form": {
     "salutation": "称呼",
@@ -58,7 +61,11 @@
     "error_email": "请输入有效的邮箱地址",
     "error_submit": "提交失败，请重试",
     "success_title": "我们已收到您的留言",
-    "success_body": "我们会尽快与您联系"
+    "success_body": "已为您唤起邮件客户端，请确认发送；或直接发送邮件至下方邮箱",
+    "mailto_label": "直接发送邮件",
+    "mailto_subject": "天泓医疗网站留言",
+    "source": "来源",
+    "no_js_hint": "浏览器需启用 JavaScript 以使用留言表单；您也可以直接发送邮件："
   },
   "pagination": {
     "prev": "上一页",

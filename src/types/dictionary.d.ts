@@ -33,8 +33,12 @@ export interface FooterDict {
   column_contact: string;
   copyright: string;
   icp: string;
-  /** 公众号二维码占位文案 */
+  /** 公众号二维码文案 */
   qr_label: string;
+  /** 页脚「荣誉资质」链接（about 页锚点） */
+  honors: string;
+  /** 页脚建站商前缀文案 */
+  built_by: string;
 }
 
 export interface LangSwitcherDict {
@@ -76,6 +80,8 @@ export interface SearchDict {
   /** 含 {query} 占位变量 */
   empty_body: string;
   no_js_hint: string;
+  /** 结果计数行，含 {count} / {query} 占位变量 */
+  results_count: string;
 }
 
 export interface FormDict {
@@ -94,6 +100,14 @@ export interface FormDict {
   error_submit: string;
   success_title: string;
   success_body: string;
+  /** ADR-005 mailto 备用链接文案 */
+  mailto_label: string;
+  /** ADR-005 mailto 邮件主题 */
+  mailto_subject: string;
+  /** 邮件正文字段「来源」标签 */
+  source: string;
+  /** 表单无 JS 降级提示 */
+  no_js_hint: string;
 }
 
 export interface PaginationDict {

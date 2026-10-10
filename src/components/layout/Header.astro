@@ -2,7 +2,9 @@
 import type { HeaderProps } from '../../types/components';
 import LanguageSwitcher from '../ui/LanguageSwitcher.astro';
 import Icon from '../ui/Icon.astro';
-import { getHomePath, getProductsPath, getDownloadsPath, getVideosPath, getSearchPath } from '../../utils/url';
+import { getHomePath, getProductsPath, getDownloadsPath, getVideosPath, getSearchPath, getCategoryPath } from '../../utils/url';
+import { localAsset } from '../../utils/assets';
+import { getCategories } from '../../utils/content';
 
 type Props = HeaderProps;
 
@@ -10,13 +12,17 @@ type Props = HeaderProps;
 // 搜索图标（滑出搜索条）+ 产品中心/资源下拉
 const { lang, pathname, dict } = Astro.props;
 const t = dict.common;
+const categories = getCategories(lang);
 const navItems = [
   { href: `/${lang}/`, label: t.nav.home },
   { href: `/${lang}/about/`, label: t.nav.about },
   {
     href: getProductsPath(lang),
     label: t.nav.products,
-    children: [{ href: getProductsPath(lang), label: t.nav.products_all }],
+    children: [
+      { href: getProductsPath(lang), label: t.nav.products_all },
+      ...categories.map((c) => ({ href: getCategoryPath(c.slug, lang), label: c.name })),
+    ],
   },
   {
     href: `/${lang}/resources/`,
@@ -38,8 +44,13 @@ const search = dict.common.search;
 <header class="header" data-header>
   <div class="header__bar u-container">
     <a class="header__logo" href={getHomePath(lang)}>
-      <span class="header__logo-mark" aria-hidden="true">天</span>
-      <span class="header__logo-name">{t.footer.brand}</span>
+      <img
+        class="header__logo-img"
+        src={localAsset('logo')}
+        alt={t.footer.brand}
+        width={188}
+        height={54}
+      />
     </a>
 
     <nav class="header__nav" aria-label={t.nav.aria_label}>
@@ -176,39 +187,19 @@ const search = dict.common.search;
   .header__logo {
     display: inline-flex;
     align-items: center;
-    gap: var(--space-2xs);
     flex-shrink: 0;
-    color: var(--color-neutral-900);
   }
 
-  .header__logo:hover {
-    color: var(--color-primary-600);
-  }
-
-  .header__logo-mark {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: var(--radius-sm);
-    background: var(--gradient-brand);
-    color: var(--color-white);
-    font-size: var(--text-body-lg);
-    font-weight: var(--weight-bold);
+  .header__logo-img {
+    display: block;
+    width: auto;
+    height: 28px;
   }
 
   @media (min-width: 1024px) {
-    .header__logo-mark {
-      width: 40px;
-      height: 40px;
+    .header__logo-img {
+      height: 36px;
     }
-  }
-
-  .header__logo-name {
-    font-size: var(--text-body);
-    font-weight: var(--weight-bold);
-    letter-spacing: 0.02em;
   }
 
   .header__nav {
@@ -277,6 +268,8 @@ const search = dict.common.search;
       left: 50%;
       transform: translateX(-50%);
       min-width: 240px;
+      max-height: 70vh;
+      overflow-y: auto;
       padding: var(--space-2xs);
       background: var(--color-white);
       border: var(--border-default);

@@ -4,8 +4,8 @@ import Banner from '../../../components/layout/Banner.astro';
 import EmptyState from '../../../components/ui/EmptyState.astro';
 import { loadHomeDict } from '../../../utils/i18n';
 
-// 搜索页（page-structure §0.3，骨架：搜索索引由 W3-3 生成）
-// 静态构建下由客户端过滤预生成的搜索索引 JSON；当前索引未生成 → 空态提示
+// 搜索页（page-structure §0.3）：构建期生成索引 JSON（index.json.ts），
+// 客户端按 query 过滤渲染结果；无结果回退空态面板。
 const lang = 'zh';
 const dict = loadHomeDict(lang);
 const search = dict.common.search;
@@ -27,29 +27,28 @@ const trail = [
   />
 
   <section class="u-section">
-    <div class="u-container" data-search-page data-empty-body={search.empty_body}>
+    <div
+      class="u-container"
+      data-search-page
+      data-lang={lang}
+      data-empty-body={search.empty_body}
+      data-count-template={search.results_count}
+    >
       <noscript>
         <p class="search-no-js">{search.no_js_hint}</p>
       </noscript>
-      <EmptyState title={search.empty_title} icon="search" />
+      <p class="search-count" data-search-count hidden></p>
+      <div class="search-results" data-search-results hidden></div>
+      <EmptyState title={search.empty_title} icon="search" data-search-empty>
+        <span data-empty-body-el></span>
+      </EmptyState>
     </div>
   </section>
 </PageLayout>
 
 <script>
-  // 骨架阶段：读取 URL query 并展示空态提示；搜索索引（W3-3）接入后
-  // 在客户端过滤索引 JSON 并渲染结果分组（文案模板来自字典，禁硬编码）
-  const root = document.querySelector<HTMLElement>('[data-search-page]');
-  if (root) {
-    const query = new URLSearchParams(window.location.search).get('q');
-    const template = root.dataset.emptyBody ?? '';
-    if (query) {
-      const hint = document.createElement('p');
-      hint.className = 'search-no-js';
-      hint.textContent = template.replace('{query}', query);
-      root.insertBefore(hint, root.firstChild);
-    }
-  }
+  import { initSearchPage } from '../../../scripts/search-page';
+  initSearchPage();
 </script>
 
 <style>
@@ -61,5 +60,52 @@ const trail = [
     color: var(--color-warning-600);
     font-size: var(--text-small);
     text-align: center;
+  }
+
+  .search-count {
+    font-size: var(--text-small);
+    color: var(--color-neutral-500);
+    margin-bottom: var(--space-md);
+  }
+
+  .search-results {
+    display: grid;
+    gap: var(--space-sm);
+  }
+
+  .search-result {
+    padding: var(--space-md);
+    border: var(--border-default);
+    border-radius: var(--radius-md);
+    background: var(--color-white);
+    transition: border-color var(--duration-fast) var(--easing);
+  }
+
+  .search-result:hover {
+    border-color: var(--color-primary-400);
+  }
+
+  .search-result__link {
+    display: grid;
+    gap: var(--space-3xs);
+  }
+
+  .search-result__section {
+    font-size: var(--text-caption);
+    font-weight: var(--weight-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-primary-600);
+  }
+
+  .search-result__title {
+    font-size: var(--text-body-lg);
+    color: var(--color-neutral-900);
+  }
+
+  .search-result__desc {
+    font-size: var(--text-small);
+    color: var(--color-neutral-500);
+    line-height: var(--leading-body);
   }
 </style>

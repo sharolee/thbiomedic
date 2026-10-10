@@ -7,7 +7,7 @@ import SectionHeader from '../../../../../components/ui/SectionHeader.astro';
 import Icon from '../../../../../components/ui/Icon.astro';
 import { assetUrl } from '../../../../../utils/assets';
 import { loadHomeDict } from '../../../../../utils/i18n';
-import { getProducts, findChildCategory } from '../../../../../utils/content';
+import { getProducts, findChildCategory, getContact } from '../../../../../utils/content';
 import { getProductsPath, getCategoryPath, getContactPath } from '../../../../../utils/url';
 import type { Lang } from '../../../../../types/dictionary';
 import type { BreadcrumbItem } from '../../../../../types/components';
@@ -34,6 +34,7 @@ const parent = findChildCategory(lang, product.categorySlug);
 const categoryName = parent?.child.name ?? product.categorySlug;
 const related = getProducts(lang).filter((p) => p.categorySlug === product.categorySlug && p.slug !== product.slug);
 const image = product.images?.[0];
+const contactEmail = getContact(lang)?.email;
 
 const trail: BreadcrumbItem[] = [
   { label: t.breadcrumb.home, href: `/${lang}/` },
@@ -95,7 +96,7 @@ trail.push({ label: product.name });
 
       <div class="inquiry">
         <SectionHeader title={page.inquiry_title} />
-        <ContactForm dict={dict} sourceSlug={product.slug} />
+        <ContactForm dict={dict} sourceSlug={product.slug} email={contactEmail} />
       </div>
     </div>
   </section>

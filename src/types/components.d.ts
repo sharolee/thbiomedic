@@ -103,10 +103,12 @@ export interface BannerProps {
 }
 
 export interface EmptyStateProps {
-  title: string;
-  body?: string;
-  icon?: IconName;
-}
+    title: string;
+    body?: string;
+    icon?: IconName;
+    /** 额外透传到根元素的自定义 data-* 属性（如搜索页的 data-search-empty） */
+    [key: `data-${string}`]: string | boolean | undefined;
+  }
 
 export interface SectionHeaderProps {
   title: string;
@@ -213,6 +215,8 @@ export interface ContactFormProps {
   dict: Dict;
   /** 来源记录（分类/产品 slug），写入表单隐藏字段 */
   sourceSlug?: string;
+  /** 收件邮箱（ADR-005 mailto 方案；缺省则渲染无收件人的降级态） */
+  email?: string;
 }
 
 export interface NewsListProps {

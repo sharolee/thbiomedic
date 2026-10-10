@@ -70,6 +70,11 @@ export function getVideosPath(lang: Lang): string {
   return `/${lang}/resources/videos/`;
 }
 
+/** 资源-视频分类页路径（如 /zh/resources/videos/physical-rehabilitation/） */
+export function getVideoCategoryPath(categorySlug: string, lang: Lang): string {
+  return `/${lang}/resources/videos/${categorySlug}/`;
+}
+
 /** 联系我们页路径 */
 export function getContactPath(lang: Lang): string {
   return `/${lang}/contact/`;

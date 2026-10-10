@@ -200,6 +200,7 @@
 7.5【必须】合并前置条件：`check:all` 通过 + 独立验收通过 + 相关门禁通过。
 7.6【必须】**不擅自 push、不擅自合并**：push 与合并须人确认或 issue 明确要求。
 7.7【可选】启用 husky 做 pre-commit 校验。
+7.8【必须】**平台托管上下文文件永不入库，禁止 `git add -A` 一把梭**：`AGENTS.md`、`CLAUDE.md`、`CODEBUDDY.md`、`AGENTS.local.md` 由 Multica daemon 在任务开始时注入运行时简报、结束时剪切收回，属瞬时文件，已列入 `.gitignore`，任何情况下不得提交进版本库（根因与证据见 `docs/audit/agents-md-cleared-rootcause.md`，SHAR-55）。提交一律**显式列出路径**；禁止 `git add -A`、`git add .`、`git commit -a` 等一把梭式暂存/提交；提交前必须 `git status`（可加 `--short`）逐项核对暂存内容与本次变更一致。
 
 ## 8. 设计约定（双语与协作）
 

@@ -20,6 +20,7 @@ dist-ssr/
 # ── 工具内部目录 ─────────────────────────────────
 .opencode/
 .multica/
+.omo/
 
 # ── 平台托管上下文文件（Multica daemon 注入/收回，禁止入库）──
 # daemon 在 opencode/pi（写 AGENTS.md）、codebuddy（写 CODEBUDDY.md）任务开始时注入
