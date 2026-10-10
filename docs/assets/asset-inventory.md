@@ -252,7 +252,7 @@
 | https://www.thbiomedic.com/uploadfiles/2024/11/20241126113537894.png | 产品中心(en)；产品图（列表/详情/分类横幅） | https://www.thbiomedic.com/Products/index.aspx?lcid=70 |
 | https://www.thbiomedic.com/uploadfiles/2024/11/20241126133610282.png | 产品中心(en)；产品图（列表/详情/分类横幅） | https://www.thbiomedic.com/Products/index.aspx?lcid=42 |
 | https://www.thbiomedic.com/uploadfiles/2024/11/20241126133624572.png | 产品中心(en)；产品图（列表/详情/分类横幅） | https://www.thbiomedic.com/Products/index.aspx?lcid=42 |
-| https://www.thbiomedic.com/uploadfiles/2024/11/20241126151510724.jpg?4oCc5aSp5rOT5Yy755aX4oCd5YWs5LyX5Y+35LqM57u056CBLmpwZw== | 联系我们(en)；联系页配图 | https://www.thbiomedic.com/ContactUs/index.aspx |
+| https://www.thbiomedic.com/uploadfiles/2024/11/20241126151510724.jpg?4oCc5aSp5rOT5Yy755aX4oCd5YWs5LyX5Y+35LqM57u056CBLmpwZw== | 联系我们(en)；公众号二维码 | https://www.thbiomedic.com/ContactUs/index.aspx |
 | https://www.thbiomedic.com/uploadfiles/2024/11/20241126160052258.png | 产品中心(en)；产品图（列表/详情/分类横幅） | https://www.thbiomedic.com/Products/index.aspx?lcid=71 |
 | https://www.thbiomedic.com/uploadfiles/2024/11/20241126160109157.png | 产品中心(en)；产品图（列表/详情/分类横幅） | https://www.thbiomedic.com/Products/index.aspx?lcid=71 |
 | https://www.thbiomedic.com/uploadfiles/2024/11/20241126162714239.jpg?5pyq5qCH6aKYLTEuanBn | 首页(en)；未标题-1.jpg | https://www.thbiomedic.com/index.aspx |
@@ -261,7 +261,7 @@
 | https://www.thbiomedic.com/uploadfiles/2024/11/20241126171859845.png?UDExMDA3MzIucG5n | 产品中心(en)；产品图（列表/详情/分类横幅）；P1100732.png | https://www.thbiomedic.com/Products/index.aspx?lcid=42 |
 | https://www.thbiomedic.com/uploadfiles/2024/11/20241126171927835.jpg?MTcyNzA2ODAyMzE4MC5qcGc= | 产品中心(en)；产品图（列表/详情/分类横幅） | https://www.thbiomedic.com/Products/index.aspx?lcid=42 |
 | https://www.thbiomedic.com/uploadfiles/2024/11/20241126172041911.png?5LiK6IeC5Zu65a6a5aS55p2/ICgyKS5wbmc= | 产品中心(en)；产品图（列表/详情/分类横幅） | https://www.thbiomedic.com/Products/index.aspx?lcid=42 |
-| https://www.thbiomedic.com/uploadfiles/2024/11/20241127090745558.jpg?4oCc5aSp5rOT5Yy755aX4oCd5YWs5LyX5Y+35LqM57u056CBLmpwZw== | 联系我们(zh)；联系页配图 | https://www.thbiomedic.com/zn/ContactUs/index.html |
+| https://www.thbiomedic.com/uploadfiles/2024/11/20241127090745558.jpg?4oCc5aSp5rOT5Yy755aX4oCd5YWs5LyX5Y+35LqM57u056CBLmpwZw== | 联系我们(zh)；公众号二维码 | https://www.thbiomedic.com/zn/ContactUs/index.html |
 | https://www.thbiomedic.com/uploadfiles/2024/11/20241127133720352.png | 产品中心(zh)；产品图（列表/详情/分类横幅） | https://www.thbiomedic.com/zn/Products/index.aspx?lcid=72 |
 | https://www.thbiomedic.com/uploadfiles/2024/11/20241127134159989.png | 产品中心(zh)；产品图（列表/详情/分类横幅） | https://www.thbiomedic.com/zn/Products/index.aspx?lcid=73 |
 | https://www.thbiomedic.com/uploadfiles/2024/11/20241127134610063.png | 产品中心(zh)；产品图（列表/详情/分类横幅） | https://www.thbiomedic.com/zn/Products/index.aspx?lcid=58 |
@@ -356,3 +356,12 @@
 | https://www.thbiomedic.com/zn/CompanyNews/list.html | 404 | HTTP 404 |
 | https://www.thbiomedic.com/zn/ExhibitionInformation/list.html | 404 | HTTP 404 |
 | https://www.thbiomedic.com/zn/IndustryInformation/list.html | 404 | HTTP 404 |
+
+## 8. 本地化例外（SHAR-61 · 2026-10-10）
+
+原站 CDN/WAF（openresty + SDWAF）对 uploadfiles 与 logo 全量返回 HTTP 200 + Content-Length: 0（空响应体），原站素材直链已不可用。以下素材在失效前下载本地化，经 `src/utils/assets.ts` 的 `LOCAL_ASSETS` 直引：
+
+| 本地路径 | 原站来源 URL | 校验 |
+|---|---|---|
+| `/logo.png`（`public/logo.png`） | https://www.thbiomedic.com/zn/uploadfiles/Top002908_logo.png（页脚 Bottom002909_logo.png 同图） | SHA-256 与 `docs/assets/logo/logo.png` 一致（SHAR-49 识图：188×54 RGBA 透明底，主色 #0D8FB5 / #E75306） |
+| `/assets/images/wechat-qr.jpg`（`public/assets/images/wechat-qr.jpg`） | https://www.thbiomedic.com/uploadfiles/2024/11/20241127090745558.jpg?4oCc5aSp5rOT5Yy755aX4oCd5YWs5LyX5Y+35LqM57u056CBLmpwZw==（en 站 20241126151510724.jpg 同图，SHA-256 一致） | 258×258 JPEG；zxing-cpp 解码 QR 有效载荷 `http://weixin.qq.com/r/-xF7Y47EV9MorcoA90Tt`（微信公众号短链）；原站 URL 文件名 base64 解码为「“天泓医疗”公众号二维码.jpg」 |

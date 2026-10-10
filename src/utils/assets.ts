@@ -312,6 +312,7 @@ export const ASSET_KEYS = Object.keys(ASSET_PATHS);
 /** 本地化例外（不走上游直引） */
 export const LOCAL_ASSETS = {
   logo: '/logo.png',
+  'wechat-qr': '/assets/images/wechat-qr.jpg',
 } as const;
 
 export type LocalAssetKey = keyof typeof LOCAL_ASSETS;

@@ -2,7 +2,7 @@
 import type { FooterProps } from '../../types/components';
 import Icon from '../ui/Icon.astro';
 import { getHomePath, getAboutPath, getDownloadsPath, getVideosPath, getContactPath, getCategoryPath } from '../../utils/url';
-import { localAsset, assetUrl } from '../../utils/assets';
+import { localAsset } from '../../utils/assets';
 import { getCategories, getContact } from '../../utils/content';
 
 type Props = FooterProps;
@@ -64,7 +64,7 @@ const columns = [
           <div class="footer__qr">
             <div class="footer__qr-img">
               <img
-                src={assetUrl(contact.wechatQr.src)}
+                src={localAsset('wechat-qr')}
                 alt={contact.wechatQr.alt}
                 loading="lazy"
                 width={80}
