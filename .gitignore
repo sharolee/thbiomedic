@@ -21,6 +21,17 @@ dist-ssr/
 .opencode/
 .multica/
 
+# ── 平台托管上下文文件（Multica daemon 注入/收回，禁止入库）──
+# daemon 在 opencode/pi（写 AGENTS.md）、codebuddy（写 CODEBUDDY.md）任务开始时注入
+# 运行时简报块，任务结束时剪切收回；这些文件本应瞬时存在，不入版本库。
+# 一旦被提交进 HEAD，之后每次剪切都会让工作树相对 HEAD 少整块，表现为「AGENTS.md 被清空」。
+# 根因与证据见 docs/audit/agents-md-cleared-rootcause.md（SHAR-55）；
+# 提交纪律见 PROJECT_STANDARDS.md §7.8 与 REDLINES.md（禁止 git add -A 一把梭）。
+AGENTS.md
+CLAUDE.md
+CODEBUDDY.md
+AGENTS.local.md
+
 # ── 系统文件 ─────────────────────────────────────
 Thumbs.db
 Desktop.ini
