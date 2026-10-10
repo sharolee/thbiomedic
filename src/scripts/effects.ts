@@ -14,8 +14,9 @@ if (reduced) {
 /* ---------- 1. Hero 轻粒子 ---------- */
 function initParticles(canvas: HTMLCanvasElement): void {
   if (reduced) return;
-  const ctx = canvas.getContext('2d');
-  if (!ctx) return;
+  const maybeCtx = canvas.getContext('2d');
+  if (!maybeCtx) return;
+  const ctx = maybeCtx;
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
   let W = 0;
   let H = 0;
@@ -59,13 +60,11 @@ function initParticles(canvas: HTMLCanvasElement): void {
     ctx.clearRect(0, 0, W, H);
     let i: number;
     let j: number;
-    let p: typeof pts[number];
-    let q: typeof pts[number];
     let dx: number;
     let dy: number;
     let d: number;
     for (i = 0; i < pts.length; i++) {
-      p = pts[i];
+      const p = pts[i]!;
       p.x += p.vx;
       p.y += p.vy;
       if (p.x < -10) p.x = W + 10;
@@ -76,8 +75,8 @@ function initParticles(canvas: HTMLCanvasElement): void {
     ctx.lineWidth = 1;
     for (i = 0; i < pts.length; i++) {
       for (j = i + 1; j < pts.length; j++) {
-        p = pts[i];
-        q = pts[j];
+        const p = pts[i]!;
+        const q = pts[j]!;
         dx = p.x - q.x;
         dy = p.y - q.y;
         d = dx * dx + dy * dy;
@@ -91,7 +90,7 @@ function initParticles(canvas: HTMLCanvasElement): void {
       }
     }
     for (i = 0; i < pts.length; i++) {
-      p = pts[i];
+      const p = pts[i]!;
       ctx.fillStyle = p.orange ? `rgba(${ORANGE},.5)` : `rgba(${TEAL},.42)`;
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, 6.2832);
@@ -103,7 +102,7 @@ function initParticles(canvas: HTMLCanvasElement): void {
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(
       (es) => {
-        visible = es[0].isIntersecting;
+        visible = es[0]!.isIntersecting;
         if (visible && !raf) raf = requestAnimationFrame(tick);
       },
       { threshold: 0 },

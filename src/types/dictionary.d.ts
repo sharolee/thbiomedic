@@ -258,8 +258,25 @@ export interface AboutDict {
     title: string;
     subtitle: string;
   };
-  skeleton_title: string;
-  skeleton_body: string;
+  profile: {
+    title: string;
+    company_name: string;
+    para_1: string;
+    para_2: string;
+    para_3: string;
+    /** assets.ts 素材 key（ADR-003） */
+    image_src: string;
+    image_alt: string;
+  };
+  history: {
+    title: string;
+    /** assets.ts 素材 key（ADR-003） */
+    image_src: string;
+    image_alt: string;
+  };
+  certificates_intro: {
+    title: string;
+  };
   cta: string;
 }
 

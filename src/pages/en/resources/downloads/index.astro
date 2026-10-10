@@ -4,16 +4,18 @@ import Banner from '../../../../components/layout/Banner.astro';
 import EmptyState from '../../../../components/ui/EmptyState.astro';
 import { loadHomeDict } from '../../../../utils/i18n';
 import { getDownloads } from '../../../../utils/content';
-import { getDownloadsPath } from '../../../../utils/url';
+import { assetUrl } from '../../../../utils/assets';
+import type { BreadcrumbItem } from '../../../../types/components';
 
-// Downloads (page-structure §4.1, skeleton: download list filled by W3-3)
+// Downloads (direction-a-plus layout): Banner + download card list (PDF direct
+// links via assets.ts, ADR-003).
 const lang = 'en';
 const dict = loadHomeDict(lang);
 const page = dict.resources.downloads;
 const t = dict.common;
 const downloads = getDownloads(lang);
 
-const trail = [
+const trail: BreadcrumbItem[] = [
   { label: t.breadcrumb.home, href: `/${lang}/` },
   { label: t.nav.resources },
   { label: page.banner.title },
@@ -33,19 +35,24 @@ const trail = [
   <section class="u-section">
     <div class="u-container">
       {downloads.length > 0 ? (
-        <ul class="download-list">
-          {downloads.map((item) => (
-            <li>
-              <a class="download-card card" href={getDownloadsPath(lang)} download>
-                <span class="download-card__icon">PDF</span>
-                <span class="download-card__meta">
-                  <span class="download-card__title">{item.title}</span>
-                  <span class="download-card__file">{item.file} · {item.size}</span>
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
+        <div class="downloads">
+          <p class="downloads__kicker">{t.nav.resources_downloads}</p>
+          <h2 class="downloads__title">{page.banner.title}</h2>
+          <ul class="downloads__list">
+            {downloads.map((item) => (
+              <li>
+                <a class="download-card card" href={assetUrl(item.file)} download target="_blank" rel="noopener">
+                  <span class="download-card__icon" aria-hidden="true">PDF</span>
+                  <span class="download-card__meta">
+                    <span class="download-card__title">{item.title}</span>
+                    <span class="download-card__file">{item.size}</span>
+                  </span>
+                  <span class="download-card__arrow" aria-hidden="true">↓</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       ) : (
         <EmptyState title={page.empty_title} body={page.empty_body} icon="download" />
       )}
@@ -54,7 +61,22 @@ const trail = [
 </PageLayout>
 
 <style>
-  .download-list {
+  .downloads__kicker {
+    font-size: var(--text-small);
+    font-weight: var(--weight-medium);
+    letter-spacing: 0.1em;
+    color: var(--color-primary-600);
+    text-transform: uppercase;
+    margin-bottom: var(--space-xs);
+  }
+
+  .downloads__title {
+    font-size: var(--text-h2);
+    color: var(--color-neutral-900);
+    margin-bottom: var(--space-lg);
+  }
+
+  .downloads__list {
     display: grid;
     gap: var(--space-sm);
     max-width: 760px;
@@ -65,36 +87,45 @@ const trail = [
     align-items: center;
     gap: var(--space-md);
     padding: var(--space-md);
+    text-decoration: none;
   }
 
   .download-card__icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
     flex-shrink: 0;
+    width: 48px;
+    height: 48px;
     border-radius: var(--radius-sm);
-    background: var(--color-error-50);
-    color: var(--color-error-600);
-    font-size: var(--text-caption);
+    background: var(--color-primary-100);
+    color: var(--color-primary-700);
+    display: grid;
+    place-items: center;
+    font-size: var(--text-small);
     font-weight: var(--weight-bold);
+    letter-spacing: 0.05em;
   }
 
   .download-card__meta {
     display: flex;
     flex-direction: column;
     gap: var(--space-3xs);
+    flex: 1;
+    min-width: 0;
   }
 
   .download-card__title {
-    font-size: var(--text-body);
+    font-size: var(--text-body-lg);
     font-weight: var(--weight-medium);
     color: var(--color-neutral-900);
   }
 
   .download-card__file {
-    font-size: var(--text-caption);
+    font-size: var(--text-small);
     color: var(--color-neutral-500);
+  }
+
+  .download-card__arrow {
+    flex-shrink: 0;
+    color: var(--color-primary-600);
+    font-size: var(--text-h4);
   }
 </style>
