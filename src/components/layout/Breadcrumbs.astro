@@ -6,6 +6,9 @@ type Props = BreadcrumbsProps;
 // 面包屑（design-spec §6.7）：--text-small，当前页 #7B8794 无链接，
 // 上级 #1A5FB4，分隔符 / #C9D1D9；移动横向可滚动不换行
 const { lang, homeLabel, ariaLabel, trail } = Astro.props;
+
+// 各页面 trail 首项普遍自带「首页」，此处按 href 去重，避免「首页 / 首页 / …」
+const items = trail.filter((item) => item.href !== `/${lang}/`);
 ---
 
 <nav class="breadcrumbs" aria-label={ariaLabel}>
@@ -14,7 +17,7 @@ const { lang, homeLabel, ariaLabel, trail } = Astro.props;
       <a class="breadcrumbs__link" href={`/${lang}/`}>{homeLabel}</a>
       <span class="breadcrumbs__sep" aria-hidden="true">/</span>
     </li>
-    {trail.map((item) => (
+    {items.map((item) => (
       <li class="breadcrumbs__item">
         {item.href ? (
           <>

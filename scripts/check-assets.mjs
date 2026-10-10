@@ -9,7 +9,7 @@
  * 3. 数据层引用的素材 key 全部命中 assets.ts（防止 key 漂移产生 404）
  */
 
-import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
