@@ -4,29 +4,16 @@
     "description": "广州天泓医疗科技有限公司 - 骨科康复、患者固定、宠物康复领域的专业医疗器械企业，通过 NMPA、FDA、CE、TGA 认证，远销 30+ 国家，服务 400+ 三甲医院"
   },
   "hero": {
-    "aria_label": "品牌轮播",
-    "slide_label": "第 {current} 张，共 {total} 张",
-    "slide_1": {
-      "brand": "宝力易®",
-      "title": "低温热塑板",
-      "subtitle": "骨科康复",
-      "cta": "了解更多",
-      "href": "/products/"
-    },
-    "slide_2": {
-      "brand": "固德易®",
-      "title": "一次性固定器组件",
-      "subtitle": "革命性固定系统",
-      "cta": "了解更多",
-      "href": "/products/"
-    },
-    "slide_3": {
-      "brand": "宝力谊®",
-      "title": "低温热塑",
-      "subtitle": "宠物康复",
-      "cta": "了解更多",
-      "href": "/products/"
-    }
+    "eyebrow": "骨科康复 · 放疗固定 · 宠物康复",
+    "title": "让每一次康复，都有可靠的支撑",
+    "lead": "天泓医疗专注低温热塑固定与康复支具二十余年，产品服务全球 30 多个国家、国内 400 余家三甲医院。",
+    "cta_primary": "浏览产品中心",
+    "cta_primary_href": "/products/",
+    "cta_secondary": "了解天泓",
+    "cta_secondary_href": "/about/",
+    "badge": "背景视频：公司宣传片实拍（原站素材）",
+    "video_key": "vid-20251112162344793",
+    "poster_key": "img-20210729165117608"
   },
   "trust_bar": {
     "title": "资质与规模",
@@ -34,34 +21,48 @@
     "item_2": "FDA",
     "item_3": "CE",
     "item_4": "TGA",
-    "item_5": "ISO13485",
-    "item_6": "30+ 国家",
+    "item_5": "ISO 13485",
+    "item_6": "30+ 国家与地区",
     "item_7": "400+ 三甲医院"
   },
-  "product_entries": {
-    "title": "产品中心",
-    "subtitle": "覆盖骨科康复、患者固定与宠物康复的产品系列",
-    "coming_soon": "筹备中",
-    "empty_title": "产品系列资料整理中",
-    "empty_body": "各产品系列资料正在整理中，欢迎联系我们获取资料",
-    "cta": "联系我们",
+  "brands": {
+    "kicker": "三大品牌线",
+    "title": "覆盖全场景的康复与固定方案",
+    "subtitle": "从骨科术后康复到放疗体位固定，再到宠物康复，一套材料科技，三类专业场景。",
+    "card_1": {
+      "mark": "POLYEASY",
+      "brand": "宝力易® Polyeasy®",
+      "title": "骨科康复支具",
+      "desc": "低温热塑板材与成品支具，覆盖腕、肘、膝、踝等部位的固定与功能康复。",
+      "href": "/products/low-temp-thermoplastics/"
+    },
+    "card_2": {
+      "mark": "iFIX",
+      "brand": "固德易® iFIX®",
+      "title": "放疗体位固定",
+      "desc": "放疗定位膜与固定系统，为精准放疗提供可重复的体位固定方案。",
+      "href": "/products/patient-immobilization/"
+    },
+    "card_3": {
+      "mark": "POLYEASY PET",
+      "brand": "宝力谊® Polyeasy Pet®",
+      "title": "宠物康复",
+      "desc": "面向兽医场景的宠物支具与康复辅具，把人的康复标准带给动物伙伴。",
+      "href": "/products/pet-rehabilitation/"
+    }
+  },
+  "stats": {
+    "kicker": "数据一览",
+    "item_1": { "value": 20, "suffix": "+", "label": "年行业深耕" },
+    "item_2": { "value": 30, "suffix": "+", "label": "出口国家与地区" },
+    "item_3": { "value": 400, "suffix": "+", "label": "合作三甲医院" },
+    "item_4": { "value": 5, "suffix": "", "label": "国际认证体系" }
+  },
+  "news_section": {
+    "kicker": "新闻动态",
+    "title": "最新进展",
+    "empty_title": "暂无动态，敬请期待",
+    "empty_body": "新闻栏目内容正在整理中，欢迎联系我们获取最新资讯。",
     "view_all": "查看全部"
-  },
-  "about_summary": {
-    "title": "关于我们",
-    "body": "天泓医疗是一家集研发、生产、销售及售后服务于一体的专业医疗器械企业，总部设于香港，在中国大陆设有多家全资子公司，业务聚焦自有品牌研发生产与国际高端产品总经销两大核心板块。",
-    "cta": "了解更多"
-  },
-  "promo_video": {
-    "title": "走进天泓",
-    "subtitle": "公司宣传片",
-    "video_key": "vid-20251112162344793",
-    "fallback": "您的浏览器不支持视频播放，请升级浏览器后重试。",
-    "play_label": "播放视频"
-  },
-  "contact_cta": {
-    "title": "需要产品资料或报价？",
-    "body": "联系我们获取产品彩页与技术资料",
-    "cta": "联系我们"
   }
 }

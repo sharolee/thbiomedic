@@ -1,204 +1,184 @@
 ---
 import type { HeroProps } from '../../types/components';
-import Icon from '../ui/Icon.astro';
 import { withLangPrefix } from '../../utils/url';
 
 type Props = HeroProps;
 
-// 首页品牌轮播 Hero（page-structure §1-1 / design-spec §6.7）
-// 3 张品牌卡：背景图（素材缺失 → 渐变占位底）+ 文案区 + 渐变 CTA
-// 交互岛屿（client:visible，页面使用处标记）：自动 5s、悬停暂停、触摸滑动、
-// 指示点/箭头；reduced-motion 关闭自动播放
-// 无 JS 降级：横向滚动容器（scroll-snap）
-const { lang, slides, ariaLabel, slideLabel } = Astro.props;
+// 首页视频 Hero（direction-a-plus §.hero）：视频背景 + 浅色罩层 + 轻粒子 canvas
+// + 眉标/主标题/导语/双 CTA + live 徽标。滚动显现与粒子由 effects.ts 驱动；
+// 无 JS 降级：poster 底图常显（scrim 保可读性），无 autoplay 依赖。
+const { lang, eyebrow, title, lead, ctaPrimary, ctaPrimaryHref, ctaSecondary, ctaSecondaryHref, badge, videoSrc, posterSrc, ariaLabel } = Astro.props;
 ---
 
-<section class="hero" data-carousel aria-roledescription="carousel" aria-label={ariaLabel}>
-  <div class="hero__track" data-carousel-track>
-    {slides.map((slide, index) => (
-      <div
-        class:list={{ 'hero__slide': true, 'is-active': index === 0 }}
-        data-carousel-slide
-        data-index={index}
-        role="group"
-        aria-roledescription="slide"
-        aria-label={`${slideLabel.replace('{current}', String(index + 1)).replace('{total}', String(slides.length))}`}
-      >
-        <div class="hero__slide-bg" aria-hidden="true"></div>
-        <div class="hero__slide-content u-container">
-          <p class="hero__brand">{slide.brand}</p>
-          {/* m-5：轮播每张卡都用 h1 会产生 3 个 h1 —— 首张卡为主标题 h1，其余降为 h2 */}
-          {index === 0 ? (
-            <h1 class="hero__title">{slide.title}</h1>
-          ) : (
-            <h2 class="hero__title">{slide.title}</h2>
-          )}
-          <p class="hero__subtitle">{slide.subtitle}</p>
-          <a class="btn btn-gradient hero__cta" href={withLangPrefix(slide.href, lang)}>{slide.cta}</a>
-        </div>
-      </div>
-    ))}
+<section class="hero" aria-label={ariaLabel}>
+  <div class="hero-media" aria-hidden="true">
+    <video autoplay muted loop playsinline preload="none" poster={posterSrc} onerror="this.style.display='none'">
+      <source src={videoSrc} type="video/mp4" />
+    </video>
   </div>
-
-  <div class="hero__nav">
-    <button class="hero__arrow" type="button" data-carousel-prev aria-label="‹">
-      <Icon name="chevron-down" size={20} class="hero__arrow-icon-flip" />
-    </button>
-    <div class="hero__dots" role="tablist">
-      {slides.map((_, index) => (
-        <button
-          class:list={{ 'hero__dot': true, 'is-active': index === 0 }}
-          type="button"
-          data-carousel-dot
-          data-index={index}
-          aria-label={`${slideLabel.replace('{current}', String(index + 1)).replace('{total}', String(slides.length))}`}
-        ></button>
-      ))}
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <canvas id="hero-particles" class="hero-particles" aria-hidden="true"></canvas>
+  <div class="hero__inner u-container">
+    <p class="hero__eyebrow reveal">{eyebrow}</p>
+    <h1 class="hero__title reveal" data-delay="1">{title}</h1>
+    <p class="hero__lead reveal" data-delay="2">{lead}</p>
+    <div class="hero__actions reveal" data-delay="2">
+      <a class="btn btn-primary" href={withLangPrefix(ctaPrimaryHref, lang)}>{ctaPrimary}</a>
+      <a class="btn btn-outline" href={withLangPrefix(ctaSecondaryHref, lang)}>{ctaSecondary}</a>
     </div>
-    <button class="hero__arrow" type="button" data-carousel-next aria-label="›">
-      <Icon name="chevron-down" size={20} />
-    </button>
+    <span class="hero__badge reveal" data-delay="2"><i class="hero__live" aria-hidden="true"></i>{badge}</span>
   </div>
 </section>
 
 <script>
-  import { initCarousel } from '../../scripts/carousel';
-  initCarousel();
+  import { initAplusEffects } from '../../scripts/effects';
+  initAplusEffects();
 </script>
 
 <style>
   .hero {
     position: relative;
-    background: var(--color-primary-900);
-  }
-
-  /* 无 JS 降级：横向滚动容器（design-spec §6.7） */
-  .hero__track {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-  }
-
-  .hero__track::-webkit-scrollbar {
-    display: none;
-  }
-
-  /* JS 激活后：overflow hidden + transform 切换（仅 transform/opacity 动画） */
-  .hero.is-carousel .hero__track {
     overflow: hidden;
-    scroll-snap-type: none;
-  }
-
-  .hero__slide {
-    position: relative;
-    flex-shrink: 0;
-    width: 100%;
-    min-height: 320px;
+    min-height: min(88vh, 760px);
     display: flex;
     align-items: center;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
+    padding: var(--space-3xl) 0;
+    background: var(--color-primary-50);
   }
 
-  @media (min-width: 1024px) {
-    .hero__slide {
-      min-height: 480px;
-    }
-  }
-
-  /* 品牌卡渐变占位底（轮播图素材缺失的降级表现，design-spec §1 异常态） */
-  .hero__slide-bg {
+  .hero-media,
+  .hero-media video,
+  .hero-media img {
     position: absolute;
     inset: 0;
-    background: linear-gradient(120deg, var(--color-primary-900) 0%, var(--color-primary-600) 55%, var(--color-accent-500) 130%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
-  .hero__slide:nth-child(2) .hero__slide-bg,
-  .hero__slide[data-index='1'] .hero__slide-bg {
-    background: linear-gradient(120deg, var(--color-primary-900) 0%, var(--color-primary-700) 60%, var(--color-accent-500) 140%);
+  .hero-media video {
+    z-index: 0;
   }
 
-  .hero__slide[data-index='2'] .hero__slide-bg {
-    background: linear-gradient(120deg, var(--color-primary-700) 0%, var(--color-primary-900) 55%, var(--color-primary-600) 140%);
+  /* 浅色可读性罩层：保持克制浅调，又压住视频 */
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      100deg,
+      rgba(239, 248, 251, 0.96) 0%,
+      rgba(239, 248, 251, 0.88) 42%,
+      rgba(214, 238, 245, 0.62) 100%
+    );
   }
 
-  .hero__slide-content {
+  .hero-particles {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .hero__inner {
     position: relative;
-    padding-block: var(--space-xl);
+    z-index: 3;
+    width: 100%;
   }
 
-  .hero__brand {
-    font-size: var(--text-h3);
+  .hero__eyebrow {
+    font-size: var(--text-small);
     font-weight: var(--weight-medium);
-    color: var(--color-accent-500);
-    margin-bottom: var(--space-xs);
+    letter-spacing: 0.12em;
+    color: var(--color-primary-700);
+    text-transform: uppercase;
+    margin-bottom: var(--space-sm);
   }
 
   .hero__title {
     font-size: var(--text-display);
     line-height: var(--leading-display);
-    color: var(--color-white);
-    max-width: 18em;
-    margin-bottom: var(--space-sm);
+    color: var(--color-neutral-900);
+    margin-bottom: var(--space-md);
+    max-width: 14em;
   }
 
-  .hero__subtitle {
+  .hero__lead {
     font-size: var(--text-body-lg);
-    color: rgba(255, 255, 255, 0.85);
-    max-width: var(--measure-zh);
+    color: var(--color-neutral-700);
+    max-width: 34em;
     margin-bottom: var(--space-lg);
   }
 
-  /* 指示点/箭头（design-spec §6.7） */
-  .hero__nav {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: var(--space-md);
+  .hero__actions {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-md);
+    flex-wrap: wrap;
+    gap: var(--space-sm);
   }
 
-  .hero__arrow {
+  .hero__badge {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: rgba(11, 43, 82, 0.5);
-    color: var(--color-white);
-    transition: background-color var(--duration-fast) var(--easing);
-  }
-
-  .hero__arrow:hover {
-    background: rgba(11, 43, 82, 0.75);
-  }
-
-  .hero__arrow-icon-flip {
-    transform: rotate(90deg);
-  }
-
-  .hero__dots {
-    display: flex;
-    align-items: center;
     gap: var(--space-2xs);
+    margin-top: var(--space-xl);
+    padding: 8px 16px;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid var(--color-primary-100);
+    font-size: var(--text-small);
+    color: var(--color-primary-700);
+    font-weight: var(--weight-medium);
+    backdrop-filter: blur(6px);
   }
 
-  .hero__dot {
+  .hero__live {
     width: 8px;
     height: 8px;
-    padding: 0;
-    border-radius: var(--radius-pill);
-    background: rgba(255, 255, 255, 0.4);
-    transition: width var(--duration-base) var(--easing), background-color var(--duration-base) var(--easing);
+    border-radius: 50%;
+    background: var(--color-accent-500);
+    animation: hero-pulse 2s infinite;
   }
 
-  .hero__dot.is-active {
-    width: 24px;
-    background: var(--color-accent-500);
+  @keyframes hero-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.35;
+    }
+  }
+
+  /* 滚动显现（effects.ts 驱动，无 JS 直接显示） */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s var(--easing), transform 0.7s var(--easing);
+  }
+
+  .reveal.in {
+    opacity: 1;
+    transform: none;
+  }
+
+  .reveal[data-delay='1'] {
+    transition-delay: 0.12s;
+  }
+
+  .reveal[data-delay='2'] {
+    transition-delay: 0.24s;
+  }
+
+  .no-js .reveal,
+  .reduced-motion .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__live {
+      animation: none;
+    }
   }
 </style>

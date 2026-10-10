@@ -2,169 +2,118 @@
 import PageLayout from '../../components/layout/PageLayout.astro';
 import Hero from '../../components/content/Hero.astro';
 import TrustBar from '../../components/content/TrustBar.astro';
-import SectionHeader from '../../components/ui/SectionHeader.astro';
-import CategoryGrid from '../../components/product/CategoryGrid.astro';
-import PromoVideo from '../../components/content/PromoVideo.astro';
-import Button from '../../components/ui/Button.astro';
-import Icon from '../../components/ui/Icon.astro';
+import BrandLines from '../../components/content/BrandLines.astro';
+import StatsBar from '../../components/content/StatsBar.astro';
+import EmptyState from '../../components/ui/EmptyState.astro';
 import { loadHomeDict } from '../../utils/i18n';
-import { getCategories } from '../../utils/content';
-import { getProductsPath, getContactPath } from '../../utils/url';
+import { getNewsItems } from '../../utils/content';
 import { assetUrl } from '../../utils/assets';
+import { withLangPrefix } from '../../utils/url';
 
-// 首页（page-structure §1，中文站）
+// 首页（direction-a-plus 区块结构）：Hero 视频背景 + 信任条 + 三大品牌线 +
+// 数据条 + 新闻动态（原站空态）。区块顺序与层级照 a-plus 原型；无轮播。
 const lang = 'zh';
 const dict = loadHomeDict(lang);
 const home = dict.home;
-const categories = getCategories(lang);
+const t = dict.common.common;
+const items = getNewsItems(lang);
 
-const heroSlides = [home.hero.slide_1, home.hero.slide_2, home.hero.slide_3];
 const trustItems = [
-  home.trust_bar.item_1, home.trust_bar.item_2, home.trust_bar.item_3,
-  home.trust_bar.item_4, home.trust_bar.item_5, home.trust_bar.item_6,
+  home.trust_bar.item_1,
+  home.trust_bar.item_2,
+  home.trust_bar.item_3,
+  home.trust_bar.item_4,
+  home.trust_bar.item_5,
+  home.trust_bar.item_6,
   home.trust_bar.item_7,
 ];
+
+const brands = [home.brands.card_1, home.brands.card_2, home.brands.card_3];
+const stats = [home.stats.item_1, home.stats.item_2, home.stats.item_3, home.stats.item_4];
 ---
 
 <PageLayout lang={lang} dict={dict} title={home.meta.title} description={home.meta.description}>
   <Hero
     lang={lang}
-    slides={heroSlides}
-    ariaLabel={home.hero.aria_label}
-    slideLabel={home.hero.slide_label}
+    eyebrow={home.hero.eyebrow}
+    title={home.hero.title}
+    lead={home.hero.lead}
+    ctaPrimary={home.hero.cta_primary}
+    ctaPrimaryHref={home.hero.cta_primary_href}
+    ctaSecondary={home.hero.cta_secondary}
+    ctaSecondaryHref={home.hero.cta_secondary_href}
+    badge={home.hero.badge}
+    videoSrc={assetUrl(home.hero.video_key)}
+    posterSrc={assetUrl(home.hero.poster_key)}
+    ariaLabel={home.hero.eyebrow}
   />
 
   <TrustBar title={home.trust_bar.title} items={trustItems} />
 
-  <!-- 产品中心入口（page-structure §1-3） -->
-  <section class="u-section home-section">
-    <div class="u-container">
-      <SectionHeader
-        title={home.product_entries.title}
-        subtitle={home.product_entries.subtitle}
-        linkHref={getProductsPath(lang)}
-        linkLabel={home.product_entries.view_all}
-      />
-      <CategoryGrid
-        categories={categories}
-        lang={lang}
-        comingSoonLabel={home.product_entries.coming_soon}
-        emptyTitle={home.product_entries.empty_title}
-        emptyBody={home.product_entries.empty_body}
-        emptyActionLabel={home.product_entries.cta}
-        emptyActionHref={getContactPath(lang)}
-      />
-    </div>
-  </section>
-
-  <!-- 关于我们摘要（page-structure §1-4） -->
-  <section class="u-section home-section home-section--alt">
-    <div class="u-container about-summary">
-      <div class="about-summary__media" aria-hidden="true">
-        <span class="about-summary__media-icon"><Icon name="image" size={40} /></span>
-      </div>
-      <div class="about-summary__text">
-        <h2 class="about-summary__title">{home.about_summary.title}</h2>
-        <p class="about-summary__body">{home.about_summary.body}</p>
-        <Button href={`/${lang}/about/`} variant="secondary" icon="arrow-right">
-          {home.about_summary.cta}
-        </Button>
-      </div>
-    </div>
-  </section>
-
-  <!-- 公司宣传视频（page-structure §1-5） -->
-  <PromoVideo
-    title={home.promo_video.title}
-    subtitle={home.promo_video.subtitle}
-    placeholder={home.promo_video.fallback}
-    playLabel={home.promo_video.play_label}
-    videoSrc={assetUrl(home.promo_video.video_key)}
+  <BrandLines
+    lang={lang}
+    kicker={home.brands.kicker}
+    title={home.brands.title}
+    subtitle={home.brands.subtitle}
+    cards={brands}
+    moreLabel={t.view_all}
   />
 
-  <!-- 联系引导条（page-structure §1-7） -->
-  <section class="home-section contact-cta">
-    <div class="u-container contact-cta__inner">
-      <div class="contact-cta__text">
-        <h2 class="contact-cta__title">{home.contact_cta.title}</h2>
-        <p class="contact-cta__body">{home.contact_cta.body}</p>
+  <StatsBar kicker={home.stats.kicker} items={stats} />
+
+  <section class="u-section" id="news">
+    <div class="u-container">
+      <div class="home__news-head">
+        <p class="home__kicker">{home.news_section.kicker}</p>
+        <div class="home__news-row">
+          <h2 class="home__news-title">{home.news_section.title}</h2>
+          <a class="home__news-link" href={withLangPrefix('/news/', lang)}>{home.news_section.view_all}</a>
+        </div>
       </div>
-      <Button href={getContactPath(lang)} variant="primary">{home.contact_cta.cta}</Button>
+      {items.length > 0 ? (
+        <p class="home__news-empty">{home.news_section.empty_title}</p>
+      ) : (
+        <EmptyState title={home.news_section.empty_title} body={home.news_section.empty_body} icon="file" />
+      )}
     </div>
   </section>
 </PageLayout>
 
 <style>
-  .home-section {
-    background: var(--color-white);
-  }
-
-  .home-section--alt {
-    background: var(--color-neutral-100);
-  }
-
-  .about-summary {
-    display: grid;
-    gap: var(--space-lg);
-  }
-
-  @media (min-width: 1024px) {
-    .about-summary {
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-    }
-  }
-
-  .about-summary__media {
-    display: grid;
-    place-items: center;
-    aspect-ratio: 16 / 9;
-    border-radius: var(--radius-md);
-    background: var(--color-neutral-200);
-  }
-
-  .about-summary__media-icon {
-    display: grid;
-    place-items: center;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: var(--color-white);
-    color: var(--color-neutral-500);
-  }
-
-  .about-summary__title {
-    font-size: var(--text-h2);
-    margin-bottom: var(--space-sm);
-  }
-
-  .about-summary__body {
-    font-size: var(--text-body);
-    color: var(--color-neutral-700);
+  .home__news-head {
     margin-bottom: var(--space-lg);
-    max-width: var(--measure-zh);
   }
 
-  .contact-cta {
-    background: var(--color-accent-100);
+  .home__kicker {
+    font-size: var(--text-small);
+    font-weight: var(--weight-medium);
+    letter-spacing: 0.1em;
+    color: var(--color-primary-600);
+    text-transform: uppercase;
+    margin-bottom: var(--space-xs);
   }
 
-  .contact-cta__inner {
+  .home__news-row {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+    align-items: baseline;
     justify-content: space-between;
     gap: var(--space-md);
-    padding-block: var(--space-xl);
   }
 
-  .contact-cta__title {
-    font-size: var(--text-h3);
+  .home__news-title {
+    font-size: var(--text-h2);
     color: var(--color-neutral-900);
   }
 
-  .contact-cta__body {
-    margin-top: var(--space-2xs);
-    color: var(--color-neutral-700);
+  .home__news-link {
+    font-size: var(--text-small);
+    font-weight: var(--weight-medium);
+    color: var(--color-primary-600);
+    white-space: nowrap;
+  }
+
+  .home__news-link:hover {
+    color: var(--color-primary-700);
+    text-decoration: underline;
   }
 </style>

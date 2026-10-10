@@ -4,29 +4,16 @@
     "description": "Guangzhou Tianhong Medical Technology Co., Ltd. - a professional medical device company in orthopedic rehabilitation, patient immobilization and pet rehabilitation, certified by NMPA, FDA, CE and TGA, serving 400+ grade-A hospitals in 30+ countries"
   },
   "hero": {
-    "aria_label": "Brand carousel",
-    "slide_label": "Slide {current} of {total}",
-    "slide_1": {
-      "brand": "Polyeasy®",
-      "title": "Thermoplastic Splints",
-      "subtitle": "Physical Rehabilitation",
-      "cta": "Learn More",
-      "href": "/products/"
-    },
-    "slide_2": {
-      "brand": "iFIX®",
-      "title": "Immobilization Revolution",
-      "subtitle": "Patient Immobilization and Fixation System",
-      "cta": "Learn More",
-      "href": "/products/"
-    },
-    "slide_3": {
-      "brand": "Polyeasy®",
-      "title": "Thermoplastic",
-      "subtitle": "Pet Rehabilitation",
-      "cta": "Learn More",
-      "href": "/products/"
-    }
+    "eyebrow": "Orthopedic Rehab · Immobilization · Pet Care",
+    "title": "Reliable support for every recovery",
+    "lead": "For over two decades, Tianhong Medical has specialized in low-temperature thermoplastic immobilization and rehabilitation orthoses, serving 30+ countries and 400+ top-tier hospitals in China.",
+    "cta_primary": "Explore Products",
+    "cta_primary_href": "/products/",
+    "cta_secondary": "About Us",
+    "cta_secondary_href": "/about/",
+    "badge": "Background: corporate promo footage (original-site asset)",
+    "video_key": "vid-20251112163145210",
+    "poster_key": "img-20211129183559782"
   },
   "trust_bar": {
     "title": "Certifications & Scale",
@@ -34,34 +21,48 @@
     "item_2": "FDA",
     "item_3": "CE",
     "item_4": "TGA",
-    "item_5": "ISO13485",
+    "item_5": "ISO 13485",
     "item_6": "30+ Countries",
     "item_7": "400+ Grade-A Hospitals"
   },
-  "product_entries": {
-    "title": "Products",
-    "subtitle": "Product series covering orthopedic rehabilitation, patient immobilization and pet rehabilitation",
-    "coming_soon": "Coming Soon",
-    "empty_title": "Product series details are being prepared",
-    "empty_body": "Product series details are being prepared. Please contact us for more information.",
-    "cta": "Contact Us",
+  "brands": {
+    "kicker": "Three Brand Lines",
+    "title": "Rehab & immobilization for every scenario",
+    "subtitle": "From post-op orthopedic rehab to radiotherapy positioning and pet rehabilitation — one material science, three professional fields.",
+    "card_1": {
+      "mark": "POLYEASY",
+      "brand": "Polyeasy®",
+      "title": "Orthopedic Rehab Orthoses",
+      "desc": "Low-temperature thermoplastic sheets and prefabricated orthoses for wrist, elbow, knee and ankle immobilization and functional rehab.",
+      "href": "/products/low-temp-thermoplastics/"
+    },
+    "card_2": {
+      "mark": "iFIX",
+      "brand": "iFIX®",
+      "title": "Patient Immobilization",
+      "desc": "Thermoplastic masks and fixation systems delivering reproducible positioning for precision radiotherapy.",
+      "href": "/products/patient-immobilization/"
+    },
+    "card_3": {
+      "mark": "POLYEASY PET",
+      "brand": "Polyeasy Pet®",
+      "title": "Pet Rehabilitation",
+      "desc": "Veterinary orthoses and rehab aids that bring human-grade rehabilitation standards to animal companions.",
+      "href": "/products/pet-rehabilitation/"
+    }
+  },
+  "stats": {
+    "kicker": "By the Numbers",
+    "item_1": { "value": 20, "suffix": "+", "label": "Years of expertise" },
+    "item_2": { "value": 30, "suffix": "+", "label": "Export countries" },
+    "item_3": { "value": 400, "suffix": "+", "label": "Partner hospitals" },
+    "item_4": { "value": 5, "suffix": "", "label": "Intl. certifications" }
+  },
+  "news_section": {
+    "kicker": "Newsroom",
+    "title": "Latest updates",
+    "empty_title": "No news yet. Stay tuned.",
+    "empty_body": "News content is being prepared. Please contact us for the latest updates.",
     "view_all": "View All"
-  },
-  "about_summary": {
-    "title": "About Us",
-    "body": "Onesky is a professional medical device company integrating R&D, production, sales, and after-sales service. Headquartered in Hong Kong, it operates multiple wholly-owned subsidiaries in Mainland China, with its business focused on two core sectors: the R&D and production of its own proprietary brands, and the exclusive distribution of high-end international products.",
-    "cta": "Learn More"
-  },
-  "promo_video": {
-    "title": "About Tianhong",
-    "subtitle": "Corporate Video",
-    "video_key": "vid-20251112163145210",
-    "fallback": "Your browser does not support video playback. Please upgrade your browser and try again.",
-    "play_label": "Play video"
-  },
-  "contact_cta": {
-    "title": "Need product brochures or a quote?",
-    "body": "Contact us for product brochures and technical documentation",
-    "cta": "Contact Us"
   }
 }

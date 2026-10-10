@@ -4,7 +4,7 @@
    ========================================================================== */
 
 import type { Category, Product, NewsItem } from './content';
-import type { Dict, Lang, HeroSlideDict } from './dictionary';
+import type { Dict, Lang, BrandCardDict, StatItemDict } from './dictionary';
 
 export interface PageLayoutProps {
   lang: Lang;
@@ -164,10 +164,34 @@ export interface NewsCardProps {
 
 export interface HeroProps {
   lang: Lang;
-  slides: HeroSlideDict[];
+  eyebrow: string;
+  title: string;
+  lead: string;
+  ctaPrimary: string;
+  ctaPrimaryHref: string;
+  ctaSecondary: string;
+  ctaSecondaryHref: string;
+  badge: string;
+  /** 视频素材完整 URL（经 utils/assets.ts 映射，ADR-003 原站直引） */
+  videoSrc: string;
+  /** 视频 poster 完整 URL（assets.ts 映射） */
+  posterSrc: string;
+  /** 视频失效时露出的品牌色兜底底文案说明（a11y） */
   ariaLabel: string;
-  /** 含 {current}/{total} 占位变量的指示点标签 */
-  slideLabel: string;
+}
+
+export interface BrandLinesProps {
+  lang: Lang;
+  kicker: string;
+  title: string;
+  subtitle: string;
+  cards: BrandCardDict[];
+  moreLabel: string;
+}
+
+export interface StatsBarProps {
+  kicker: string;
+  items: StatItemDict[];
 }
 
 export interface TrustBarProps {

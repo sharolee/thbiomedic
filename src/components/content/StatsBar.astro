@@ -1,0 +1,98 @@
+---
+import type { StatsBarProps } from '../../types/components';
+
+type Props = StatsBarProps;
+
+// 数据条（direction-a-plus §.stats）：深底 #063845 + 4 项数字滚动 + 角标 +。
+// 数字滚动由 effects.ts 驱动（.count[data-to]），reduced-motion 直接显值。
+const { kicker, items } = Astro.props;
+---
+
+<section class="stats" aria-label={kicker}>
+  <div class="u-container">
+    <p class="stats__kicker reveal">{kicker}</p>
+    <div class="stats__grid">
+      {items.map((item, i) => (
+        <div class:list={{ 'stat': true, 'reveal': true }} data-delay={i > 0 ? String(i) : undefined}>
+          <b>
+            <span class="count" data-to={item.value}>0</span>
+            {item.suffix && <span class="stat__plus">{item.suffix}</span>}
+          </b>
+          <span class="stat__label">{item.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .stats {
+    background: var(--color-primary-900);
+    color: var(--color-white);
+    padding-block: var(--space-3xl);
+  }
+
+  .stats__kicker {
+    font-size: var(--text-small);
+    font-weight: var(--weight-medium);
+    letter-spacing: 0.12em;
+    color: var(--color-primary-100);
+    text-transform: uppercase;
+    margin-bottom: var(--space-lg);
+  }
+
+  .stats__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  @media (min-width: 1024px) {
+    .stats__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .stat b {
+    display: block;
+    font-size: 40px;
+    font-weight: var(--weight-bold);
+    color: var(--color-white);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stat__plus {
+    color: var(--color-accent-500);
+  }
+
+  .stat__label {
+    color: var(--color-primary-100);
+    font-size: var(--text-small);
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s var(--easing), transform 0.7s var(--easing);
+  }
+
+  .reveal.in {
+    opacity: 1;
+    transform: none;
+  }
+
+  .reveal[data-delay='1'] {
+    transition-delay: 0.12s;
+  }
+
+  .reveal[data-delay='2'] {
+    transition-delay: 0.24s;
+  }
+
+  .no-js .reveal,
+  .reduced-motion .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+</style>

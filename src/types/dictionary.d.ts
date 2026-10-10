@@ -118,13 +118,20 @@ export interface CommonDict {
 }
 
 /* ── 首页（pages/home.json） ─────────────────────────────── */
-export interface HeroSlideDict {
+export interface BrandCardDict {
+  /** 卡片图占位区大写品牌缩写（POLYEASY / iFIX / POLYEASY PET） */
+  mark: string;
   brand: string;
   title: string;
-  subtitle: string;
-  cta: string;
+  desc: string;
   /** 语义路径（无语言前缀，渲染时经 utils/url.ts 套前缀） */
   href: string;
+}
+
+export interface StatItemDict {
+  value: number;
+  suffix: string;
+  label: string;
 }
 
 export interface HomeDict {
@@ -133,12 +140,17 @@ export interface HomeDict {
     description: string;
   };
   hero: {
-    aria_label: string;
-    /** 含 {current}/{total} 占位变量（轮播指示点 aria-label） */
-    slide_label: string;
-    slide_1: HeroSlideDict;
-    slide_2: HeroSlideDict;
-    slide_3: HeroSlideDict;
+    eyebrow: string;
+    title: string;
+    lead: string;
+    cta_primary: string;
+    cta_primary_href: string;
+    cta_secondary: string;
+    cta_secondary_href: string;
+    badge: string;
+    /** utils/assets.ts 素材 key（ADR-003 原站直引） */
+    video_key: string;
+    poster_key: string;
   };
   trust_bar: {
     title: string;
@@ -150,33 +162,27 @@ export interface HomeDict {
     item_6: string;
     item_7: string;
   };
-  product_entries: {
+  brands: {
+    kicker: string;
     title: string;
     subtitle: string;
-    coming_soon: string;
+    card_1: BrandCardDict;
+    card_2: BrandCardDict;
+    card_3: BrandCardDict;
+  };
+  stats: {
+    kicker: string;
+    item_1: StatItemDict;
+    item_2: StatItemDict;
+    item_3: StatItemDict;
+    item_4: StatItemDict;
+  };
+  news_section: {
+    kicker: string;
+    title: string;
     empty_title: string;
     empty_body: string;
-    cta: string;
     view_all: string;
-  };
-  about_summary: {
-    title: string;
-    body: string;
-    cta: string;
-  };
-  promo_video: {
-    title: string;
-    subtitle: string;
-    /** utils/assets.ts 素材 key（ADR-003 原站直引） */
-    video_key: string;
-    /** 浏览器不支持 <video> 时的降级文案 */
-    fallback: string;
-    play_label: string;
-  };
-  contact_cta: {
-    title: string;
-    body: string;
-    cta: string;
   };
 }
 
