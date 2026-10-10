@@ -1,7 +1,9 @@
 # 天泓医疗官网重建 · 最终验收报告（R-S7 / SHAR-53）
 
+> **复验结论（2026-10-10，第二轮）：通过** —— 见文末《12. 复验记录》。首轮（2026-10-09）结论"不通过"及全部证据保留如下，作为过程留档。
+
 - **验收人**：审核官小寇（8ece9c40，独立于执行者，符合 PROJECT_STANDARDS §5.6.2）
-- **验收时间**：2026-10-09
+- **验收时间**：2026-10-09（首轮）／ 2026-10-10（复验）
 - **验收对象**：`feat/site-v2` 分支 `src/` 产物（`check:all` 后 `dist/`）
 - **依据**：`PROJECT_STANDARDS.md` v2 §5 门禁 G1–G5、§6 证据三件套、§14 验收清单；`docs/plan/build-plan.md` §5 页面覆盖清单、§6 批次计划
 - **证据格式**：命令原文 + 完整输出 + 退出码 + 产物路径（§6.3）
@@ -431,3 +433,59 @@ grep -rlI "category-card__placeholder" dist          # 8 个页面
 grep -oI "category-card__placeholder" dist/zh/index.html | wc -l   # 11
 find dist -iname "*sitemap*"                         # 空
 ```
+
+---
+
+## 12. 复验记录（2026-10-10，第二轮验收）
+
+执行层已按首轮报告落地 B-1/B-2/B-3 与 M-1～M-4（提交 `f1be38d`、`746b8f1`、`b3c5bb0`、`409a300`、`f901aa3`、`21037e4`、`e63caf0`）。本轮全部门禁实跑复验，并对 12 个关键页型做真实截图目视（headless Chrome，留档 `docs/acceptance/screenshots/v2/`，共 13 张）。
+
+### 12.1 五道门禁复验结果
+
+| 门禁 | 首轮 | 复验 | 复验证据 |
+|---|---|---|---|
+| G1 页面覆盖度 | 不通过 | **通过** | `npm run check:pages`：`[zh] 一级=10 二级=17 详情=12 视频分类=3 单页面=8 小计=50`，en 同；`语义页面合计（zh+en）: 100（方案 100）`；`dist` 实测 `total=102 zh=50 en=50`，退出码 0 |
+| G2 内容完整度 | 不通过 | **通过（1 项遗留）** | `npm run check-content`：`[zh] 视频=7`（按原站口径重写）、`[en] 视频=18`、产品 12、下载 3、新闻 0；`[info] videos: zh=7 en=18（原站即不同）`；`[warn] 证书 10 ≠ 盘点 9/8（m-1 需人确认）`，退出码 0 |
+| G3 素材处理 | 通过 | **通过** | `npm run check-assets`：`占位标记残留: 0`、`映射表 URL 数=290 产物引用唯一数=272 未命中=0`，退出码 0 |
+| G4 设计基线 | 部分通过 | **通过** | `npm run check:tokens`：`49 项；命中 49；缺失 0`；`design-spec.md` 已升 **v2.0**（头部标注"已定稿，为唯一事实源，v1.0 旧蓝作废"）；未定义令牌扫描 `未定义令牌: 0` |
+| G5 双语一致性 | 通过 | **通过** | `npm run i18n:check`：16 个双语文件键一致；`hreflang` 双向 + x-default（视频分类页实测含）；404 页已去 hreflang 仅留 canonical；根路径统一 302 → `/en/`（m-3/m-4 闭合） |
+
+`npm run check:all` 退出码 0：`Result (72 files): 0 errors / 0 warnings / 0 hints`，`[build] 102 page(s) built`，`[sitemap] 100 URLs → dist/sitemap.xml`；`dist/robots.txt` 已含 `Sitemap:` 行。preview 冒烟 18 条路由全 200（含 3 个视频分类页 ×2、sitemap.xml、robots.txt）。
+
+### 12.2 首轮问题闭环核对
+
+| 首轮编号 | 状态 | 闭环证据 |
+|---|---|---|
+| B-1 视频分类页缺失 | ✅ 闭合 | `dist/{zh,en}/resources/videos/{physical-rehabilitation,patient-immobilization,pet-rehabilitation}/` 共 6 页，hreflang + 同语义语言切换实测 |
+| B-2 中文视频口径 | ✅ 闭合 | zh 数据按原站 7 支重写（`asset-inventory` `/zn/` 口径），check-content 固化校验；口径差异 `zh=7 en=18（原站即不同）`已登记 |
+| B-3 B3/B4 未落地 | ✅ 闭合 | 首页（`b3c5bb0`）、关于（`409a300`）、下载/视频（`f901aa3`）重建；门禁三脚本 + sitemap + robots + design-spec v2（`746b8f1`） |
+| M-1 分类卡无图 | ✅ 闭合 | 10 个一级分类全量 `banner`（asset-inventory 实图），产品中心页截图确认卡片全为实图 |
+| M-2 design-spec 未升 v2 | ✅ 闭合 | `design-spec.md` v2.0 已定稿 |
+| M-3 门禁脚本缺失 | ✅ 闭合 | `check-pages/check-content/check-assets` 实现并挂 `check:all` |
+| M-4 sitemap 缺失 | ✅ 闭合 | `dist/sitemap.xml` 100 URLs + robots Sitemap 行 |
+
+### 12.3 本轮新发现并已就地修复（提交 `c17a69b`）
+
+| # | 位置 | 问题 | 修法 |
+|---|---|---|---|
+| F-4 | `src/components/layout/Breadcrumbs.astro` + 20 个页面 | **全站面包屑"首页"重复**：组件固定先渲染首页，页面 `trail` 首项又传一次 → 「首页 / 首页 / 产品中心 / …」（截图实证 about/products/detail/videos/contact） | 组件按 `href` 去重 trail 中的首页项；复验 `首页 / 产品中心 / 低温热塑系列 / 易锁式低温热塑系列 / 踝关节拉链型` |
+| F-5 | `src/content/{zh,en}/data/contact.json`、`src/pages/{zh,en}/contact/index.astro` | **联系页公众号二维码 404**：src 为裸相对路径 `images/contact/…jpg`（违反 C2/ADR-003 唯一出口，且 `public/` 下不存在 → broken image 截图实证） | 数据改存 assets key（`img-20241127090745558` / `img-20241126151510724`），页面经 `assetUrl()` 出 URL；截图确认二维码正常显示 |
+| F-6 | `src/content/{zh,en}/pages/home.json` | Hero 徽章文案泄漏内部标注「（原站素材）」/"(original-site asset)" 给访客 | 改为「背景视频：公司宣传片实拍」/ "Background: corporate promo footage" |
+| F-7 | 4 处未用导入 | typecheck 4 hints（2×Icon、getContactPath、statSync） | 删除；typecheck 归零 `0 errors / 0 warnings / 0 hints` |
+
+### 12.4 目视验收（本轮真实执行）
+
+截图矩阵（`docs/acceptance/screenshots/v2/`）：首页 zh/en × 桌面 1440 + 移动、关于 zh/en、产品中心、产品详情、视频中心、下载中心、联系我们、新闻空态、404，共 13 张，全部真实目视检查。
+
+- 视频 Hero（poster 帧 + 轻粒子 + 数据条）、三大品牌线、深底 Banner + 双栏介绍 + 实景图、证书网格、3 PDF 直链卡、新闻空态 + CTA、404——版式与 direction-a-plus 基线一致，无占位图、无破图、无文字溢出（1440 与 500px 两档实测）。
+- 产品详情页"相关产品"卡在截图中显示占位图标：经查 HTML，`<img>` 均在（6 张实图 URL 命中映射表），系 `loading="lazy"` 在 headless 截图中不触发加载，非缺陷。
+
+**遗留（如实标注）**：
+1. **390px 精确移动视口未验证**——headless Chrome 最小窗宽钳制约 500px，390 截图实为 500px 布局的右侧裁剪（500px 下版式完整、无溢出）。精确小屏验证需 CDP 设备仿真或真机，留人工目视。
+2. **证书条目 zh 10 / en 10 ≠ 盘点 9 / 8**（m-1）——方向为消除中英差异，需人确认后关闭。
+3. **首页/视频/下载等页 kicker 与 Banner 标题文案重复出现两次**——版式层面的次要观感问题，不阻塞。
+4. 联系页地址卡 label 复用「联系我们」而非「地址」——文案次要问题。
+
+### 12.5 复验结论：**通过**
+
+G1–G5 全部通过，构建/预览/冒烟真实可用，首轮 3 项阻塞与 4 项主要问题全部闭环；目视验收本轮真实执行并留档 13 张截图。剩余 4 项遗留均为次要项，不阻塞交付。push / 合并须人确认（§7.6）。
