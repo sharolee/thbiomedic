@@ -1,6 +1,24 @@
 {
   "$comment": "双语已知差异登记（key-convention.md §5 规则 5 的豁免清单）。每条必须引用 translation-matrix.md 的条目编号；条目解决后从此文件移除。slug 集合不一致时的豁免写在 exemptions，纯内容层差异仅登记（notes），不影响校验。",
-  "exemptions": [],
+  "exemptions": [
+    {
+      "file": "data/videos.json",
+      "slugs": [
+        "thumb",
+        "knee-splint",
+        "soft-cloth-chest-waist",
+        "elbow-wrist-splint",
+        "wrist-splint",
+        "tibiofibular-splint",
+        "shoulder-elbow-splint",
+        "drop-foot-splint",
+        "intrinsic-plus-splint",
+        "rest-hand-splint",
+        "hock-thermoplastic"
+      ],
+      "matrix": "R-46 / R-48（2026-10-09 R-S7 B-2 复核修正）"
+    }
+  ],
   "notes": [
     {
       "matrix": "R-02 / P-1",
@@ -23,19 +41,9 @@
       "detail": "中英指向不同 PDF（zh 20251112135837464.pdf 6.5MB / en 20251112134647962.pdf 31.1MB），按 content-model §7 已核实例外保留各自文件，内容是否一致待客户确认。"
     },
     {
-      "matrix": "R-46 / P-4",
-      "topic": "视频栏目取并集",
-      "detail": "Physical Rehabilitation 英文 16 支 / 中文 6 支 → 双语均补全为 16 支（zh 侧 10 支标题译自英文）。7 对同主题视频中英为不同文件，file 字段按语言保留各自原站文件（同 P-3 类例外）；zh 侧 10 支共用英文站文件。请客户确认哪版视频文件为准。"
-    },
-    {
-      "matrix": "R-47",
-      "topic": "患者固定视频文件不同",
-      "detail": "中文站为固德易（20211214145246460.mp4），英文站为 iFIX Operation（20211213132229319.mp4），按原站保留各自文件。"
-    },
-    {
-      "matrix": "R-48 / P-5",
-      "topic": "宠物康复视频中文侧补齐",
-      "detail": "中文站该栏目为空，按并集规则补入英文站 Hock Thermoplastic（20220104085806452.mp4），标题译作「跗关节热塑支具」。"
+      "matrix": "R-46 / R-48（B-2 复核修正）",
+      "topic": "视频数据集按原站口径（zh 7 / en 18）",
+      "detail": "2026-10-09 R-S7 B-2 复核修正：早期『双语并集对齐 18 支』的决策撤销。中文站按原站真实内容 7 支（低温热塑板材 6 + 患者固定 1，宠物康复空）；英文站 18 支（Physical Rehabilitation 16 + iFIX 1 + Hock 1）。zh 独有/缺失的 11 个 en slug 登记在 exemptions。另：asset-inventory 记录 zh 加密分页第 2 页存在第 8 支 20211209105027396.mp4，但静态页未展示、标题不可得，未臆造加入数据。"
     },
     {
       "matrix": "R-49 / P-6",

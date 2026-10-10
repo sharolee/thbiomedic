@@ -10,13 +10,16 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/build-sitemap.mjs",
     "preview": "astro preview",
     "typecheck": "astro check",
     "i18n:check": "node scripts/i18n-check.mjs",
     "check:tokens": "node scripts/check-tokens.mjs",
     "check:products": "node scripts/check-products.mjs",
-    "check:all": "npm run check:tokens && npm run check:products && npm run typecheck && npm run i18n:check && npm run build"
+    "check:pages": "node scripts/check-pages.mjs",
+    "check:content": "node scripts/check-content.mjs",
+    "check:assets": "node scripts/check-assets.mjs",
+    "check:all": "npm run check:tokens && npm run check:products && npm run check:content && npm run check:assets && npm run typecheck && npm run i18n:check && npm run build"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",

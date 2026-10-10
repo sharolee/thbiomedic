@@ -290,6 +290,7 @@ export interface ResourcesDict {
     };
     empty_title: string;
     empty_body: string;
+    empty_cta: string;
   };
 }
 
