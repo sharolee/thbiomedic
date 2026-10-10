@@ -39,6 +39,8 @@
   {
     "slug": "adjustable-orthosis",
     "name": "可调节支具",
+    "desc": "可调节支具可根据康复阶段实时调整角度与支撑强度，覆盖肘、膝关节的固定与功能训练。",
+    "banner": { "key": "img-20241127135224263", "alt": "可调节支具产品" },
     "order": 4,
     "children": [
       { "slug": "adjustable-knee", "name": "可调膝关节支具", "hasProducts": false },
@@ -48,30 +50,40 @@
   {
     "slug": "extension-tendon-splints",
     "name": "动力支具",
+    "desc": "动力支具通过弹性牵引辅助肌腱运动，用于伸肌腱损伤与康复期的功能训练。",
+    "banner": { "key": "img-20241127133720352", "alt": "动力支具产品" },
     "order": 5,
     "children": []
   },
   {
     "slug": "accessory",
     "name": "配件",
+    "desc": "低温热塑板材与成品支具的配套配件，包括搭扣、衬垫与固定辅件。",
+    "banner": { "key": "img-20251110165841179", "alt": "配件产品" },
     "order": 6,
     "children": []
   },
   {
     "slug": "high-temp-thermoplastics",
     "name": "高温板",
+    "desc": "高温热塑板适用于要求更高硬度与强度的矫形器制作，支持二次热成型。",
+    "banner": { "key": "img-20241127135113160", "alt": "高温板产品" },
     "order": 7,
     "children": []
   },
   {
     "slug": "rehab-cushion",
     "name": "空气能姿势垫",
+    "desc": "空气能姿势垫为康复与体位管理提供支撑，适用于长期卧床与放疗定位场景。",
+    "banner": { "key": "img-20241127134159989", "alt": "空气能姿势垫产品" },
     "order": 8,
     "children": []
   },
   {
     "slug": "patient-immobilization",
     "name": "IFIX体位固定方案",
+    "desc": "IFIX 体位固定方案面向放疗与手术场景，提供可重复、稳定的体位固定系统。",
+    "banner": { "key": "img-20211202215648644", "alt": "IFIX 体位固定产品" },
     "order": 9,
     "children": [
       { "slug": "patch", "name": "网纹易撕胶贴", "hasProducts": false },
@@ -82,6 +94,8 @@
   {
     "slug": "pet-rehabilitation",
     "name": "宠物康复",
+    "desc": "面向兽医场景的宠物支具与康复辅具，覆盖宠物关节固定与术后康复。",
+    "banner": { "key": "img-20210908162509809", "alt": "宠物康复产品" },
     "order": 10,
     "children": [
       { "slug": "pet-thermoplastic", "name": "宠物可塑性外固定网膜", "hasProducts": true },

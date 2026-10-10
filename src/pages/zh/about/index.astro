@@ -1,18 +1,22 @@
 ---
 import PageLayout from '../../../components/layout/PageLayout.astro';
 import Banner from '../../../components/layout/Banner.astro';
-import EmptyState from '../../../components/ui/EmptyState.astro';
 import Button from '../../../components/ui/Button.astro';
 import { loadHomeDict } from '../../../utils/i18n';
+import { getCertificates } from '../../../utils/content';
 import { getContactPath } from '../../../utils/url';
+import { assetUrl } from '../../../utils/assets';
+import type { BreadcrumbItem } from '../../../types/components';
 
-// 关于我们（page-structure §2，骨架：内容由 W3-3 填充）
+// 关于我们（direction-a-plus 版式）：Banner + 公司介绍（双栏 文本/图）
+// + 发展历程（大图）+ 荣誉资质（证书卡网格）。内容取自 about.json 真实三段文案。
 const lang = 'zh';
 const dict = loadHomeDict(lang);
 const page = dict.about;
 const t = dict.common;
+const certs = getCertificates(lang);
 
-const trail = [
+const trail: BreadcrumbItem[] = [
   { label: t.breadcrumb.home, href: `/${lang}/` },
   { label: page.banner.title },
 ];
@@ -30,9 +34,161 @@ const trail = [
 
   <section class="u-section">
     <div class="u-container">
-      <EmptyState title={page.skeleton_title} body={page.skeleton_body} icon="file">
+      <div class="about__profile">
+        <div class="about__text">
+          <p class="about__kicker">{page.banner.subtitle}</p>
+          <h2 class="about__h2">{page.profile.title}</h2>
+          <h3 class="about__company">{page.profile.company_name}</h3>
+          <p class="about__para">{page.profile.para_1}</p>
+          <p class="about__para">{page.profile.para_2}</p>
+          <p class="about__para">{page.profile.para_3}</p>
+        </div>
+        <figure class="about__figure">
+          <img
+            src={assetUrl(page.profile.image_src)}
+            alt={page.profile.image_alt}
+            loading="lazy"
+            width={1200}
+            height={675}
+            onerror="this.remove()"
+          />
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="u-section about__history-sec">
+    <div class="u-container">
+      <p class="about__kicker about__kicker--alt">{page.banner.subtitle}</p>
+      <h2 class="about__h2">{page.history.title}</h2>
+      <figure class="about__history-figure">
+        <img
+          src={assetUrl(page.history.image_src)}
+          alt={page.history.image_alt}
+          loading="lazy"
+          width={1600}
+          height={900}
+          onerror="this.remove()"
+        />
+      </figure>
+    </div>
+  </section>
+
+  <section class="u-section">
+    <div class="u-container">
+      <div class="about__cert-head">
+        <p class="about__kicker">{t.nav.products_all}</p>
+        <h2 class="about__h2">{page.certificates_intro.title}</h2>
+      </div>
+      <div class="u-card-grid about__cert-grid">
+        {certs.map((cert) => (
+          <figure class="about__cert card">
+            <img
+              class="about__cert-img"
+              src={assetUrl(cert.image.key)}
+              alt={cert.image.alt}
+              loading="lazy"
+              width={600}
+              height={450}
+              onerror="this.remove()"
+            />
+            <figcaption class="about__cert-title">{cert.title}</figcaption>
+          </figure>
+        ))}
+      </div>
+      <div class="about__cta">
         <Button href={getContactPath(lang)} variant="secondary">{page.cta}</Button>
-      </EmptyState>
+      </div>
     </div>
   </section>
 </PageLayout>
+
+<style>
+  .about__profile {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  @media (min-width: 1024px) {
+    .about__profile {
+      grid-template-columns: 7fr 5fr;
+      align-items: start;
+    }
+  }
+
+  .about__kicker {
+    font-size: var(--text-small);
+    font-weight: var(--weight-medium);
+    letter-spacing: 0.1em;
+    color: var(--color-primary-600);
+    text-transform: uppercase;
+    margin-bottom: var(--space-xs);
+  }
+
+  .about__kicker--alt {
+    color: var(--color-primary-700);
+  }
+
+  .about__h2 {
+    font-size: var(--text-h2);
+    color: var(--color-neutral-900);
+    margin-bottom: var(--space-sm);
+  }
+
+  .about__company {
+    font-size: var(--text-h3);
+    color: var(--color-neutral-900);
+    font-weight: var(--weight-medium);
+    margin-bottom: var(--space-sm);
+  }
+
+  .about__para {
+    color: var(--color-neutral-700);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+    margin-bottom: var(--space-sm);
+    max-width: var(--measure-zh);
+  }
+
+  .about__figure,
+  .about__history-figure {
+    margin-top: var(--space-md);
+  }
+
+  .about__figure img,
+  .about__history-figure img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+    display: block;
+    background: var(--color-neutral-100);
+  }
+
+  .about__cert-grid {
+    margin-bottom: var(--space-lg);
+  }
+
+  .about__cert {
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .about__cert-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: var(--color-neutral-100);
+  }
+
+  .about__cert-title {
+    padding: var(--space-sm);
+    font-size: var(--text-small);
+    color: var(--color-neutral-700);
+  }
+
+  .about__cta {
+    text-align: center;
+    margin-top: var(--space-lg);
+  }
+</style>

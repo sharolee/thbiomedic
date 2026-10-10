@@ -2,61 +2,61 @@
   {
     "slug": "innovative-sme",
     "title": "广东省创新型中小企业",
-    "image": { "src": "images/certs/20240927093543317.jpg", "alt": "广东省创新型中小企业证书" },
+    "image": { "src": "img-20240927093543317", "alt": "广东省创新型中小企业证书" },
     "order": 1
   },
   {
     "slug": "specialized-new-sme",
     "title": "广东省专精特新中小企业",
-    "image": { "src": "images/certs/20240927093426650.jpg", "alt": "广东省专精特新中小企业证书" },
+    "image": { "src": "img-20240927093426650", "alt": "广东省专精特新中小企业证书" },
     "order": 2
   },
   {
     "slug": "high-tech-enterprise",
     "title": "高新技术企业",
-    "image": { "src": "images/certs/20211128141430515.png", "alt": "高新技术企业证书" },
+    "image": { "src": "img-20211128141430515", "alt": "高新技术企业证书" },
     "order": 3
   },
   {
     "slug": "contract-credit",
     "title": "守合同重信用企业",
-    "image": { "src": "images/certs/20211128141511171.jpg", "alt": "守合同重信用企业证书" },
+    "image": { "src": "img-20211128141511171", "alt": "守合同重信用企业证书" },
     "order": 4
   },
   {
     "slug": "light-of-hope",
     "title": "希望之光创新性潜力企业",
-    "image": { "src": "images/certs/20211128141538312.png", "alt": "希望之光创新性潜力企业证书" },
+    "image": { "src": "img-20211128141538312", "alt": "希望之光创新性潜力企业证书" },
     "order": 5
   },
   {
     "slug": "brand-cert-4star",
     "title": "品牌认证（四星）",
-    "image": { "src": "images/certs/20240927093914649.jpg", "alt": "品牌认证（四星）证书" },
+    "image": { "src": "img-20240927093914649", "alt": "品牌认证（四星）证书" },
     "order": 6
   },
   {
     "slug": "iso13485",
     "title": "ISO13485",
-    "image": { "src": "images/certs/20240816091750406.jpg", "alt": "ISO13485 认证证书" },
+    "image": { "src": "img-20240816091750406", "alt": "ISO13485 认证证书" },
     "order": 7
   },
   {
     "slug": "ce",
     "title": "CE certificate",
-    "image": { "src": "images/certs/20211128141703781.png", "alt": "CE 认证证书" },
+    "image": { "src": "img-20211128141703781", "alt": "CE 认证证书" },
     "order": 8
   },
   {
     "slug": "fda",
     "title": "FDA",
-    "image": { "src": "images/certs/20211128141726171.png", "alt": "FDA 认证证书" },
+    "image": { "src": "img-20211128141726171", "alt": "FDA 认证证书" },
     "order": 9
   },
   {
     "slug": "patent",
     "title": "专利证书",
-    "image": { "src": "images/certs/20210907171150902.png", "alt": "专利证书" },
+    "image": { "src": "img-20210907171150902", "alt": "专利证书" },
     "order": 10
   }
 ]

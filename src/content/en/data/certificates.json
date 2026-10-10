@@ -2,61 +2,61 @@
   {
     "slug": "innovative-sme",
     "title": "Innovative SME of Guangdong Province",
-    "image": { "src": "images/certs/20240927093543317.jpg", "alt": "Innovative SME of Guangdong Province certificate" },
+    "image": { "src": "img-20240927093543317", "alt": "Innovative SME of Guangdong Province certificate" },
     "order": 1
   },
   {
     "slug": "specialized-new-sme",
     "title": "Specialized, Refined, Differentiated and Innovative SME of Guangdong Province",
-    "image": { "src": "images/certs/20240927093426650.jpg", "alt": "Specialized, Refined, Differentiated and Innovative SME of Guangdong Province certificate" },
+    "image": { "src": "img-20240927093426650", "alt": "Specialized, Refined, Differentiated and Innovative SME of Guangdong Province certificate" },
     "order": 2
   },
   {
     "slug": "high-tech-enterprise",
     "title": "National High-Tech Enterprise",
-    "image": { "src": "images/certs/20240816103947415.jpg", "alt": "National High-Tech Enterprise certificate" },
+    "image": { "src": "img-20240816103947415", "alt": "National High-Tech Enterprise certificate" },
     "order": 3
   },
   {
     "slug": "contract-credit",
     "title": "Observing Contract and Valuing Credit",
-    "image": { "src": "images/certs/20210906161301684.jpg", "alt": "Observing Contract and Valuing Credit certificate" },
+    "image": { "src": "img-20210906161301684", "alt": "Observing Contract and Valuing Credit certificate" },
     "order": 4
   },
   {
     "slug": "light-of-hope",
     "title": "China Light of Hope",
-    "image": { "src": "images/certs/20210906161317543.png", "alt": "China Light of Hope certificate" },
+    "image": { "src": "img-20210906161317543", "alt": "China Light of Hope certificate" },
     "order": 5
   },
   {
     "slug": "brand-cert-4star",
     "title": "4 Stars Brand Certification",
-    "image": { "src": "images/certs/20240816104024280.jpg", "alt": "4 Stars Brand Certification certificate" },
+    "image": { "src": "img-20240816104024280", "alt": "4 Stars Brand Certification certificate" },
     "order": 6
   },
   {
     "slug": "iso13485",
     "title": "ISO 13485",
-    "image": { "src": "images/certs/20240816091314357.jpg", "alt": "ISO 13485 certificate" },
+    "image": { "src": "img-20240816091314357", "alt": "ISO 13485 certificate" },
     "order": 7
   },
   {
     "slug": "ce",
     "title": "CE certificate",
-    "image": { "src": "images/certs/20210907102020199.png", "alt": "CE certificate" },
+    "image": { "src": "img-20210907102020199", "alt": "CE certificate" },
     "order": 8
   },
   {
     "slug": "fda",
     "title": "FDA Listing",
-    "image": { "src": "images/certs/20240816111318379.png", "alt": "FDA Listing" },
+    "image": { "src": "img-20240816111318379", "alt": "FDA Listing" },
     "order": 9
   },
   {
     "slug": "patent",
     "title": "Patents",
-    "image": { "src": "images/certs/20210907171150902.png", "alt": "Patent certificates" },
+    "image": { "src": "img-20210907171150902", "alt": "Patent certificates" },
     "order": 10
   }
 ]

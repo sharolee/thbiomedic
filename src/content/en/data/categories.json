@@ -39,6 +39,8 @@
   {
     "slug": "adjustable-orthosis",
     "name": "Adjustable Orthosis & Supports",
+    "desc": "Adjustable orthoses allow real-time angle and support adjustment throughout rehabilitation, covering elbow and knee immobilization and functional training.",
+    "banner": { "key": "img-20241127150842913", "alt": "Adjustable Orthosis & Supports" },
     "order": 4,
     "children": [
       { "slug": "adjustable-knee", "name": "Adjustable Knee Orthosis", "hasProducts": false },
@@ -48,30 +50,40 @@
   {
     "slug": "extension-tendon-splints",
     "name": "Extension Tendon Splints",
+    "desc": "Extension tendon splints assist tendon movement through elastic traction for rehabilitation of extensor tendon injuries.",
+    "banner": { "key": "img-20241126112831812", "alt": "Extension Tendon Splints" },
     "order": 5,
     "children": []
   },
   {
     "slug": "accessory",
     "name": "Accessory",
+    "desc": "Accessories for thermoplastic sheets and prefabricated orthoses, including closures, liners and fixation aids.",
+    "banner": { "key": "img-20241126160052258", "alt": "Accessory" },
     "order": 6,
     "children": []
   },
   {
     "slug": "high-temp-thermoplastics",
     "name": "High Temperature Thermoplastics",
+    "desc": "High-temperature thermoplastic sheets deliver higher rigidity and strength for orthoses, supporting re-forming.",
+    "banner": { "key": "img-20241126163442087", "alt": "High Temperature Thermoplastics" },
     "order": 7,
     "children": []
   },
   {
     "slug": "rehab-cushion",
     "name": "Cushion for Rehabilitation",
+    "desc": "Air-powered posture cushions provide support for rehabilitation and positioning, suited to long-term bed rest and radiotherapy.",
+    "banner": { "key": "img-20241126113537894", "alt": "Cushion for Rehabilitation" },
     "order": 8,
     "children": []
   },
   {
     "slug": "patient-immobilization",
     "name": "Patient Immobilization",
+    "desc": "IFIX patient immobilization delivers reproducible, stable positioning for radiotherapy and surgical scenarios.",
+    "banner": { "key": "img-20211202215648644", "alt": "IFIX patient immobilization" },
     "order": 9,
     "children": [
       { "slug": "patch", "name": "Patch", "hasProducts": false },
@@ -82,6 +94,8 @@
   {
     "slug": "pet-rehabilitation",
     "name": "Pet Rehabilitation",
+    "desc": "Veterinary orthoses and rehab aids for pet joint immobilization and post-operative recovery.",
+    "banner": { "key": "img-20210908162509809", "alt": "Pet Rehabilitation" },
     "order": 10,
     "children": [
       { "slug": "pet-thermoplastic", "name": "Pet thermoplastic", "hasProducts": true },

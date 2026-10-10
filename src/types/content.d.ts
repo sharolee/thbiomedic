@@ -105,10 +105,10 @@ export interface ContactInfo {
   };
 }
 
-/** 荣誉资质（content-model.md §9；image.src 中英可不同） */
+/** 荣誉资质（content-model.md §9；证书图 key 中英可不同，已核实例外） */
 export interface Certificate {
   slug: string;
   title: string;
-  image: MediaRef;
+  image: AssetRef;
   order?: number;
 }

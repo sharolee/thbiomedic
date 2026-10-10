@@ -56,7 +56,7 @@
     "item_1": { "value": 20, "suffix": "+", "label": "Years of expertise" },
     "item_2": { "value": 30, "suffix": "+", "label": "Export countries" },
     "item_3": { "value": 400, "suffix": "+", "label": "Partner hospitals" },
-    "item_4": { "value": 5, "suffix": "", "label": "Intl. certifications" }
+    "item_4": { "value": 5, "label": "Intl. certifications" }
   },
   "news_section": {
     "kicker": "Newsroom",

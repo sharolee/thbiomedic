@@ -130,7 +130,8 @@ export interface BrandCardDict {
 
 export interface StatItemDict {
   value: number;
-  suffix: string;
+  /** 角标（如 "+"）；无后缀的统计项省略该字段 */
+  suffix?: string;
   label: string;
 }
 
