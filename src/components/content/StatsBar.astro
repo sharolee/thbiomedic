@@ -15,7 +15,8 @@ const { kicker, items } = Astro.props;
       {items.map((item, i) => (
         <div class:list={{ 'stat': true, 'reveal': true }} data-delay={i > 0 ? String(i) : undefined}>
           <b>
-            <span class="count" data-to={item.value}>0</span>
+            {/* 静态渲染终值：无 JS 时不再显示 0（m-2）；JS 计数动画从其覆盖 */}
+            <span class="count" data-to={item.value}>{item.value}</span>
             {item.suffix && <span class="stat__plus">{item.suffix}</span>}
           </b>
           <span class="stat__label">{item.label}</span>

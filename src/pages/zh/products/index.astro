@@ -1,7 +1,6 @@
 ---
 import PageLayout from '../../../components/layout/PageLayout.astro';
 import Banner from '../../../components/layout/Banner.astro';
-import SectionHeader from '../../../components/ui/SectionHeader.astro';
 import CategoryGrid from '../../../components/product/CategoryGrid.astro';
 import Button from '../../../components/ui/Button.astro';
 import { loadHomeDict } from '../../../utils/i18n';
@@ -34,10 +33,6 @@ const trail = [
   <section class="u-section">
     <div class="u-container">
       <p class="products-intro">{page.intro}</p>
-      <SectionHeader
-        title={page.banner.title}
-        subtitle={page.intro}
-      />
       <CategoryGrid
         categories={categories}
         lang={lang}

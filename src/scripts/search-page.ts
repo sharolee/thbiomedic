@@ -31,6 +31,11 @@ export function initSearchPage(): void {
   if (!root) return;
 
   const query = new URLSearchParams(window.location.search).get('q')?.trim() ?? '';
+
+  // 结果页可见搜索框预填当前关键词（M-2），无 query 时保持空输入
+  const formInput = root.querySelector<HTMLInputElement>('input[name="q"]');
+  if (formInput && query) formInput.value = query;
+
   if (!query) return; // 无 query：保持默认空态提示
 
   const lang = root.dataset.lang ?? 'zh';

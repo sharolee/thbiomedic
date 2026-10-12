@@ -2,10 +2,13 @@
 import PageLayout from '../../../components/layout/PageLayout.astro';
 import Banner from '../../../components/layout/Banner.astro';
 import EmptyState from '../../../components/ui/EmptyState.astro';
+import Icon from '../../../components/ui/Icon.astro';
 import { loadHomeDict } from '../../../utils/i18n';
+import { getSearchPath } from '../../../utils/url';
 
 // 搜索页（page-structure §0.3）：构建期生成索引 JSON（index.json.ts），
 // 客户端按 query 过滤渲染结果；无结果回退空态面板。
+// 页内提供可见搜索表单（M-2：用户可在结果页直接改关键词），提交仍走 ?q=
 const lang = 'zh';
 const dict = loadHomeDict(lang);
 const search = dict.common.search;
@@ -34,6 +37,18 @@ const trail = [
       data-empty-body={search.empty_body}
       data-count-template={search.results_count}
     >
+      <form class="search-page-form" action={getSearchPath(lang)} method="get" role="search">
+        <input
+          class="search-page-form__input"
+          type="search"
+          name="q"
+          placeholder={search.placeholder}
+          aria-label={search.aria_label}
+        />
+        <button class="search-page-form__submit" type="submit" aria-label={search.submit}>
+          <Icon name="search" size={20} />
+        </button>
+      </form>
       <noscript>
         <p class="search-no-js">{search.no_js_hint}</p>
       </noscript>
@@ -52,6 +67,52 @@ const trail = [
 </script>
 
 <style>
+  /* 页内可见搜索表单（M-2） */
+  .search-page-form {
+    display: flex;
+    gap: var(--space-2xs);
+    margin-bottom: var(--space-lg);
+    max-width: 560px;
+  }
+
+  .search-page-form__input {
+    flex: 1;
+    min-width: 0;
+    height: 48px;
+    padding: var(--space-xs) var(--space-sm);
+    border: var(--border-default);
+    border-radius: var(--radius-sm);
+    font-size: 16px;
+    color: var(--color-neutral-900);
+    background: var(--color-white);
+  }
+
+  .search-page-form__input::placeholder {
+    color: var(--color-neutral-500);
+  }
+
+  .search-page-form__input:focus {
+    outline: none;
+    border-color: var(--color-primary-600);
+    box-shadow: 0 0 0 3px var(--color-primary-100);
+  }
+
+  .search-page-form__submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: var(--radius-sm);
+    background: var(--color-primary-600);
+    color: var(--color-white);
+  }
+
+  .search-page-form__submit:hover {
+    background: var(--color-primary-700);
+  }
+
   .search-no-js {
     padding: var(--space-sm);
     margin-bottom: var(--space-md);

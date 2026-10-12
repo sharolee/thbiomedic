@@ -85,6 +85,7 @@
     "not_found_body": "您访问的页面不存在或已被移动",
     "back_home": "返回首页",
     "load_failed_title": "内容加载失败",
-    "load_failed_body": "内容加载失败，请重试"
+    "load_failed_body": "内容加载失败，请重试",
+    "img_error": "图片加载失败"
   }
 }

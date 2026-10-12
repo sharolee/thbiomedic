@@ -35,8 +35,6 @@ const trail: BreadcrumbItem[] = [
     <div class="u-container">
       {downloads.length > 0 ? (
         <div class="downloads">
-          <p class="downloads__kicker">{t.nav.resources_downloads}</p>
-          <h2 class="downloads__title">{page.banner.title}</h2>
           <ul class="downloads__list">
             {downloads.map((item) => (
               <li>
@@ -60,21 +58,6 @@ const trail: BreadcrumbItem[] = [
 </PageLayout>
 
 <style>
-  .downloads__kicker {
-    font-size: var(--text-small);
-    font-weight: var(--weight-medium);
-    letter-spacing: 0.1em;
-    color: var(--color-primary-600);
-    text-transform: uppercase;
-    margin-bottom: var(--space-xs);
-  }
-
-  .downloads__title {
-    font-size: var(--text-h2);
-    color: var(--color-neutral-900);
-    margin-bottom: var(--space-lg);
-  }
-
   .downloads__list {
     display: grid;
     gap: var(--space-sm);

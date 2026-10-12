@@ -3,33 +3,36 @@ import type { CategoryCardProps } from '../../types/components';
 import Icon from '../ui/Icon.astro';
 import { assetUrl } from '../../utils/assets';
 import { getCategoryPath } from '../../utils/url';
+import { getDict } from '../../utils/i18n';
 
 type Props = CategoryCardProps;
 
 // 一级分类卡（design-spec §6.3 / page-structure §3.1）：图 + 分类名 + 一句话简介
 // 空分类右上角「筹备中」胶囊标签（--color-warning-600 字 / --color-warning-50 底）
-// 分类图素材缺失 → 浅灰占位区；图失败 onerror 兜底（ADR-003 §5.2 约束 4）
+// 占位块 absolute 铺底，img 覆盖其上；图失败时隐藏自身露出占位块 + 错误提示
+// （ADR-003 §5.2 约束 4：单图失败不留空白区）
 const { category, lang, comingSoonLabel } = Astro.props;
 const href = getCategoryPath(category.slug, lang);
 const image = category.banner;
 const hasProducts = category.children?.some((c) => c.hasProducts) ?? false;
+const imgError = getDict(lang).common.common.img_error;
 ---
 
 <a class="category-card card" href={href}>
   <div class="category-card__media card__media">
-    {image ? (
+    <span class="category-card__placeholder">
+      <Icon name="image" size={40} />
+      <span class="category-card__placeholder-label">{imgError}</span>
+    </span>
+    {image && (
       <img
         src={assetUrl(image.key)}
         alt={image.alt}
         loading="lazy"
         width={800}
         height={600}
-        onerror="this.remove()"
+        onerror="this.style.display='none'"
       />
-    ) : (
-      <span class="category-card__placeholder">
-        <Icon name="image" size={40} />
-      </span>
     )}
     {!hasProducts && (
       <span class="category-card__badge">{comingSoonLabel}</span>
@@ -50,12 +53,27 @@ const hasProducts = category.children?.some((c) => c.hasProducts) ?? false;
     position: relative;
   }
 
-  .category-card__placeholder {
-    display: grid;
-    place-items: center;
+  .category-card__media > img {
+    display: block;
     width: 100%;
     height: 100%;
+    object-fit: cover;
+  }
+
+  .category-card__placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2xs);
     background: var(--color-primary-50);
+    color: var(--color-neutral-500);
+  }
+
+  .category-card__placeholder-label {
+    font-size: var(--text-caption);
     color: var(--color-neutral-500);
   }
 

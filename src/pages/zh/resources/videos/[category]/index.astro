@@ -54,11 +54,6 @@ const trail: BreadcrumbItem[] = [
 
   <section class="u-section">
     <div class="u-container">
-      <div class="videos__head">
-        <p class="videos__kicker">{t.nav.resources_videos}</p>
-        <h2 class="videos__title">{categoryName}</h2>
-        <p class="videos__subtitle">{page.banner.subtitle}</p>
-      </div>
       {items.length > 0 ? (
         <div class="u-card-grid">
           {items.map((item) => (
@@ -85,30 +80,6 @@ const trail: BreadcrumbItem[] = [
 </PageLayout>
 
 <style>
-  .videos__head {
-    margin-bottom: var(--space-lg);
-  }
-
-  .videos__kicker {
-    font-size: var(--text-small);
-    font-weight: var(--weight-medium);
-    letter-spacing: 0.1em;
-    color: var(--color-primary-600);
-    text-transform: uppercase;
-    margin-bottom: var(--space-xs);
-  }
-
-  .videos__title {
-    font-size: var(--text-h2);
-    color: var(--color-neutral-900);
-    margin-bottom: var(--space-xs);
-  }
-
-  .videos__subtitle {
-    font-size: var(--text-body);
-    color: var(--color-neutral-500);
-  }
-
   .video-card__media {
     background: var(--color-neutral-100);
   }

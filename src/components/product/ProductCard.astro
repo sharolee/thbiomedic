@@ -3,22 +3,26 @@ import type { ProductCardProps } from '../../types/components';
 import Icon from '../ui/Icon.astro';
 import { assetUrl } from '../../utils/assets';
 import { getProductPath } from '../../utils/url';
+import { getDict } from '../../utils/i18n';
 
 type Props = ProductCardProps;
 
 // 产品卡（design-spec §6.3）：图 16:9 + 名称 h4 2 行截断 + 适应症摘要 2 行截断
 // 悬停上移 4px + shadow-md + 图放大；整卡为单个 <a>
-// 素材走 assets.ts 唯一出口；img 带 onerror 兜底（ADR-003 §5.2 约束 4）：
-// 失败时移除 img，露出底层令牌色占位块，不出现空白媒体区
+// 素材走 assets.ts 唯一出口；占位块 absolute 铺底，img 覆盖其上（B-2 修复：
+// 占位块不再把 img 挤出裁剪区）。img 失败时隐藏自身露出占位块 + 错误提示
+// （ADR-003 §5.2 约束 4：单图失败不留空白区）
 const { product, lang } = Astro.props;
 const href = getProductPath(product.categorySlug, product.slug, lang);
 const image = product.images?.[0];
+const imgError = getDict(lang).common.common.img_error;
 ---
 
 <a class="product-card card" href={href}>
   <div class="product-card__media card__media">
     <span class="product-card__placeholder">
       <Icon name="image" size={40} />
+      <span class="product-card__placeholder-label">{imgError}</span>
     </span>
     {image && (
       <img
@@ -27,7 +31,7 @@ const image = product.images?.[0];
         loading="lazy"
         width={800}
         height={600}
-        onerror="this.remove()"
+        onerror="this.style.display='none'"
       />
     )}
   </div>
@@ -50,14 +54,25 @@ const image = product.images?.[0];
     position: relative;
     z-index: 1;
     display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .product-card__placeholder {
-    display: grid;
-    place-items: center;
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2xs);
     background: var(--color-neutral-100);
+    color: var(--color-neutral-500);
+  }
+
+  .product-card__placeholder-label {
+    font-size: var(--text-caption);
     color: var(--color-neutral-500);
   }
 

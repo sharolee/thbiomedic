@@ -25,7 +25,7 @@ const navItems = [
     ],
   },
   {
-    href: `/${lang}/resources/`,
+    href: getDownloadsPath(lang),
     label: t.nav.resources,
     children: [
       { href: getDownloadsPath(lang), label: t.nav.resources_downloads },

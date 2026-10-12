@@ -4,6 +4,7 @@ import Banner from '../../../../components/layout/Banner.astro';
 import EmptyState from '../../../../components/ui/EmptyState.astro';
 import SectionHeader from '../../../../components/ui/SectionHeader.astro';
 import Button from '../../../../components/ui/Button.astro';
+import Icon from '../../../../components/ui/Icon.astro';
 import { loadHomeDict } from '../../../../utils/i18n';
 import { getVideos } from '../../../../utils/content';
 import { assetUrl } from '../../../../utils/assets';
@@ -40,11 +41,6 @@ const trail: BreadcrumbItem[] = [
 
   <section class="u-section">
     <div class="u-container">
-      <div class="videos__head">
-        <p class="videos__kicker">{t.nav.resources_videos}</p>
-        <h2 class="videos__title">{page.banner.title}</h2>
-        <p class="videos__subtitle">{page.banner.subtitle}</p>
-      </div>
       {videos.categories.length > 0 && (
         <div class="video-cats">
           {videos.categories.map((c) => (
@@ -64,12 +60,16 @@ const trail: BreadcrumbItem[] = [
                   {group.map((item) => (
                     <div class="video-card card">
                       <div class="video-card__media card__media">
+                        <span class="video-card__fallback">
+                          <Icon name="play" size={40} />
+                          <span class="video-card__fallback-label">{t.common.img_error}</span>
+                        </span>
                         <video
                           controls
                           preload="none"
                           playsinline
                           poster={item.poster ? assetUrl(item.poster) : undefined}
-                          onerror="this.remove()"
+                          onerror="this.style.display='none'"
                         >
                           <source src={assetUrl(item.file)} type="video/mp4" />
                         </video>
@@ -101,30 +101,6 @@ const trail: BreadcrumbItem[] = [
     margin-bottom: var(--space-lg);
   }
 
-  .videos__head {
-    margin-bottom: var(--space-lg);
-  }
-
-  .videos__kicker {
-    font-size: var(--text-small);
-    font-weight: var(--weight-medium);
-    letter-spacing: 0.1em;
-    color: var(--color-primary-600);
-    text-transform: uppercase;
-    margin-bottom: var(--space-xs);
-  }
-
-  .videos__title {
-    font-size: var(--text-h2);
-    color: var(--color-neutral-900);
-    margin-bottom: var(--space-xs);
-  }
-
-  .videos__subtitle {
-    font-size: var(--text-body);
-    color: var(--color-neutral-500);
-  }
-
   .video-groups {
     display: flex;
     flex-direction: column;
@@ -132,15 +108,35 @@ const trail: BreadcrumbItem[] = [
   }
 
   .video-card__media {
+    position: relative;
     background: var(--color-neutral-100);
   }
 
   .video-card__media video {
+    position: relative;
+    z-index: 1;
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
     aspect-ratio: 16 / 9;
+  }
+
+  .video-card__fallback {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2xs);
+    background: var(--color-neutral-100);
+    color: var(--color-neutral-500);
+  }
+
+  .video-card__fallback-label {
+    font-size: var(--text-caption);
+    color: var(--color-neutral-500);
   }
 
   .video-card__title {

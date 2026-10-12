@@ -85,6 +85,7 @@
     "not_found_body": "The page you are looking for does not exist or has been moved.",
     "back_home": "Back to Home",
     "load_failed_title": "Failed to Load Content",
-    "load_failed_body": "Failed to load content. Please try again."
+    "load_failed_body": "Failed to load content. Please try again.",
+    "img_error": "Image failed to load"
   }
 }

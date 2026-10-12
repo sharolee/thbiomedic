@@ -2,6 +2,7 @@
 import PageLayout from '../../../components/layout/PageLayout.astro';
 import Banner from '../../../components/layout/Banner.astro';
 import Button from '../../../components/ui/Button.astro';
+import Icon from '../../../components/ui/Icon.astro';
 import { loadHomeDict } from '../../../utils/i18n';
 import { getCertificates } from '../../../utils/content';
 import { getContactPath } from '../../../utils/url';
@@ -36,7 +37,6 @@ const trail: BreadcrumbItem[] = [
     <div class="u-container">
       <div class="about__profile">
         <div class="about__text">
-          <p class="about__kicker">{page.banner.subtitle}</p>
           <h2 class="about__h2">{page.profile.title}</h2>
           <h3 class="about__company">{page.profile.company_name}</h3>
           <p class="about__para">{page.profile.para_1}</p>
@@ -44,13 +44,17 @@ const trail: BreadcrumbItem[] = [
           <p class="about__para">{page.profile.para_3}</p>
         </div>
         <figure class="about__figure">
+          <span class="about__figure-fallback">
+            <Icon name="image" size={40} />
+            <span class="about__figure-fallback-label">{t.common.img_error}</span>
+          </span>
           <img
             src={assetUrl(page.profile.image_src)}
             alt={page.profile.image_alt}
             loading="lazy"
             width={1200}
             height={675}
-            onerror="this.remove()"
+            onerror="this.style.display='none'"
           />
         </figure>
       </div>
@@ -59,16 +63,19 @@ const trail: BreadcrumbItem[] = [
 
   <section class="u-section about__history-sec">
     <div class="u-container">
-      <p class="about__kicker about__kicker--alt">{page.banner.subtitle}</p>
       <h2 class="about__h2">{page.history.title}</h2>
       <figure class="about__history-figure">
+        <span class="about__figure-fallback">
+          <Icon name="image" size={40} />
+          <span class="about__figure-fallback-label">{t.common.img_error}</span>
+        </span>
         <img
           src={assetUrl(page.history.image_src)}
           alt={page.history.image_alt}
           loading="lazy"
           width={1600}
           height={900}
-          onerror="this.remove()"
+          onerror="this.style.display='none'"
         />
       </figure>
     </div>
@@ -83,15 +90,21 @@ const trail: BreadcrumbItem[] = [
       <div class="u-card-grid about__cert-grid">
         {certs.map((cert) => (
           <figure class="about__cert card">
-            <img
-              class="about__cert-img"
-              src={assetUrl(cert.image.key)}
-              alt={cert.image.alt}
-              loading="lazy"
-              width={600}
-              height={450}
-              onerror="this.remove()"
-            />
+            <div class="about__cert-media">
+              <span class="about__figure-fallback">
+                <Icon name="image" size={40} />
+                <span class="about__figure-fallback-label">{t.common.img_error}</span>
+              </span>
+              <img
+                class="about__cert-img"
+                src={assetUrl(cert.image.key)}
+                alt={cert.image.alt}
+                loading="lazy"
+                width={600}
+                height={450}
+                onerror="this.style.display='none'"
+              />
+            </div>
             <figcaption class="about__cert-title">{cert.title}</figcaption>
           </figure>
         ))}
@@ -153,16 +166,56 @@ const trail: BreadcrumbItem[] = [
 
   .about__figure,
   .about__history-figure {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
     margin-top: var(--space-md);
   }
 
   .about__figure img,
   .about__history-figure img {
+    position: relative;
+    z-index: 1;
     width: 100%;
-    height: auto;
-    border-radius: var(--radius-lg);
+    height: 100%;
+    object-fit: cover;
     display: block;
     background: var(--color-neutral-100);
+  }
+
+  /* Image load fallback: placeholder + error hint (ADR-003 §5.2 rule 4) */
+  .about__figure-fallback {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2xs);
+    background: var(--color-neutral-100);
+    color: var(--color-neutral-500);
+  }
+
+  .about__figure-fallback-label {
+    font-size: var(--text-caption);
+    color: var(--color-neutral-500);
+  }
+
+  .about__cert-media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--color-neutral-100);
+  }
+
+  .about__cert-img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   .about__cert-grid {
@@ -174,10 +227,7 @@ const trail: BreadcrumbItem[] = [
     text-align: center;
   }
 
-  .about__cert-img {
-    width: 100%;
-    height: auto;
-    display: block;
+  .about__cert-media .about__figure-fallback {
     background: var(--color-neutral-100);
   }
 

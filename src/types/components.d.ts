@@ -13,6 +13,8 @@ export interface PageLayoutProps {
   description?: string;
   /** 无语言变体的页面（如 404）置 false 以不输出 hreflang（R-S7 m-4） */
   hreflangLinks?: boolean;
+  /** 覆盖 canonical / 语言切换所基于的路径（404 页指向首页，m-1） */
+  pathname?: string;
 }
 
 export interface HeaderProps {
