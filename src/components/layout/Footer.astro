@@ -1,6 +1,5 @@
 ---
 import type { FooterProps } from '../../types/components';
-import Icon from '../ui/Icon.astro';
 import { getHomePath, getAboutPath, getDownloadsPath, getVideosPath, getContactPath, getCategoryPath } from '../../utils/url';
 import { localAsset } from '../../utils/assets';
 import { getCategories, getContact } from '../../utils/content';
@@ -9,7 +8,7 @@ type Props = FooterProps;
 
 // 页脚（design-spec §6.5）：深底 #0B2B52，桌面五列栅格 / 移动单列堆叠
 // 对齐原站页脚结构：关于我们 / 产品中心（10 一级分类）/ 资源 / 联系我们 +
-// 公众号二维码（原站真实素材，assets.ts 直引）+ 社交链接 + ICP / 建站商
+// 公众号二维码（原站真实素材，assets.ts 直引）+ ICP / 建站商
 const { lang, dict } = Astro.props;
 const t = dict.common;
 const year = new Date().getFullYear();
@@ -67,40 +66,15 @@ const columns = [
                 src={localAsset('wechat-qr')}
                 alt={contact.wechatQr.alt}
                 loading="lazy"
-                width={80}
-                height={80}
-                onerror="this.remove()"
+                width={96}
+                height={96}
+                onerror="this.style.display='none'"
               />
             </div>
             <span class="footer__qr-label">{t.footer.qr_label}</span>
           </div>
         )}
-        {contact && contact.social && (contact.social.linkedin || contact.social.facebook) && (
-          <div class="footer__social">
-            {contact.social.linkedin && (
-              <a
-                class="footer__social-link"
-                href={contact.social.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-              >
-                <Icon name="linkedin" size={20} />
-              </a>
-            )}
-            {contact.social.facebook && (
-              <a
-                class="footer__social-link"
-                href={contact.social.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Facebook"
-              >
-                <Icon name="facebook" size={20} />
-              </a>
-            )}
-          </div>
-        )}
+        
       </div>
 
       {columns.map((col) => (
@@ -170,7 +144,7 @@ const columns = [
     max-width: 34em;
   }
 
-  /* 公众号二维码（design-spec §6.5：96×96 白底 padding 8px 圆角 8px） */
+  /* 公众号二维码（design-spec §6.5：白底 padding 8px 圆角 8px；二维码本体 96×96，A20） */
   .footer__qr {
     display: grid;
     justify-items: center;
@@ -182,44 +156,22 @@ const columns = [
   .footer__qr-img {
     display: grid;
     place-items: center;
-    width: 96px;
-    height: 96px;
+    width: 112px;
+    height: 112px;
     padding: 8px;
     border-radius: var(--radius-md);
     background: var(--color-white);
   }
 
   .footer__qr-img img {
-    width: 80px;
-    height: 80px;
+    width: 96px;
+    height: 96px;
     object-fit: contain;
   }
 
   .footer__qr-label {
     font-size: var(--text-caption);
     color: var(--color-neutral-500);
-  }
-
-  .footer__social {
-    display: flex;
-    gap: var(--space-2xs);
-    margin-top: var(--space-md);
-  }
-
-  .footer__social-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: var(--radius-sm);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: var(--color-neutral-300);
-  }
-
-  .footer__social-link:hover {
-    background: rgba(255, 255, 255, 0.08);
-    color: var(--color-white);
   }
 
   .footer__col-title {

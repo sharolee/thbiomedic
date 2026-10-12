@@ -99,10 +99,6 @@ export interface ContactInfo {
   email: string;
   address: string;
   wechatQr?: MediaRef;
-  social?: {
-    linkedin?: string;
-    facebook?: string;
-  };
 }
 
 /** 荣誉资质（content-model.md §9；证书图 key 中英可不同，已核实例外） */

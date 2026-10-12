@@ -30,21 +30,21 @@
     "title": "覆盖全场景的康复与固定方案",
     "subtitle": "从骨科术后康复到放疗体位固定，再到宠物康复，一套材料科技，三类专业场景。",
     "card_1": {
-      "mark": "POLYEASY",
+      "image": "img-20241127150517487",
       "brand": "宝力易® Polyeasy®",
       "title": "骨科康复支具",
       "desc": "低温热塑板材与成品支具，覆盖腕、肘、膝、踝等部位的固定与功能康复。",
       "href": "/products/low-temp-thermoplastics/"
     },
     "card_2": {
-      "mark": "iFIX",
+      "image": "img-20211202215648644",
       "brand": "固德易® iFIX®",
       "title": "放疗体位固定",
       "desc": "放疗定位膜与固定系统，为精准放疗提供可重复的体位固定方案。",
       "href": "/products/patient-immobilization/"
     },
     "card_3": {
-      "mark": "POLYEASY PET",
+      "image": "img-20210908162509809",
       "brand": "宝力谊® Polyeasy Pet®",
       "title": "宠物康复",
       "desc": "面向兽医场景的宠物支具与康复辅具，把人的康复标准带给动物伙伴。",

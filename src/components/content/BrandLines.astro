@@ -1,11 +1,12 @@
 ---
 import type { BrandLinesProps } from '../../types/components';
+import { assetUrl } from '../../utils/assets';
 import { withLangPrefix } from '../../utils/url';
 
 type Props = BrandLinesProps;
 
 // 三大品牌线（direction-a-plus §.products）：kicker + h2 + 导语 + 三张品牌卡。
-// 卡图区为品牌缩写渐变底（克制不喧宾），卡体：注册品牌 + 标题 + 摘要 + 查看系列。
+// 卡图区为分类实图（assetUrl 直引，对应分类 banner）；卡体：注册品牌 + 标题 + 摘要 + 查看系列。
 const { lang, kicker, title, subtitle, cards, moreLabel } = Astro.props;
 ---
 
@@ -19,7 +20,9 @@ const { lang, kicker, title, subtitle, cards, moreLabel } = Astro.props;
     <div class="u-card-grid">
       {cards.map((card, i) => (
         <article class:list={{ 'p-card': true, 'reveal': true }} data-delay={i > 0 ? String(i) : undefined}>
-          <div class="p-card__thumb">{card.mark}</div>
+          <div class="p-card__thumb">
+            <img class="p-card__thumb-img" src={assetUrl(card.image)} alt={card.title} loading="lazy" />
+          </div>
           <div class="p-card__body">
             <p class="p-card__reg">{card.brand}</p>
             <h3 class="p-card__title">{card.title}</h3>
@@ -78,23 +81,15 @@ const { lang, kicker, title, subtitle, cards, moreLabel } = Astro.props;
 
   .p-card__thumb {
     aspect-ratio: 16 / 9;
-    background: linear-gradient(135deg, var(--color-primary-100), var(--color-primary-50));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-primary-700);
-    font-weight: var(--weight-bold);
-    letter-spacing: 0.06em;
-    font-size: var(--text-h2);
+    overflow: hidden;
+    background: var(--color-neutral-100);
   }
 
-  .p-card:nth-child(2) .p-card__thumb {
-    background: linear-gradient(135deg, var(--color-primary-50), var(--color-neutral-100));
-  }
-
-  .p-card:nth-child(3) .p-card__thumb {
-    background: linear-gradient(135deg, var(--color-accent-100), #fff7f1);
-    color: var(--color-accent-500);
+  .p-card__thumb-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   .p-card__body {

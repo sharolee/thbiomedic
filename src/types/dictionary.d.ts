@@ -67,6 +67,8 @@ export interface CommonButtonsDict {
   back_home: string;
   load_failed_title: string;
   load_failed_body: string;
+  /** 图片加载失败占位提示（ADR-003 §5.2 约束 4） */
+  img_error: string;
 }
 
 export interface SearchDict {
@@ -133,8 +135,8 @@ export interface CommonDict {
 
 /* ── 首页（pages/home.json） ─────────────────────────────── */
 export interface BrandCardDict {
-  /** 卡片图占位区大写品牌缩写（POLYEASY / iFIX / POLYEASY PET） */
-  mark: string;
+  /** 卡片图素材 key（assets.ts 唯一出口，经 assetUrl 解析） */
+  image: string;
   brand: string;
   title: string;
   desc: string;
@@ -306,6 +308,8 @@ export interface ContactDict {
   };
   form_intro: string;
   info_intro: string;
+  /** 联系信息卡「地址」标签（m-4） */
+  address_label: string;
   social_title: string;
   linkedin: string;
   facebook: string;

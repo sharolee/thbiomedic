@@ -12,13 +12,15 @@ type Props = PageLayoutProps;
 
 // 页面外壳（architecture.md §3.2 布局类组件）：
 // <html>/<head>（title/meta/canonical/hreflang）、Header、main、Footer
-const { lang, dict, title, description, hreflangLinks = true } = Astro.props;
-const pathname = Astro.url.pathname;
+// pathname 可被页面覆盖（404 页传首页路径，避免 canonical/语言切换指向不存在的
+// /404/ 页面，m-1）
+const { lang, dict, title, description, hreflangLinks = true, pathname } = Astro.props;
+const resolvedPathname = pathname ?? Astro.url.pathname;
 // m-4：404 等无语言变体的页面可关掉 hreflang（无互指关系，输出反而误导爬虫）
-const hreflang = hreflangLinks ? getHreflangLinks(pathname, lang) : [];
-const canonical = getCanonicalUrl(pathname);
+const hreflang = hreflangLinks ? getHreflangLinks(resolvedPathname, lang) : [];
+const canonical = getCanonicalUrl(resolvedPathname);
 const htmlLang = lang === 'zh' ? 'zh-CN' : 'en';
-const resolvedLang = getLangFromPath(pathname);
+const resolvedLang = getLangFromPath(resolvedPathname);
 ---
 
 <!doctype html>
@@ -32,12 +34,13 @@ const resolvedLang = getLangFromPath(pathname);
     {hreflang.map((link) => (
       <link rel="alternate" hreflang={link.hreflang} href={link.href} />
     ))}
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png" />
     <meta name="generator" content={Astro.generator} />
   </head>
   <body>
     <a class="skip-link" href="#main">{dict.common.skip_link}</a>
-    <Header lang={resolvedLang} pathname={pathname} dict={dict} />
+    <Header lang={resolvedLang} pathname={resolvedPathname} dict={dict} />
     <main id="main">
       <slot />
     </main>
